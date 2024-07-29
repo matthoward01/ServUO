@@ -117,7 +117,6 @@ namespace Server.Mobiles
         {
             AddLoot(LootPack.FilthyRich);
             AddLoot(LootPack.MedScrolls, 2);
-            // TODO: Daemon bone ...
         }
 
         public override int GetHurtSound()

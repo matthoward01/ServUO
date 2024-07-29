@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Server;
 
 namespace Server.Items
@@ -14,7 +14,7 @@ namespace Server.Items
         [Constructable]
         public PetrifiedMatriarchsTongue()
         {
-            Hue = 2006; //TODO: get proper hue, this is a guess
+            Hue = 2006;
             Attributes.RegenMana = 2;
             Attributes.AttackChance = 10;
             Attributes.CastSpeed = 1;

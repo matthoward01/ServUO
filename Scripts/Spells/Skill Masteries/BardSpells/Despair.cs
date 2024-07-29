@@ -62,7 +62,6 @@ namespace Server.Spells.SkillMasteries
             }
             else if (Caster == m)
             {
-                // TODO: Message?
             }
             else if (BardSpell.HasHarmfulEffects(m, this.GetType()))
             {
@@ -73,7 +72,7 @@ namespace Server.Spells.SkillMasteries
                 SpellHelper.Turn(Caster, m);
 
                 Target = m;
-                //Caster.SendLocalizedMessage(1234567); //TODO: Message?
+                //Caster.SendLocalizedMessage(1234567);
 
                 HarmfulSpell(m);
 

@@ -3268,7 +3268,8 @@ namespace Server
 
                 if (attrs != null && attrs.Antique > 0 && CombatDecayChance > Utility.RandomDouble())
                 {
-                    list.Add(item);
+                    //TODO: Steven - Stop Antique Decay
+                    //list.Add(item);
                 }
             }
 

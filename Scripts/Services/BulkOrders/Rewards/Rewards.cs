@@ -680,12 +680,12 @@ namespace Server.Engines.BulkOrders
                 RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 150, Cloth, 3));
                 RewardCollection.Add(new BODCollectionItem(0x170D, 1157110, 0, 150, Sandals, 3));
                 RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 200, Cloth, 4));
-                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157264, 0, 200, CraftsmanTalisman, 10)); // todo: Get id
+                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157264, 0, 200, CraftsmanTalisman, 10));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157111, 0, 300, StretchedHide));
-                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 300, Cloth, 5)); // TODO: Get other 4 colors
-                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157218, 0, 300, CraftsmanTalisman, 25)); // todo: Get id
+                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 300, Cloth, 5));
+                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157218, 0, 300, CraftsmanTalisman, 25));
                 RewardCollection.Add(new BODCollectionItem(0xF9D, 1157115, CraftResources.GetHue(CraftResource.SpinedLeather), 350, RunicKit, 1));
-                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157265, 0, 350, CraftsmanTalisman, 50)); // todo: Get id
+                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157265, 0, 350, CraftsmanTalisman, 50));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157118, 0x481, 400, PowerScroll, 5));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157112, 0, 400, Tapestry));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157113, 0, 450, BearRug));
@@ -1030,7 +1030,7 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x9E2B, 1157264, 0, 400, CraftsmanTalisman, 10));
             RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152674, CraftResources.GetHue(CraftResource.Gold), 450, SmeltersTalisman, (int)CraftResource.Gold));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152665, CraftResources.GetHue(CraftResource.Gold), 500, HarvestMap, (int)CraftResource.Gold));
-            RewardCollection.Add(new BODCollectionItem(0x9E2B, 1157218, 0, 550, CraftsmanTalisman, 25)); // todo: Get id
+            RewardCollection.Add(new BODCollectionItem(0x9E2B, 1157218, 0, 550, CraftsmanTalisman, 25));
             RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152675, CraftResources.GetHue(CraftResource.Agapite), 600, SmeltersTalisman, (int)CraftResource.Agapite));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152666, CraftResources.GetHue(CraftResource.Agapite), 650, HarvestMap, (int)CraftResource.Agapite));
             RewardCollection.Add(new BODCollectionItem(0x1940, 1157221, 0, 700, CreateItem, 0)); // powder of fort keg
@@ -1821,13 +1821,13 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157278, 2741, 225, NaturalDye, 0));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152660, CraftResources.GetHue(CraftResource.AshWood), 250, Cauldron, 0));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152656, CraftResources.GetHue(CraftResource.Bronze), 260, Cauldron, 1));
-            RewardCollection.Add(new BODCollectionItem(0x9E26, 1157264, 0, 275, CraftsmanTalisman, 10)); // todo: Get id
+            RewardCollection.Add(new BODCollectionItem(0x9E26, 1157264, 0, 275, CraftsmanTalisman, 10));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152661, CraftResources.GetHue(CraftResource.YewWood), 300, Cauldron, 2));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152657, CraftResources.GetHue(CraftResource.Gold), 310, Cauldron, 3));
-            RewardCollection.Add(new BODCollectionItem(0x9E26, 1157218, 0, 325, CraftsmanTalisman, 25)); // todo: Get id
+            RewardCollection.Add(new BODCollectionItem(0x9E26, 1157218, 0, 325, CraftsmanTalisman, 25));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152658, CraftResources.GetHue(CraftResource.Agapite), 350, Cauldron, 4));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152662, CraftResources.GetHue(CraftResource.Heartwood), 360, Cauldron, 5));
-            RewardCollection.Add(new BODCollectionItem(0x9E26, 1157265, 0, 375, CraftsmanTalisman, 50)); // todo: Get id
+            RewardCollection.Add(new BODCollectionItem(0x9E26, 1157265, 0, 375, CraftsmanTalisman, 50));
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157278, 2731, 400, NaturalDye, 1));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152663, CraftResources.GetHue(CraftResource.Bloodwood), 410, Cauldron, 6));
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157278, 2735, 425, NaturalDye, 2));

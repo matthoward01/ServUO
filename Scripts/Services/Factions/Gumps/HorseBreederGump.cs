@@ -56,7 +56,6 @@ namespace Server.Factions
 
             if ((this.m_From.Followers + horse.ControlSlots) > this.m_From.FollowersMax)
             {
-                // TODO: Message?
                 horse.Delete();
             }
             else

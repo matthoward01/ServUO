@@ -304,7 +304,9 @@ namespace Server.Items
                         typeof(AbysmalHorror), typeof(AbyssalInfernal),
                         typeof(ArcaneDaemon), typeof(Balron),
                         typeof(BoneDemon), typeof(ChaosDaemon),
-                        typeof(Daemon), typeof(SummonedDaemon),
+                        //TODO: MATT - ADDED BALRON SUMMON
+                        typeof(Balron), typeof(SummonedBalron),                        
+                        //typeof(Daemon), typeof(SummonedDaemon),
                         typeof(DemonKnight), typeof(Devourer),
                         typeof(EnslavedGargoyle), typeof(FanDancer),
                         typeof(FireGargoyle), typeof(Gargoyle),
@@ -353,7 +355,9 @@ namespace Server.Items
 
                         typeof(AbysmalHorror), typeof(Balron),
                         typeof(BoneDemon), typeof(ChaosDaemon),
-                        typeof(Daemon), typeof(SummonedDaemon),
+                        //TODO: MATT - ADDED BALRON SUMMON
+                        typeof(Balron), typeof(SummonedBalron),
+                        //typeof(Daemon), typeof(SummonedDaemon),
                         typeof(DemonKnight), typeof(Devourer),
                         typeof(Gargoyle), typeof(FireGargoyle),
                         typeof(Gibberling), typeof(HordeMinion),
@@ -369,11 +373,11 @@ namespace Server.Items
                     new SlayerEntry
                         (
                             SlayerName.DaemonDismissal,
-
+                            //TODO: MATT - ADDED BALRON SUMMON
                             typeof(Semidar),        typeof(AbyssalInfernal),
                             typeof(AbysmalHorror),  typeof(Balron),
                             typeof(BoneDemon),      typeof(ChaosDaemon),
-                            typeof(Daemon),         typeof(SummonedDaemon),
+                            typeof(Daemon),         typeof(SummonedBalron), //typeof(SummonedDaemon),
                             typeof(DemonKnight),    typeof(Devourer),
                             typeof(Gibberling),     typeof(HordeMinion),
                             typeof(IceFiend),       typeof(Imp),

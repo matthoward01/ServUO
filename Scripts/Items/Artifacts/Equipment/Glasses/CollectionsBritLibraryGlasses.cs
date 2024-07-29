@@ -708,7 +708,7 @@ namespace Server.Items
         [Constructable]
         public TreasuresAndTrinketsGlasses()
         {
-            Hue = 0x5A6; // TODO check		
+            Hue = 0x5A6;	
             Attributes.BonusInt = 10;
             Attributes.BonusHits = 5;
             Attributes.SpellDamage = 10;
@@ -795,7 +795,7 @@ namespace Server.Items
         [Constructable]
         public GargishTreasuresAndTrinketsGlasses()
         {
-            Hue = 0x5A6; // TODO check
+            Hue = 0x5A6;
             Attributes.BonusInt = 10;
             Attributes.BonusHits = 5;
             Attributes.SpellDamage = 10;

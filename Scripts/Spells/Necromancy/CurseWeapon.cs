@@ -57,7 +57,7 @@ namespace Server.Spells.Necromancy
                 * NOTE: Above algorithm is fixed point, should be :
                 * (Spirit Speak skill level / 3.4) + 1
                 * 
-                * TODO: What happens if you curse a weapon then give it to someone else? Should they get the drain effect?
+                * TODO: ORIGINAL - What happens if you curse a weapon then give it to someone else? Should they get the drain effect?
                 */
                 Caster.PlaySound(0x387);
                 Caster.FixedParticles(0x3779, 1, 15, 9905, 32, 2, EffectLayer.Head);

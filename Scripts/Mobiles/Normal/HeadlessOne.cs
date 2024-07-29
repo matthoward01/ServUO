@@ -58,7 +58,6 @@ namespace Server.Mobiles
         public override void GenerateLoot()
         {
             this.AddLoot(LootPack.Poor);
-            // TODO: body parts
         }
 
         public override void Serialize(GenericWriter writer)

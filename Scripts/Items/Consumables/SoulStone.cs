@@ -72,7 +72,7 @@ namespace Server.Items
         }
 
         private string m_Account, m_LastUserName;
-        private DateTime m_NextUse; // TODO: unused, it's here not to break serialize/deserialize
+        private DateTime m_NextUse;
 
         private SkillName m_Skill;
         private double m_SkillValue;
@@ -607,7 +607,8 @@ namespace Server.Items
                 * 11.6 free points. Also, if we're below our skillcap by, say, 8.2 points,
                 * we only need 11.6 - 8.2 = 3.4 points.
                 */
-                int requiredAmount = (int)(skillValue * 10) - fromSkill.BaseFixedPoint - (from.SkillsCap - from.SkillsTotal);
+                //TODO: Steven - Added exemption for non influencing skills
+                int requiredAmount = (int)(skillValue * 10) - fromSkill.BaseFixedPoint - (from.SkillsCap + (int)(Skills.NonTotalInfluencingSkills.Contains(skill) ? fromSkill.Cap * 10 : 0) - from.SkillsTotal);
 
                 bool cannotAbsorb = false;
 
@@ -840,7 +841,7 @@ namespace Server.Items
             writer.Write(m_InactiveItemID);
 
             writer.Write((string)m_Account);
-            writer.Write((DateTime)m_NextUse); //TODO: delete it in a harmless way
+            writer.Write((DateTime)m_NextUse);
 
             writer.WriteEncodedInt((int)m_Skill);
             writer.Write((double)m_SkillValue);
@@ -874,7 +875,7 @@ namespace Server.Items
                 case 0:
                     {
                         m_Account = reader.ReadString();
-                        m_NextUse = reader.ReadDateTime(); //TODO: delete it in a harmless way
+                        m_NextUse = reader.ReadDateTime();
 
                         m_Skill = (SkillName)reader.ReadEncodedInt();
                         m_SkillValue = reader.ReadDouble();

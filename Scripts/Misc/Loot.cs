@@ -186,7 +186,9 @@ namespace Server
 
         private static readonly Type[] m_JewelryTypes = new[]
 		{
-			typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet),
+            //TODO: MATT - Adding Earrings to loot table.
+			typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet), typeof(SilverEarrings), typeof(GoldEarrings),
+			//typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet),
 		};
 
         public static Type[] JewelryTypes { get { return m_JewelryTypes; } }

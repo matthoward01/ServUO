@@ -87,7 +87,7 @@ namespace Server.Mobiles
             {
                 return Hits >= HitsMax * 9 / 10;
             }
-        }// TODO: an OSI bug prevents to verify this
+        }
         public override bool IsScaredOfScaryThings
         {
             get
@@ -177,7 +177,6 @@ namespace Server.Mobiles
             {
                 m_FieldActive = false;
 
-                // TODO: message and effect when field turns down; cannot be verified on OSI due to a bug
                 FixedParticles(0x3735, 1, 30, 0x251F, EffectLayer.Waist);
             }
         }
@@ -205,7 +204,6 @@ namespace Server.Mobiles
         {
             base.OnThink();
 
-            // TODO: an OSI bug prevents to verify if the field can regenerate or not
             if (!m_FieldActive && !IsHurt())
                 m_FieldActive = true;
         }

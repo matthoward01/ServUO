@@ -21,7 +21,7 @@ namespace Server.Engines.SeasonalEvents
         public static bool Enabled { get { return SeasonalEventSystem.IsActive(EventType.KrampusEncounter); } }
         public static KrampusEncounter Encounter { get; set; }
 
-        public static readonly int MinComplete = 20;
+        public static readonly int MinComplete = 5; //TODO: Steven - reduce trades needed for encounter to spawn
 
         public static void Configure()
         {
@@ -167,9 +167,10 @@ namespace Server.Engines.SeasonalEvents
             }
             else
             {
-                var wave = (int)Math.Max(1, (int)Math.Min(6, (double)TotalTradesComplete / 4.1)); // TODO: Is this right?
+                var wave = (int)Math.Max(1, (int)Math.Min(6, (double)TotalTradesComplete / 4.1)); 
 
-                if (wave == 6)
+                //TODO: Steven - make krampus spawn on wave 2
+                if (wave == 2)
                 {
                     if ((m.Map == Map.Trammel || (Siege.SiegeShard && m.Map == Map.Felucca)) && !SpellHelper.IsAnyT2A(m.Map, m.Location))
                     {

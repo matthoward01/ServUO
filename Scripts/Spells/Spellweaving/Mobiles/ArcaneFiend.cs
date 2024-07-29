@@ -73,7 +73,7 @@ namespace Server.Mobiles
             {
                 return true;
             }
-        }//TODO: Verify on OSI.  Guide says this.
+        }
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

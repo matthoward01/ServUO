@@ -81,7 +81,6 @@ namespace Server.Mobiles
                 return (Core.SE) ? 3.0 : 1.0;
             }
         }
-        // TODO: Undead summoning?
         public override bool AutoDispel
         {
             get

@@ -86,7 +86,6 @@ namespace Server.Spells.Chivalry
 
                 int delay = ComputePowerValue(10);
 
-                // TODO: Should caps be applied?
                 if (delay < 7)
                     delay = 7;
                 else if (delay > 24)

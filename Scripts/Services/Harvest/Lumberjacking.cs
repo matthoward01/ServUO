@@ -47,8 +47,11 @@ namespace Server.Engines.Harvest
             lumber.MaxTotal = 45;
 
             // A resource bank will respawn its content every 20 to 30 minutes
-            lumber.MinRespawn = TimeSpan.FromMinutes(20.0);
-            lumber.MaxRespawn = TimeSpan.FromMinutes(30.0);
+            //TODO: MATT - CUT RESPAWN TIMER IN HALF
+            lumber.MinRespawn = TimeSpan.FromMinutes(10.0);
+            lumber.MaxRespawn = TimeSpan.FromMinutes(15.0);
+            //lumber.MinRespawn = TimeSpan.FromMinutes(20.0);
+            //lumber.MaxRespawn = TimeSpan.FromMinutes(30.0);
 
             // Skill checking is done on the Lumberjacking skill
             lumber.Skill = SkillName.Lumberjacking;
@@ -75,6 +78,9 @@ namespace Server.Engines.Harvest
             lumber.OutOfRangeMessage = 500446; // That is too far away.
             lumber.PackFullMessage = 500497; // You can't place any wood into your backpack!
             lumber.ToolBrokeMessage = 500499; // You broke your axe.
+
+            //TODO: MATT - MADE LUMBER PLACE AT FEET IF BAG IS TOO FULL.
+            lumber.PlaceAtFeetIfFull = true;
 
             if (Core.ML)
             {
@@ -139,7 +145,7 @@ namespace Server.Engines.Harvest
         {
             var newType = type;
 
-            if (tool is HarvestersAxe && ((HarvestersAxe)tool).Charges > 0)
+            if (tool is HarvestersAxe && ((HarvestersAxe)tool).Charges >= 0) //TODO: Steven - Allow axe to work at 0 charges.
             {
                 if (type == typeof(Log))
                     newType = typeof(Board);
@@ -158,7 +164,7 @@ namespace Server.Engines.Harvest
 
                 if (newType != type)
                 {
-                    ((HarvestersAxe)tool).Charges--;
+                    // ((HarvestersAxe)tool).Charges--; TODO: Steven - Remove consumption of charges
                 }
             }
 

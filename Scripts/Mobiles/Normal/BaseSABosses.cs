@@ -172,7 +172,6 @@ namespace Server.Mobiles
         {
             if (Map == Map.Felucca || Map == Map.TerMur)
             {
-                //TODO: Confirm SE change or AoS one too?
                 List<DamageStore> rights = GetLootingRights();
                 List<Mobile> toGive = new List<Mobile>();
 

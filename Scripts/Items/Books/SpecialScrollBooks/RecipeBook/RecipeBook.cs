@@ -68,6 +68,7 @@ namespace Server.Items
 
         public static RecipeScrollDefinition[] Definitions = new RecipeScrollDefinition[]
         {
+            //TODO: Steven - Added whip recipes
             new RecipeScrollDefinition(1, 501, Expansion.ML, RecipeSkillName.Tailoring),
             new RecipeScrollDefinition(2, 502, Expansion.ML, RecipeSkillName.Tailoring),
             new RecipeScrollDefinition(3, 503, Expansion.ML, RecipeSkillName.Tailoring),
@@ -219,7 +220,10 @@ namespace Server.Items
             new RecipeScrollDefinition(149, 586, Expansion.ML, RecipeSkillName.Tailoring),
             new RecipeScrollDefinition(150, 587, Expansion.ML, RecipeSkillName.Tailoring),
             new RecipeScrollDefinition(151, 588, Expansion.SA, RecipeSkillName.Tailoring),
-            new RecipeScrollDefinition(152, 463, Expansion.SA, RecipeSkillName.Tinkering)
+            new RecipeScrollDefinition(152, 463, Expansion.SA, RecipeSkillName.Tinkering),
+            new RecipeScrollDefinition(153, 466, Expansion.SA, RecipeSkillName.Tinkering),
+            new RecipeScrollDefinition(154, 467, Expansion.SA, RecipeSkillName.Tinkering),
+            new RecipeScrollDefinition(155, 468, Expansion.SA, RecipeSkillName.Tinkering)
         };
 
         [Constructable]

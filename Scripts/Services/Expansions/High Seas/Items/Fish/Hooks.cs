@@ -1,4 +1,4 @@
-﻿using Server;
+using Server;
 using System;
 using Server.Targeting;
 
@@ -65,7 +65,6 @@ namespace Server.Items
             if (IsChildOf(from.Backpack))
             {
                 from.Target = new InternalTarget(this);
-                //TODO: Message?
             }
         }
 

@@ -513,8 +513,6 @@ namespace Server.Items
         public override void DoEffects(Mobile m)
         {
             base.DoEffects(m);
-
-            //TODO: Message?
         }
 
         public override void OnTick(Mobile m)
@@ -524,7 +522,6 @@ namespace Server.Items
             if (context != null && context.StartTime + TimeSpan.FromMinutes(10) > DateTime.UtcNow)
             {
                 m.Mana += 10;
-                //TODO: Message?
             }
         }
 
@@ -643,7 +640,6 @@ namespace Server.Items
 
     public class LavaBerry : Item
     {
-        // TODO: Harvested near Jukari Village
         public override int LabelNumber { get { return 1156727; } } // Lava Berry
 
         [Constructable]
@@ -679,7 +675,6 @@ namespace Server.Items
 
     public class LavaBerryBush : Item
     {
-        // TODO: Harvested near Jukari Village
         public override int LabelNumber { get { return 1156735; } } // Lava Berry Bush
 
         [Constructable]
@@ -759,7 +754,6 @@ namespace Server.Items
 	
 	public class RiverMossDecorate : Item
     {
-        // TODO: Harvested near Urali Village
         public override int LabelNumber { get { return 1156731; } } // River Moss
 
         [Constructable]
@@ -805,7 +799,6 @@ namespace Server.Items
 
     public class RiverMoss : Item, ICommodity
     {
-        // TODO: Harvested near Urali Village
         public override int LabelNumber { get { return 1156731; } } // River Moss
 
         [Constructable]
@@ -843,7 +836,6 @@ namespace Server.Items
 
     public class BlueCorn : EarOfCorn
     {
-        // TODO: Harvestable from Sakkhra corn fields
         public override int LabelNumber { get { return 1156733; } } // Blue Corn
 
         [Constructable]

@@ -170,7 +170,6 @@ namespace Server.Items
 
         public bool VerifyRegion(Mobile m)
         {
-            //TODO: When the entire region system data is in, convert to that instead of a proximity thing.
             if (!m.Region.IsPartOf<TownRegion>())
                 return false;
 

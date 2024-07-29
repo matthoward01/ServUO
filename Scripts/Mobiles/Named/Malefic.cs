@@ -50,7 +50,7 @@ namespace Server.Mobiles
 
             SetWeaponAbility(WeaponAbility.Dismount);
             /*
-            // TODO: uncomment once added
+            // TODO: ORIGINAL - uncomment once added
             if ( Utility.RandomDouble() < 0.1 )
             PackItem( new ParrotItem() );
             */

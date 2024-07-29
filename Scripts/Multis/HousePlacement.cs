@@ -192,6 +192,8 @@ namespace Server.Multis
 
                             if ((id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0)) && addTileTop > oldTile.Z && (oldTile.Z + id.CalcHeight) > addTileZ)
                                 return HousePlacementResult.BadStatic; // Broke rule #2
+
+
                             /*else if ( isFoundation && !hasSurface && (id.Flags & TileFlag.Surface) != 0 && (oldTile.Z + id.CalcHeight) == center.Z )
                             hasSurface = true;*/
                         }
@@ -291,8 +293,8 @@ namespace Server.Multis
                 LandTile landTile = map.Tiles.GetLandTile(borderPoint.X, borderPoint.Y);
                 int landID = landTile.ID & TileData.MaxLandValue;
 
-                if ((TileData.LandTable[landID].Flags & TileFlag.Impassable) != 0)
-                    return HousePlacementResult.BadLand;
+                /*if ((TileData.LandTable[landID].Flags & TileFlag.Impassable) != 0)
+                    return HousePlacementResult.BadLand; // Broke rule #1*/
 
                 for (int j = 0; j < m_RoadIDs.Length; j += 2)
                 {
@@ -307,8 +309,9 @@ namespace Server.Multis
                     StaticTile tile = tiles[j];
                     ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
 
-                    if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0 && (tile.Z + id.CalcHeight) > (center.Z + 2)))
-                        return HousePlacementResult.BadStatic; // Broke rule #1
+                    //TODO: MATT - ALLOW HOUSES AGAINST OBJECTS
+                    /*if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0 && (tile.Z + id.CalcHeight) > (center.Z + 2)))
+                        return HousePlacementResult.BadStatic; // Broke rule #1*/
                 }
 
                 Sector sector = map.GetSector(borderPoint.X, borderPoint.Y);
@@ -323,8 +326,9 @@ namespace Server.Multis
 
                     ItemData id = item.ItemData;
 
-                    if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0 && (item.Z + id.CalcHeight) > (center.Z + 2)))
-                        return HousePlacementResult.BadItem; // Broke rule #1
+                    //TODO: MATT - ALLOW HOUSES AGAINST OBJECTS
+                    /*if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0 && (item.Z + id.CalcHeight) > (center.Z + 2)))
+                        return HousePlacementResult.BadItem; // Broke rule #1*/
                 }
             }
 
@@ -360,8 +364,9 @@ namespace Server.Multis
             {
                 foreach (BaseHouse b in _houses)
                 {
-                    if (b.Contains(yard[i]))
-                        return HousePlacementResult.BadStatic; // Broke rule #3
+                    //TODO: MATT - ALLOW HOUSES NEAR THE FRONT AND BACK OF OTHER HOUSES
+                    /*if (b.Contains(yard[i]))
+                        return HousePlacementResult.BadStatic; // Broke rule #3*/
                 }
                 /*Point2D yardPoint = yard[i];
                 IPooledEnumerable eable = map.GetMultiTilesAt( yardPoint.X, yardPoint.Y );

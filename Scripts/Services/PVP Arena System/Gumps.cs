@@ -809,7 +809,6 @@ namespace Server.Engines.ArenaSystem
 
                     if (Duel.ParticipantCount >= Duel.Entries)
                     {
-                        // TODO: Message?
                     }
                     else if (!pm.Alive)
                     {

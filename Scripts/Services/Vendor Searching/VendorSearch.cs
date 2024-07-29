@@ -157,7 +157,7 @@ namespace Server.Engines.VendorSearching
 				
 				if(name == null)
 				{
-                    return false; // TODO? REturn null names?
+                    return false;
 				}
 
                 if (!CheckKeyword(searchCriteria.SearchName, item) && name.ToLower().IndexOf(searchCriteria.SearchName.ToLower()) < 0)

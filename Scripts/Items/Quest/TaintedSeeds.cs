@@ -9,7 +9,7 @@ namespace Server.Items
             : base(0xDFA)
         {
             this.LootType = LootType.Blessed;
-            this.Hue = 0x48; // TODO check
+            this.Hue = 0x48;
         }
 
         public TaintedSeeds(Serial serial)

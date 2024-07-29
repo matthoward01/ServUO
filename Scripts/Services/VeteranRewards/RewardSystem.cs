@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Server.Accounting;
 using Server.Items;
 using Server.Mobiles;
+using Server.Multis;
 
 namespace Server.Engines.VeteranRewards
 {
@@ -18,7 +19,7 @@ namespace Server.Engines.VeteranRewards
         public static int SkillCap = Config.Get("PlayerCaps.TotalSkillCap", 7000);
         public static int SkillCapBonus = Config.Get("VetRewards.SkillCapBonus", 200);
         public static int SkillCapBonusLevels = Config.Get("VetRewards.SkillCapBonusLevels", 4);
-        public static float SkillCapBonusIncrement = SkillCapBonus / SkillCapBonusLevels;
+        public static float SkillCapBonusIncrement = SkillCapBonus / SkillCapBonusLevels;        
         public static TimeSpan RewardInterval = Config.Get("VetRewards.RewardInterval", TimeSpan.FromDays(30.0d));
         public static int StartingLevel = Config.Get("VetRewards.StartingLevel", 0);
 
@@ -610,6 +611,8 @@ namespace Server.Engines.VeteranRewards
                     new RewardEntry(monsterStatues, 1113801, typeof(MonsterStatuette), MonsterStatuetteType.FireAnt),
 
                     new RewardEntry(houseAddOns,    1113954, typeof(AllegiancePouch)),
+                    //TODO: MATT - ADDING HOUSE TELEPORTER TILE
+                    new RewardEntry(houseAddOns,    1113917, typeof(HouseTeleporterTileBag)),
                 }),
                 new RewardList(RewardInterval, 13, new RewardEntry[]
                 {

@@ -695,11 +695,6 @@ namespace Server.Mobiles
                     plinth.MoveToWorld(loc, map);
                     statue.InvalidatePose();
 
-                    /*
-                    * TODO: Previously the maker wasn't deleted until after statue
-                    * customization, leading to redeeding issues. Exact OSI behavior
-                    * needs looking into.
-                    */
                     this.m_Maker.Delete();
                     statue.Sculpt(from);
 

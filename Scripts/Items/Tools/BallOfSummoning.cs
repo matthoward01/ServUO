@@ -153,7 +153,7 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (this.RootParent != from) // TODO: Previous implementation allowed use on ground, without house protection checks. What is the correct behavior?
+            if (this.RootParent != from) 
             {
                 from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1042001); // That must be in your pack for you to use it.
                 return;

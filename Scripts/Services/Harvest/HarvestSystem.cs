@@ -205,7 +205,7 @@ namespace Server.Engines.Harvest
                         }
                         else
                         {
-                            SendPackFullTo(from, item, def, resource);
+                            SendPackFullTo(from, item, def, resource);                            
                             item.Delete();
                         }
 

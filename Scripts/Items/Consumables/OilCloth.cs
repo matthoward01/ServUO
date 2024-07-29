@@ -64,7 +64,6 @@ namespace Server.Items
 
         public void OnTarget(Mobile from, object obj)
         {
-            // TODO: Need details on how oil cloths should get consumed here
             if (!IsChildOf(from.Backpack))
             {
                 from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.

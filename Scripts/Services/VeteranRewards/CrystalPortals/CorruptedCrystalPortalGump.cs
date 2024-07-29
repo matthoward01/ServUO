@@ -20,7 +20,7 @@ namespace Server.Gumps
             AddHtmlLocalized(230, 30, 145, 160, 1150076, 0, false, false); // This corrupted portal allows you to teleport directly to a dungeon.<br><br>For
             // Trammel ruleset, say "dungeon" followed by the name of the dungeon (e.g. "dungeon shame"). 
 
-            AddLabel(250, 200, 0, "1"); // todo: get
+            AddLabel(250, 200, 0, "1");
 
             AddButton(356, 0, 0x200, 0x200, 0, GumpButtonType.Page, 2);
 
@@ -32,8 +32,8 @@ namespace Server.Gumps
             // orc, shame, wrong, wind, doom, citadel, fandancer, mines, bedlam, labyrinth,
             //underworld, abyss, grove, caves, palace, prism,
 
-            AddLabel(90, 200, 0, "2"); // toto: get
-            AddLabel(250, 200, 0, "3"); // todo : get
+            AddLabel(90, 200, 0, "2"); 
+            AddLabel(250, 200, 0, "3"); 
 
             AddButton(0, 0, 0x1FF, 0x1FF, 0, GumpButtonType.Page, 1);
             AddButton(356, 0, 0x200, 0x200, 0, GumpButtonType.Page, 3);
@@ -43,8 +43,8 @@ namespace Server.Gumps
             AddHtmlLocalized(40, 35, 150, 160, 1155586, 0, false, false); // sanctuary, blackthorn.
             AddHtmlLocalized(230, 30, 145, 160, 1150078, 0, false, false); // The same teleportation rules apply regarding criminal flagging, weight, etc.
 
-            AddLabel(90, 200, 0, "4"); // todo: get
-            AddLabel(250, 200, 0, "5"); // todo: get
+            AddLabel(90, 200, 0, "4");
+            AddLabel(250, 200, 0, "5");
 
             AddButton(0, 0, 0x1FF, 0x1FF, 0, GumpButtonType.Page, 2);
 		}

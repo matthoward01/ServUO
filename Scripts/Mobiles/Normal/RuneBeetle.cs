@@ -16,7 +16,9 @@ namespace Server.Mobiles
             Name = "a rune beetle";
             Body = 244;
 
-            SetStr(401, 460);
+            //TODO: MATT - CHANGED TO MATCH LIVE BY
+            SetStr(401, 465);
+            //SetStr(401, 460);
             SetDex(121, 170);
             SetInt(376, 450);
 

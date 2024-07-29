@@ -1976,7 +1976,6 @@ namespace Server.Engines.Craft
 					}
 				}
 
-				// TODO: Scroll imbuing
 
 				if (queryFactionImbue)
 				{

@@ -266,12 +266,11 @@ namespace Server.Mobiles
             FacialHairItemID = m.FacialHairItemID;
             FacialHairHue = m.FacialHairHue;
 
-            // TODO: Skills?
 
             foreach (Item item in m.Items)
             {
                 if (item.Layer != Layer.Backpack && item.Layer != Layer.Mount && item.Layer != Layer.Bank)
-                    AddItem(new ClonedItem(item)); // TODO: Clone weapon/armor attributes
+                    AddItem(new ClonedItem(item));
             }
 
             PlaySound(0x511);

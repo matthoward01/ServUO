@@ -410,7 +410,7 @@ namespace Server.Engines.Quests
             else if (skill < 106.0)
                 return 41;
             else
-                return m_Fish.Length; //TODO CHECK
+                return m_Fish.Length;
         }
 
         public static int GetIndexForType(Type type)

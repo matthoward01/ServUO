@@ -1,16 +1,32 @@
 using System;
+using Server;
 using Server.Items;
 
 namespace Server.Mobiles
 {
-    [CorpseName("an ortanord corpse")]
-    public class Ortanord : BaseCreature
-    {
-        [Constructable]
-        public Ortanord()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.6, 1.2)
-        {
-            Name = "Ortanord";
+	[CorpseName( "an Ortanord's corpse" )]
+	public class Ortanord : BaseCreature
+	{
+		public static readonly int MaxAmount = 5;
+
+		private static int m_Amount;
+
+		public static void Spawn( Point3D loc, Map map )
+		{
+			if ( MaxAmount > m_Amount )
+			{
+				Mobile m = new Ortanord();
+				m.MoveToWorld( loc, map );
+			}
+		}
+
+		public override bool AlwaysMurderer { get { return true; } }
+
+		[Constructable]
+		public Ortanord()
+			: base( AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4 )
+		{
+			Name = "Ortanord";
             Body = 58;
             Hue = 2071;
             BaseSoundID = 466;
@@ -45,22 +61,36 @@ namespace Server.Mobiles
 
             VirtualArmor = 40;
 
+            //QLPoints = 3;
+
             if (0.25 > Utility.RandomDouble())
                 PackItem(new DaemonBone(10));
-        }
 
-        public Ortanord(Serial serial)
-            : base(serial)
-        {
-        }
+			Team = 1;
 
-        public override bool BardImmune
+			m_Amount++;
+		}
+
+		public override void OnAfterDelete()
+		{
+			base.OnAfterDelete();
+
+			m_Amount--;
+		}
+
+		public Ortanord( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override bool BardImmune
         {
             get
             {
                 return !Core.AOS;
             }
         }
+		
         public override Poison PoisonImmune
         {
             get
@@ -68,26 +98,27 @@ namespace Server.Mobiles
                 return Poison.Lethal;
             }
         }
+		
         public override void GenerateLoot()
         {
             AddLoot(LootPack.Average, 2);
         }
 
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-        }
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write((int)0);
-        }
+			writer.Write( (int) 0 );
+		}
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
-        }
-    }
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+			m_Amount++;
+		}
+	}
 }

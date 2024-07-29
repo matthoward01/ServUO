@@ -374,7 +374,7 @@ namespace Server.Engines.CityLoyalty
                 entry.Hate -= (int)convert;
 			}
 
-            // TODO: Re-Enable this for The Awakening Event
+            // TODO: ORIGINAL - Re-Enable this for The Awakening Event
             /*foreach (CityLoyaltySystem sys in Cities.Where(s => s.City != this.City))
 			{
                 CityLoyaltyEntry e = sys.GetPlayerEntry<CityLoyaltyEntry>(from, true);
@@ -826,7 +826,7 @@ namespace Server.Engines.CityLoyalty
 
                 if (DateTime.UtcNow > _NextAtrophy)
                 {
-                    // TODO: Re-Enable this for The Awakening Event
+                    // TODO: ORIGINAL - Re-Enable this for The Awakening Event
                     /*sys.PlayerTable.ForEach(t =>
                     {
                         CityLoyaltyEntry entry = t as CityLoyaltyEntry;

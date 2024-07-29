@@ -10,7 +10,7 @@ namespace Server.Items
         {
             get
             {
-                return typeof(CrystallineBlackrock); // TODO: Needs to be regular blackrock. THis doesn't exist on ServUO
+                return typeof(CrystallineBlackrock); 
             }
         }
 

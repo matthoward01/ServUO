@@ -36,7 +36,9 @@ namespace Server.Mobiles
             this.SetSkill(SkillName.Wrestling, 92.0);
 
             this.VirtualArmor = 40;
-            this.ControlSlots = 4;
+            //TODO: MATT - Changed control slots to 2
+            this.ControlSlots = 2;
+            //this.ControlSlots = 4;
 
             this.AddItem(new LightSource());
         }

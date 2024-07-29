@@ -1,6 +1,6 @@
 #region References
 using System;
-
+using Server.Mobiles;
 using Server.Network;
 #endregion
 
@@ -98,6 +98,9 @@ namespace Server.Spells.Chivalry
         {
             if (Caster.Player)
                 Caster.PublicOverheadMessage( MessageType.Regular, 0x3B2, MantraNumber, "", false );
+            //TODO: Steven - Make pets say Mantra
+            if (Caster is BaseCreature && ((BaseCreature)Caster).ControlMaster != null)
+                Caster.PublicOverheadMessage(MessageType.Regular, 0x3B2, MantraNumber, "", false);
         }
 
         public override void DoFizzle()

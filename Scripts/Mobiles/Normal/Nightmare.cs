@@ -48,7 +48,17 @@ namespace Server.Mobiles
             VirtualArmor = 60;
 
             Tamable = true;
-            ControlSlots = 2;
+
+            //TODO: Steven add a chance for 2 or 3 control slots.
+            if (Utility.RandomDouble() > 0.2)
+            {
+                ControlSlots = 2;
+            }
+            else
+            {
+                ControlSlots = 3;
+            }
+
             MinTameSkill = 95.1;
 
 			switch (Utility.Random(12))

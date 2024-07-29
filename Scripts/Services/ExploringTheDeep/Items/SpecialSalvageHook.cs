@@ -316,7 +316,6 @@ namespace Server.Items
                             }
                         }
 
-                        //TODO: Message?
 
                         this.Delete();
                     }

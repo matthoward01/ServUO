@@ -177,7 +177,6 @@ namespace Server.Mobiles
 			Name = "a covetous revenant";
 			Body = 400;
             //BaseSoundID = 609;
-			//TODO: Soundid
 		}
 		
 		public CovetousRevenant(Serial serial) : base(serial)

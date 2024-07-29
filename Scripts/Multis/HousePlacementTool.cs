@@ -108,7 +108,8 @@ namespace Server.Items
             AddButton(10, 80, 4005, 4007, 3, GumpButtonType.Reply, 0);
             AddHtmlLocalized(45, 80, 200, 20, 1060392, LabelColor, false, false); // 3-Story Customizable Houses
 
-            if (m_Tool.UseCustomHousePlots || from.AccessLevel > AccessLevel.Player)
+            //TODO: Steven - Added custom keep list for normal players
+            if (m_Tool.UseCustomHousePlots || from.AccessLevel >= AccessLevel.Player)
             {
                 AddButton(10, 100, 4005, 4007, 4, GumpButtonType.Reply, 0);
                 AddHtmlLocalized(45, 100, 200, 20, 1158540, LabelColor, false, false); // Custom House Contest
@@ -139,7 +140,8 @@ namespace Server.Items
                     }
                 case 4: // Custom House Contest
                     {
-                        if (m_Tool.UseCustomHousePlots || m_From.AccessLevel > AccessLevel.Player)
+                        //TODO: Steven - Added custom keep list for normal players
+                        if (m_Tool.UseCustomHousePlots || m_From.AccessLevel >= AccessLevel.Player)
                         {
                             m_From.SendGump(new HousePlacementListGump(m_Tool, m_From, HousePlacementEntry.CustomHouseContest));
                         }

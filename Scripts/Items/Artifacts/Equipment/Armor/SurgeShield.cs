@@ -1,4 +1,4 @@
-﻿using Server;
+using Server;
 using System;
 using Server.Mobiles;
 using System.Collections.Generic;
@@ -115,7 +115,6 @@ namespace Server.Items
                 m_Table.Remove(from);
 
             BuffInfo.RemoveBuff(from, BuffIcon.Surge);
-            //TODO: Message?
         }
 
         public static bool IsUnderEffects(Mobile from, SurgeType type)

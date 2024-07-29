@@ -79,6 +79,24 @@ namespace Server.Mobiles
                 {
                     c.DropItem(primer);
                 }
+
+                //TODO: Steven - Added power scroll to peerless
+                if (rights.Count > 0)
+                {
+                    foreach(DamageStore ds in rights)
+                    {
+                        Mobile m = ds.m_Mobile;
+
+                        m.SendLocalizedMessage(1049524); // You have received a scroll of power!
+
+                        if (m.Backpack == null || !m.Backpack.TryDropItem(m, PowerScroll.CreateRandomNoCraft(20, 20), false))
+                            m.BankBox.DropItem(primer);
+                    }
+                }
+                else
+                {
+                    c.DropItem(PowerScroll.CreateRandomNoCraft(20, 20));
+                }
             }
 
             if (GivesMLMinorArtifact && 0.5 > Utility.RandomDouble())

@@ -606,7 +606,7 @@ namespace Server.Engines.Doom
                 else
                 {
                     this.Count++;
-                    if (this.Count == 1) /* TODO consolidate */
+                    if (this.Count == 1)
                     { 
                         this.m_Player.Paralyze(TimeSpan.FromSeconds(2));
                         Effects.SendTargetEffect(this.m_Player, 0x11B7, 20, 10);

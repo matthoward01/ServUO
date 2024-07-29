@@ -371,8 +371,11 @@ namespace Server.SkillHandlers
                 if (TimesImbued(i) < 20 && skill < from.Skills[SkillName.Imbuing].Cap)
                 {
                     double s = Math.Min(100, success);
-                    double mins = 120 - (s * 1.2);
-                    double maxs = Math.Max(120 / (s / 100), skill);
+                    //TODO: MATT - Making it where imbue skill would raise
+                    double mins = 100 - (s * 1.2);
+                    //double mins = 120 - (s * 1.2);
+                    double maxs = 120;
+                    //double maxs = Math.Max(120 / (s / 100), skill);
 
                     from.CheckSkill(SkillName.Imbuing, mins, maxs);
                 }

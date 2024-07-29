@@ -211,7 +211,6 @@ namespace Server.Items
                     }
                     else
                     {
-                        // TODO: Target a bottle
                     }
                 }
                 else

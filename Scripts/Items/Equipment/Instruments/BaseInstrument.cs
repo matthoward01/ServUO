@@ -261,7 +261,6 @@ namespace Server.Items
 
         public void ConsumeUse(Mobile from)
         {
-            // TODO: Confirm what must happen here?
             if (UsesRemaining > 1)
             {
                 --UsesRemaining;
@@ -551,7 +550,6 @@ namespace Server.Items
             if (m_ReplenishesCharges)
                 attrs.Add(new EquipInfoAttribute(1070928)); // Replenish Charges
 
-            // TODO: Must this support item identification?
             if (m_Slayer != SlayerName.None)
             {
                 SlayerEntry entry = SlayerGroup.GetEntryByName(m_Slayer);

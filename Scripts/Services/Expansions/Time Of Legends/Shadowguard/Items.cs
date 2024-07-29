@@ -188,7 +188,7 @@ namespace Server.Engines.Shadowguard
                                             Tree.Delete();
 
                                             Effects.SendLocationParticles(EffectItem.Create(p, map, EffectItem.DefaultDuration), 0x3709, 10, 30, 5052);
-                                            Effects.PlaySound(p, map, 0x243); //TODO: Get sound
+                                            Effects.PlaySound(p, map, 0x243);
                                         }
 
                                         tree.Encounter.CheckEncounter();
@@ -491,7 +491,7 @@ namespace Server.Engines.Shadowguard
                             m.PrivateOverheadMessage(MessageType.Regular, 0x3B2, 1156225, m.NetState); // *You purify the phylactery!*
 
                             Effects.SendLocationParticles(EffectItem.Create(flames.Location, flames.Map, EffectItem.DefaultDuration), 0x3709, 10, 30, 5052);
-                            Effects.PlaySound(flames.Location, flames.Map, 0x225); //TODO: Get sound
+                            Effects.PlaySound(flames.Location, flames.Map, 0x225);
 
                             Purified = true;
                             InvalidateProperties();
@@ -521,7 +521,7 @@ namespace Server.Engines.Shadowguard
 							Delete();
 							
 							Effects.SendLocationParticles( EffectItem.Create( p, map, EffectItem.DefaultDuration ), 0x3709, 10, 30, 2720, 7, 5052, 0 );
-							Effects.PlaySound( p, map, 0x225 ); //TODO: Get sound
+							Effects.PlaySound( p, map, 0x225 );
 							
 							Timer.DelayCall(TimeSpan.FromSeconds(1), () =>
 							{

@@ -155,7 +155,6 @@ namespace Server.Factions
 
                     if (silverGiven > 0)
                     {
-                        // TODO: Get real message
                         if (from.Alive)
                             m_Placer.SendMessage("You have earned {0} silver pieces because {1} fell for your trap.", silverGiven, from.Name);
                         else

@@ -185,7 +185,6 @@ namespace Server.Mobiles
             if (item == null)
                 return;
 
-            // TODO: Confirm messages
             if (m.AddToBackpack(item))
                 m.SendMessage("As a reward for slaying the mighty leviathan, an artifact has been placed in your backpack.");
             else

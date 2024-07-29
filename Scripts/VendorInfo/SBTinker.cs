@@ -72,7 +72,6 @@ namespace Server.Mobiles
 
                 Add(new GenericBuyInfo(typeof(Hammer), 17, 20, 0x102A, 0));
                 Add(new GenericBuyInfo(typeof(SmithHammer), 23, 20, 0x13E3, 0));
-                // TODO: Sledgehammer
 
                 Add(new GenericBuyInfo(typeof(Shovel), 12, 20, 0xF39, 0));
 

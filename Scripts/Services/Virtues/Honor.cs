@@ -133,21 +133,21 @@ namespace Server.Services.Virtues
 						1115882); // You don't need to declare again. You are already under Honorable Combat with this target.
 					return;
 				}
+                if (honorTarget.ReceivedHonorContext.CheckDistance())
+                {
+                    source.SendLocalizedMessage(1063233); // Somebody else is honoring this opponent
+                    return;
+                }
+            }
 
-				if (honorTarget.ReceivedHonorContext.CheckDistance())
-				{
-					source.SendLocalizedMessage(1063233); // Somebody else is honoring this opponent
-					return;
-				}
-			}
-
-			if (target.Hits < target.HitsMax)
+            //TODO: Matt - Allowing a target to be honored even if it's not max health.
+            /*if (target.Hits < target.HitsMax)
 			{
 				source.SendLocalizedMessage(1063166); // You cannot honor this monster because it is too damaged.
 				return;
-			}
+			}*/
 
-			var cret = target as BaseCreature;
+            var cret = target as BaseCreature;
 
 			if (target.Body.IsHuman && (cret == null || (!cret.AlwaysAttackable && !cret.AlwaysMurderer)))
 			{

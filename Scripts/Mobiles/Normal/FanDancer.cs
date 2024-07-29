@@ -76,7 +76,7 @@ namespace Server.Mobiles
             AddLoot(LootPack.Gems, 2);
         }
 
-        /* TODO: Repel Magic
+        /* TODO: ORIGINAL - Repel Magic
         * 10% chance of repelling a melee attack (why did they call it repel magic anyway?)
         * Cliloc: 1070844
         * Effect: damage is dealt to the attacker, no damage is taken by the fan dancer

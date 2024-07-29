@@ -11,7 +11,6 @@ namespace Server.Engines.Chat
         {
             EventSink.Disconnected += EventSink_Disconnected;
 
-            // TODO: Add a configuration framework to define static channels outside of code, for example as XML under the Data/ directory.
             AddStaticChannel("Help");
             AddStaticChannel("General");
             AddStaticChannel("Trade");

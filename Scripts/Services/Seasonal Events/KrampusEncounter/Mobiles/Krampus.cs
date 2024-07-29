@@ -327,7 +327,7 @@ namespace Server.Mobiles
                     if (ordersComplete >= 3 || Utility.RandomMinMax(0, 8) <= ordersComplete)
                     {
                         Item item = null;
-
+                        //TODO: Steven - Added whip recipe rewards
                         switch (Utility.Random(13))
                         {
                             case 0: item = new KrampusCoinPurse(m.Karma); break;
@@ -337,12 +337,12 @@ namespace Server.Mobiles
                             case 4: item = new PunisherTitleDeed(); break;
                             case 5: item = new RecipeScroll(586); break; // minion hat
                             case 6: item = new RecipeScroll(587); break; // minion boots
-                            case 7: item = new KrampusCoinPurse(463); break; // minion talons
-                            case 8: item = new KrampusCoinPurse(588); break; // minion earrings
+                            case 7: item = new RecipeScroll(588); break; // minion talons
+                            case 8: item = new RecipeScroll(463); break; // minion earrings
                             case 9: item = new KrampusPunishinList(m.Name); break;
-                            case 10: item = new SpikedWhip(); break;
-                            case 11: item = new BarbedWhip(); break;
-                            case 12: item = new BladedWhip(); break;
+                            case 10: item = new RecipeScroll(466); break; // barbed whip recipe
+                            case 11: item = new RecipeScroll(467); break; // spiked whip recipe
+                            case 12: item = new RecipeScroll(468); break; // bladed whip recipe
                         }
 
                         if (item != null)

@@ -32,7 +32,6 @@ namespace Server.Items
 
         public bool DoStrength(Mobile from)
         {
-            // TODO: Verify scaled; is it offset, duration, or both?
             int scale = Scale(from, this.StrOffset);
             if (Spells.SpellHelper.AddStatOffset(from, StatType.Str, scale, this.Duration))
             {

@@ -23,6 +23,7 @@ namespace Server.Engines.VoidPool
             VoidPoolController.InstanceFel = null;
         }
 
+        //TODO: MATT - COMMENTED OUT FELUCCA
         public static void Setup(CommandEventArgs e)
         {
             if (VoidPoolController.InstanceTram != null || VoidPoolController.InstanceFel != null)
@@ -33,9 +34,9 @@ namespace Server.Engines.VoidPool
                 WeakEntityCollection.Add("newcovetous", one);
                 one.MoveToWorld(new Point3D(5605, 1998, 10), Map.Trammel);
 
-                var two = new VoidPoolController(Map.Felucca);
+                /*var two = new VoidPoolController(Map.Felucca);
                 WeakEntityCollection.Add("newcovetous", two);
-                two.MoveToWorld(new Point3D(5605, 1998, 10), Map.Felucca);
+                two.MoveToWorld(new Point3D(5605, 1998, 10), Map.Felucca);*/
 
                 int id = 0;
                 int hue = 0;
@@ -66,11 +67,11 @@ namespace Server.Engines.VoidPool
                         WeakEntityCollection.Add("newcovetous", item);
                         item.MoveToWorld(new Point3D(x, y, 5), Map.Trammel);
 
-                        item = new Static(id);
+                        /*item = new Static(id);
                         item.Name = "Void Pool";
                         item.Hue = hue;
                         WeakEntityCollection.Add("newcovetous", item);
-                        item.MoveToWorld(new Point3D(x, y, 5), Map.Felucca);
+                        item.MoveToWorld(new Point3D(x, y, 5), Map.Felucca);*/
                     }
                 }
 
@@ -82,13 +83,13 @@ namespace Server.Engines.VoidPool
                 spawner.MaxDelay = TimeSpan.FromHours(1.5);
                 spawner.DoRespawn = true;
 
-                spawner = new XmlSpawner("corathesorceress");
+                /*spawner = new XmlSpawner("corathesorceress");
                 WeakEntityCollection.Add("newcovetous", spawner);
                 spawner.MoveToWorld(new Point3D(5457, 1808, 0), Map.Felucca);
                 spawner.SpawnRange = 5;
                 spawner.MinDelay = TimeSpan.FromHours(1);
                 spawner.MaxDelay = TimeSpan.FromHours(1.5);
-                spawner.DoRespawn = true;
+                spawner.DoRespawn = true;*/
 
                 spawner = new XmlSpawner("velathesorceress");
                 WeakEntityCollection.Add("newcovetous", spawner);
@@ -96,12 +97,12 @@ namespace Server.Engines.VoidPool
                 spawner.SpawnRange = 0;
                 spawner.DoRespawn = true;
 
-                spawner = new XmlSpawner("velathesorceress");
+                /*spawner = new XmlSpawner("velathesorceress");
                 WeakEntityCollection.Add("newcovetous", spawner);
                 spawner.MoveToWorld(new Point3D(2254, 1207, 0), Map.Felucca);
                 spawner.SpawnRange = 0;
                 spawner.DoRespawn = true;
-
+*/
                 AddWaypoints();
                 ConvertSpawners();
             }
@@ -126,89 +127,89 @@ namespace Server.Engines.VoidPool
             wp.MoveToWorld(new Point3D(5590, 2024, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5590, 2024, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5578, 2029, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5578, 2029, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5566, 2027, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5566, 2027, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5555, 2021, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5555, 2021, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             wp.MoveToWorld(new Point3D(5545, 2015, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5545, 2015, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5537, 2020, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5537, 2020, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5527, 2015, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5527, 2015, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5509, 2005, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5509, 2005, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5500, 1998, 0), Map.Trammel);
             one.WaypointsA.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5500, 1998, 0), Map.Felucca);
-            two.WaypointsA.Add(wp);
+            two.WaypointsA.Add(wp);*/
 
             // pathb
             wp = new WayPoint();
@@ -216,100 +217,100 @@ namespace Server.Engines.VoidPool
             wp.MoveToWorld(new Point3D(5469, 2016, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5469, 2016, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5478, 2025, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5478, 2025, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5484, 2029, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5484, 2029, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5490, 2027, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5490, 2027, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5504, 2027, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5504, 2027, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5516, 2020, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5516, 2020, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5524, 2012, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5524, 2012, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5513, 2005, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5513, 2005, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5502, 2004, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5502, 2004, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5500, 1998, 0), Map.Trammel);
             one.WaypointsB.Add(wp);
 
-            wp = new WayPoint();
+            /*wp = new WayPoint();
             WeakEntityCollection.Add("newcovetous", wp);
             wp.MoveToWorld(new Point3D(5500, 1998, 0), Map.Felucca);
-            two.WaypointsB.Add(wp);
+            two.WaypointsB.Add(wp);*/
 
             for (int i = 0; i < one.WaypointsA.Count; i++)
             {
@@ -355,10 +356,10 @@ namespace Server.Engines.VoidPool
         public static void ConvertSpawners()
         {
             Region tram = Region.Regions.FirstOrDefault(r => r.Map == Map.Trammel && r.Name == "Covetous");
-            Region fel = Region.Regions.FirstOrDefault(r => r.Map == Map.Felucca && r.Name == "Covetous");
+           /* Region fel = Region.Regions.FirstOrDefault(r => r.Map == Map.Felucca && r.Name == "Covetous");*/
 
             ConvertRegionSpawners(tram);
-            ConvertRegionSpawners(fel);
+            /*ConvertRegionSpawners(fel);*/
         }
 
         public static void ConvertRegionSpawners(Region r)

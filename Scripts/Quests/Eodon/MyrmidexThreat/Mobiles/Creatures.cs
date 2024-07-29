@@ -574,7 +574,7 @@ namespace Server.Mobiles
 
                         Timer.DelayCall<Point3D>(TimeSpan.FromMilliseconds(250), (pnt) =>
                         {
-                            Effects.SendLocationEffect(pnt, this.Map, 14089, 30, 1150, 4); // TODO: Check
+                            Effects.SendLocationEffect(pnt, this.Map, 14089, 30, 1150, 4);
                         }, point);
                     }, p);
 

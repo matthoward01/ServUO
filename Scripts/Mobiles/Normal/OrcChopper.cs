@@ -45,7 +45,6 @@ namespace Server.Mobiles
             PackItem(new Board(Utility.RandomMinMax(10, 20)));
             PackItem(new ExecutionersAxe());
 
-            // TODO: Skull?
             switch (Utility.Random(7))
             {
                 case 0:

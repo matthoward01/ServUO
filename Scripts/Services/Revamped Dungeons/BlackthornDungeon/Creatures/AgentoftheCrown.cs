@@ -627,7 +627,8 @@ namespace Server.Engines.Blackthorn
 
         public override void AwardPoints(PlayerMobile pm, Item item, int amount)
         {
-            PointsSystem.Blackthorn.AwardPoints(pm, amount);
+            //TODO: Steven - Tripled point reward for minax artifacts
+            PointsSystem.Blackthorn.AwardPoints(pm, amount * 3);
         }
 
         public override bool IsRedeemableItem(Item item)

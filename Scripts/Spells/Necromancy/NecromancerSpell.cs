@@ -43,7 +43,6 @@ namespace Server.Spells.Necromancy
         }// Necromancer spells are not affected by fast cast items, though they are by fast cast recovery
         public override int ComputeKarmaAward()
         {
-            //TODO: Verify this formula being that Necro spells don't HAVE a circle.
             //int karma = -(70 + (10 * (int)Circle));
             int karma = -(40 + (int)(10 * (this.CastDelayBase.TotalSeconds / this.CastDelaySecondsPerTick)));
 

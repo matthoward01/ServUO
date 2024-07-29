@@ -2799,7 +2799,6 @@ namespace Server.Mobiles
             if (pack != null)
                 items.AddRange(pack.FindItemsByType<Item>(true, DisplayInItemInsuranceGump));
 
-            // TODO: Investigate item sorting
 
             CloseGump(typeof(ItemInsuranceMenuGump));
 
@@ -4036,8 +4035,9 @@ namespace Server.Mobiles
 				SendGump(new ResurrectGump(this, ResurrectMessage.SilverSapling));
 			}
 
-            if (LastKiller is BaseVoidCreature)
-                ((BaseVoidCreature)LastKiller).Mutate(VoidEvolution.Killing);
+            //TODO - MATT - ADDING Void INVASION
+            /*if (LastKiller is BaseVoidCreature)
+                ((BaseVoidCreature)LastKiller).Mutate(VoidEvolution.Killing);*/
 			#endregion
 		}
 
@@ -4398,7 +4398,8 @@ namespace Server.Mobiles
 		{ 
             get
             {
-                int facetBonus = !Siege.SiegeShard && this.Map == Map.Felucca ? RandomItemGenerator.FeluccaLuckBonus : 0;
+                int facetBonus = !Siege.SiegeShard ? RandomItemGenerator.FeluccaLuckBonus : 0;
+                //int facetBonus = !Siege.SiegeShard && this.Map == Map.Felucca ? RandomItemGenerator.FeluccaLuckBonus : 0;
 
                 return Luck + FountainOfFortune.GetLuckBonus(this) + facetBonus;
             }
@@ -6023,7 +6024,6 @@ namespace Server.Mobiles
 		{
 			if (hair)
 			{
-				//TODO Verification?
 				HairItemID = id;
 				HairHue = hue;
 			}
@@ -6872,6 +6872,23 @@ namespace Server.Mobiles
 				m_BuffTable = null;
 			}
 		}
+
+        //TODO: Steven - Check to see if mobile has a buff
+        public BuffInfo CheckBuff(BuffIcon bi)
+        {
+            if (m_BuffTable != null)
+            {
+                foreach(var b in m_BuffTable)
+                {
+                    if (b.Key.Equals(bi))
+                    {
+                        return b.Value;
+                    }
+                }
+            }
+
+            return null;
+        }
         #endregion
 
         [CommandProperty(AccessLevel.GameMaster)]

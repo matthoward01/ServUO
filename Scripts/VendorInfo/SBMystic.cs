@@ -63,6 +63,11 @@ namespace Server.Mobiles
 
                 Add(new GenericBuyInfo(typeof(Bone), 3, 20, 0xf7e, 0));
                 Add(new GenericBuyInfo(typeof(FertileDirt), 3, 20, 0xF81, 0));
+
+                //TODO: Steven - Added daemon bone and dragon blood to vendor
+                Add(new GenericBuyInfo(typeof(DaemonBone), 20, 20, 0xF80, 0));
+                Add(new GenericBuyInfo(typeof(DragonBlood), 20, 20, 0x4077, 0));
+
                 Add(new GenericBuyInfo(typeof(NetherBoltScroll), 8, 20, 0x2D9E, 0));
                 Add(new GenericBuyInfo(typeof(HealingStoneScroll), 13, 20, 0x2D9F, 0));
             }

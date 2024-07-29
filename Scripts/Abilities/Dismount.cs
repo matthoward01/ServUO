@@ -11,7 +11,7 @@ namespace Server.Items
     /// </summary>
     public class Dismount : WeaponAbility
     {
-        public static readonly TimeSpan DefenderRemountDelay = TimeSpan.FromSeconds(10.0);// TODO: Taken from bola script, needs to be verified
+        public static readonly TimeSpan DefenderRemountDelay = TimeSpan.FromSeconds(10.0);
         public static readonly TimeSpan AttackerRemountDelay = TimeSpan.FromSeconds(3.0);
         public Dismount()
         {
@@ -46,7 +46,7 @@ namespace Server.Items
             if (defender is ChaosDragoon || defender is ChaosDragoonElite)
                 return;
 
-            if (CheckMountedNoLance(attacker, defender)) // TODO: Should there be a message here?
+            if (CheckMountedNoLance(attacker, defender))
                 return;
 
             ClearCurrentAbility(attacker);

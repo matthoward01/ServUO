@@ -168,7 +168,6 @@ namespace Server.Items
                         from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
                     else if (!lic.CanUseTaxidermyOn)
                     {
-                        //TODO: Message?
                     }
                     else if (from.Backpack != null && from.Backpack.ConsumeTotal(typeof(Board), 10))
                     {

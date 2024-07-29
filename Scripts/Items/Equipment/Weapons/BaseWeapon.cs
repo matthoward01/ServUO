@@ -1693,7 +1693,9 @@ namespace Server.Items
 
 					if (ab != null)
 					{
-						if (bc.WeaponAbilityChance > Utility.RandomDouble())
+                        bool isPet = bc.GetMaster() is PlayerMobile;
+                        
+                        if (((isPet && ab is ArmorIgnore)?0.9:bc.WeaponAbilityChance) > Utility.RandomDouble())
 						{
 							WeaponAbility.SetCurrentAbility(bc, ab);
 						}
@@ -2363,7 +2365,6 @@ namespace Server.Items
             {
                 AOS.Damage(damageable, attacker, damage, ignoreArmor, phys, fire, cold, pois, nrgy, chaos, direct, false, ranged ? Server.DamageType.Ranged : Server.DamageType.Melee);
 
-                // TODO: WeaponAbility/SpecialMove OnHit(...) convert target to IDamageable
                 // Figure out which specials work on items. For now AI only.
                 if (ignoreArmor)
                 {

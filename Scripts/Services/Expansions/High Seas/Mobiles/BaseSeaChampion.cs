@@ -206,7 +206,6 @@ namespace Server.Mobiles
                             toPush = Direction.North;
 
                         boat.StartMove(toPush, 1, 0x2, boat.SlowDriftInterval, true, false);
-                        //TODO: Message and Sound?
                     }
                 }
             }

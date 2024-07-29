@@ -15,7 +15,6 @@ namespace Server.Engines.VvV
             : base(3838)
         {
             Hue = 2718;
-            //TODO: ID and Stackable?
         }
 
         public override void OnDoubleClick(Mobile m)

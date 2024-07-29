@@ -15,7 +15,8 @@ namespace Server.Items
         public GargishGlasses()
             : base(0x4644)
         {
-            Layer = Layer.Earrings;       
+            //TODO: Steven - Changed gargish glasses to be helm slot
+            Layer = Layer.Helm;       
             Weight = 2;
         }
 

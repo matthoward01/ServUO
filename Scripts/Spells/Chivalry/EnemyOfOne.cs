@@ -52,7 +52,6 @@ namespace Server.Spells.Chivalry
             {
                 PlayEffects();
 
-                // TODO: validate formula
                 var seconds = ComputePowerValue(1);
                 Utility.FixMinMax(ref seconds, 67, 228);
 

@@ -233,10 +233,11 @@ namespace Server.Items
 
         public static SkillName[] GetPowerScrollList(TreasureLevel level, TreasurePackage package, TreasureFacet facet)
         {
-            if (facet != TreasureFacet.Felucca)
-                return null;
+            //TODO: MATT - Making power scrolls drop from any map treasure chest
+            /*if (facet != TreasureFacet.Felucca)
+                return null;*/
 
-            if (level >= TreasureLevel.Cache)
+            if (level >= TreasureLevel.Supply)
             {
                 return _PowerscrollTable[(int)package];
             }
@@ -246,7 +247,7 @@ namespace Server.Items
 
         public static Type[] GetCraftingMaterials(TreasureLevel level, TreasurePackage package, ChestQuality quality)
         {
-            if (package == TreasurePackage.Artisan && level <= TreasureLevel.Supply && quality != ChestQuality.None)
+            if (package == TreasurePackage.Artisan && level >= TreasureLevel.Supply && quality != ChestQuality.None)
             {
                 return _MaterialTable[(int)quality - 1];
             }
@@ -256,7 +257,9 @@ namespace Server.Items
 
         public static Type[] GetSpecialMaterials(TreasureLevel level, TreasurePackage package, TreasureFacet facet)
         {
-            if (package == TreasurePackage.Artisan && level == TreasureLevel.Supply)
+            //TODO: MATT - Making artisan chests worth while
+            if (package == TreasurePackage.Artisan && level >= TreasureLevel.Supply)
+            //if (package == TreasurePackage.Artisan && level == TreasureLevel.Supply)
             {
                 return _SpecialMaterialTable[(int)facet];
             }
@@ -271,11 +274,11 @@ namespace Server.Items
             if (level >= TreasureLevel.Cache)
             {
                 list = _DecorativeTable[(int)package];
-
-                if (facet == TreasureFacet.Malas)
-                {
+                //TODO: MATT - Removing Facet Limitation
+                //if (facet == TreasureFacet.Malas)
+                //{
                     list.Concat(new Type[] { typeof(CoffinPiece) });
-                }
+                //}
             }
             else if (level == TreasureLevel.Supply)
             {
@@ -292,7 +295,9 @@ namespace Server.Items
 
             switch (facet)
             {
-                case TreasureFacet.Felucca:
+                //TODO: Matt - Adding Regs to felucca
+                case TreasureFacet.Felucca: return Loot.RegTypes;
+                //case TreasureFacet.Felucca:
                 case TreasureFacet.Trammel: return Loot.RegTypes;
                 case TreasureFacet.Malas: return Loot.NecroRegTypes;
                 case TreasureFacet.TerMur: return Loot.MysticRegTypes;
@@ -303,7 +308,8 @@ namespace Server.Items
 
         public static Recipe[] GetRecipeList(TreasureLevel level, TreasurePackage package)
         {
-            if (package == TreasurePackage.Artisan && level == TreasureLevel.Supply)
+            //TODO: MATT - Adjusting for other levels NEED TO IMPLEMENT
+            if (package == TreasurePackage.Artisan && level >= TreasureLevel.Supply)
             {
                 return Recipe.Recipes.Values.ToArray();
             }
@@ -375,10 +381,14 @@ namespace Server.Items
 
         public static int GetResourceAmount(TreasureLevel level)
         {
+            //TODO: Steven - Added higher level quantities
             switch(level)
             {
                 case TreasureLevel.Stash: return 50;
                 case TreasureLevel.Supply: return 100;
+                case TreasureLevel.Cache: return 150;
+                case TreasureLevel.Hoard: return 200;
+                case TreasureLevel.Trove: return 250;
             }
 
             return 0;
@@ -440,15 +450,15 @@ namespace Server.Items
         {
             var preArtifact = Imbuing.GetMaxWeight(item) + 100;
             min = max = 0;
-
+            //TODO: Steven - Adjusting min/max for budget
             switch (level)
             {
                 default:
                 case TreasureLevel.Stash:
                 case TreasureLevel.Supply: min = 250; max = preArtifact; break;
-                case TreasureLevel.Cache:
-                case TreasureLevel.Hoard:
-                case TreasureLevel.Trove: min = 500; max = 1300; break;
+                case TreasureLevel.Cache: min = 500; max = 1300; break;
+                case TreasureLevel.Hoard: min = 750; max = 1300; break;
+                case TreasureLevel.Trove: min = 1000; max = 1300; break;
             }
         }
 
@@ -559,8 +569,10 @@ namespace Server.Items
 
         public static Type[][] _JewelTable = new Type[][]
             {
-                new Type[] { typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet) }, // standard
-                new Type[] { typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet), typeof(GargishBracelet) }, // Ranger/TerMur
+                new Type[] { typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet), typeof(GoldEarrings), typeof(SilverEarrings) }, // standard
+                //new Type[] { typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet) }, // standard
+                new Type[] { typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet), typeof(GargishBracelet), typeof(GoldEarrings), typeof(SilverEarrings) }, // Ranger/TerMur
+                //new Type[] { typeof(GoldRing), typeof(GoldBracelet), typeof(SilverRing), typeof(SilverBracelet), typeof(GargishBracelet) }, // Ranger/TerMur
             };
 
         public static Type[][] _DecorativeTable = new Type[][]
@@ -574,13 +586,19 @@ namespace Server.Items
 
         public static Type[][] _SpecialMaterialTable = new Type[][]
             {
-                null, // tram
-                null, // fel
-                null, // ilsh
-                new Type[] { typeof(LuminescentFungi), typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // malas
-                null, // tokuno
+                //TODO: MATT - Making artisan chests worth while
+                new Type[] { typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // tram
+                new Type[] { typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // fel
+                new Type[] { typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // ilsh
+                //null, // tram
+                //null, // fel
+                //null, // ilsh
+                new Type[] { typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // malas
+                new Type[] { typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // tokuno
+                //null, // tokuno
                 TreasureMapChest.ImbuingIngreds, // ter
-                null, // eodon
+                new Type[] { typeof(BarkFragment), typeof(Blight), typeof(Corruption), typeof(Muculent), typeof(Putrefaction), typeof(Scourge), typeof(Taint)  }, // eodon
+                //null, // eodon
             };
 
         public static Type[][] _SpecialSupplyLoot = new Type[][]
@@ -627,17 +645,22 @@ namespace Server.Items
                 new SkillName[] { SkillName.ArmsLore, SkillName.Blacksmith, SkillName.Carpentry, SkillName.Cartography, SkillName.Cooking, SkillName.Cooking, SkillName.Fletching, SkillName.Mining, SkillName.Tailoring, SkillName.Lumberjacking },
                 new SkillName[] { SkillName.DetectHidden, SkillName.Fencing, SkillName.Hiding, SkillName.Lockpicking, SkillName.Poisoning, SkillName.RemoveTrap, SkillName.Snooping, SkillName.Stealing, SkillName.Stealth },
                 new SkillName[] { SkillName.Alchemy, SkillName.EvalInt, SkillName.Inscribe, SkillName.Magery, SkillName.Meditation, SkillName.Spellweaving, SkillName.SpiritSpeak },
-                new SkillName[] { SkillName.AnimalLore, SkillName.AnimalTaming, SkillName.Archery, SkillName.Musicianship, SkillName.Peacemaking, SkillName.Provocation, SkillName.Tinkering, SkillName.Tracking, SkillName.Veterinary },
+                new SkillName[] { SkillName.AnimalLore, SkillName.AnimalTaming, SkillName.Archery, SkillName.Musicianship, SkillName.Peacemaking, SkillName.Provocation, SkillName.Tactics, SkillName.Tracking, SkillName.Veterinary },
                 new SkillName[] { SkillName.Chivalry, SkillName.Focus, SkillName.Macing, SkillName.Parry, SkillName.Swords, SkillName.Wrestling },
            };
 
         public static SkillName[][] _PowerscrollTable = new SkillName[][]
             {
+                //TODO: Adjusting Power Scrolls a bit
                 null,
-                new SkillName[] { SkillName.Ninjitsu },
-                new SkillName[] { SkillName.Magery, SkillName.Meditation, SkillName.Mysticism, SkillName.Spellweaving, SkillName.SpiritSpeak },
-                new SkillName[] { SkillName.AnimalTaming, SkillName.Discordance, SkillName.Provocation, SkillName.Veterinary },
-                new SkillName[] { SkillName.Bushido, SkillName.Chivalry, SkillName.Focus, SkillName.Healing, SkillName.Parry, SkillName.Swords, SkillName.Tactics },
+                new SkillName[] { SkillName.Ninjitsu, SkillName.Fencing, SkillName.Focus, SkillName.Healing, SkillName.Parry, SkillName.Swords, SkillName.Tactics, SkillName.Macing},
+                //new SkillName[] { SkillName.Ninjitsu },
+                new SkillName[] { SkillName.Magery, SkillName.Meditation, SkillName.Mysticism, SkillName.Spellweaving, SkillName.SpiritSpeak, SkillName.Necromancy },
+                //new SkillName[] { SkillName.Magery, SkillName.Meditation, SkillName.Mysticism, SkillName.Spellweaving, SkillName.SpiritSpeak },
+                new SkillName[] { SkillName.AnimalTaming, SkillName.Discordance, SkillName.Provocation, SkillName.Veterinary, SkillName.Archery },
+                //new SkillName[] { SkillName.AnimalTaming, SkillName.Discordance, SkillName.Provocation, SkillName.Veterinary },
+                new SkillName[] { SkillName.Bushido, SkillName.Chivalry, SkillName.Focus, SkillName.Healing, SkillName.Parry, SkillName.Swords, SkillName.Tactics, SkillName.Macing },
+                //new SkillName[] { SkillName.Bushido, SkillName.Chivalry, SkillName.Focus, SkillName.Healing, SkillName.Parry, SkillName.Swords, SkillName.Tactics },
             };
 
         public static void Fill(Mobile from, TreasureMapChest chest, TreasureMap tMap)
@@ -646,6 +669,7 @@ namespace Server.Items
             var package = tMap.Package;
             var facet = tMap.TreasureFacet;
             var quality = chest.ChestQuality;
+            var minaxCount = 0; //TODO: Steven - Minax arty count
 
             chest.Movable = false;
             chest.Locked = true;
@@ -669,16 +693,19 @@ namespace Server.Items
                     chest.RequiredSkill = 75;
                     chest.TrapPower = 125;
                     chest.TrapLevel = 5;
+                    minaxCount = 2; //TODO: Steven - Minax arty count
                     break;
                 case 3:
                     chest.RequiredSkill = 80;
                     chest.TrapPower = 150;
                     chest.TrapLevel = 6;
+                    minaxCount = 4; //TODO: Steven - Minax arty count
                     break;
                 case 4:
                     chest.RequiredSkill = 80;
                     chest.TrapPower = 170;
                     chest.TrapLevel = 7;
+                    minaxCount = 10; //TODO: Steven - Minax arty count
                     break;
             }
 
@@ -758,7 +785,6 @@ namespace Server.Items
             #endregion
 
             #region Crafting Resources
-            // TODO: DO each drop, or do only 1 drop?
             list = GetCraftingMaterials(level, package, quality);
 
             if (list != null)
@@ -778,7 +804,6 @@ namespace Server.Items
             #endregion
 
             #region Special Resources
-            // TODO: DO each drop, or do only 1 drop?
             list = GetSpecialMaterials(level, package, facet);
 
             if (list != null)
@@ -794,6 +819,27 @@ namespace Server.Items
                 }
 
                 list = null;
+            }
+
+            //TODO: Steven Added imbue section for all artisans
+            if(package == TreasurePackage.Artisan)
+            {
+                list = TreasureMapChest.ImbuingIngreds;
+
+                if (list != null)
+                {
+                    amount = (int)level * 5;
+
+                    foreach (var type in list)
+                    {
+                        var imbueMats = Loot.Construct(type);
+                        imbueMats.Amount = amount;
+
+                        chest.DropItem(imbueMats);
+                    }
+
+                    list = null;
+                }
             }
             #endregion
 
@@ -821,9 +867,10 @@ namespace Server.Items
                     }
                 }
 
-                if (alacList != null)
+                if (pscrollList != null)
+                //if (alacList != null)
                 {
-                    foreach (var sk in alacList)
+                    foreach (var sk in pscrollList)
                     {
                         scrollList.Add(new Tuple<int, SkillName>(2, sk));
                     }
@@ -843,11 +890,53 @@ namespace Server.Items
                     {
                         var random = scrollList[Utility.Random(scrollList.Count)];
 
+                        //TODO: MATT - Replacing scrolls of alacrity with power scrolls. Includes (psLevel, rnd, and case 2 and 3
+
+                        double psLevel;
+                        double rnd = Utility.RandomDouble();
+
+                        if (0.20 >= rnd)
+                            psLevel = 120.0;
+                        else if (0.4 >= rnd)
+                            psLevel = 115.0;
+                        else
+                            psLevel = 110.0;
+
                         switch (random.Item1)
                         {
                             case 1: chest.DropItem(new ScrollOfTranscendence(random.Item2, Utility.RandomMinMax(1.0, chest.Map == Map.Felucca ? 7.0 : 5.0) / 10)); break;
-                            case 2: chest.DropItem(new ScrollOfAlacrity(random.Item2)); break;
-                            case 3: chest.DropItem(new PowerScroll(random.Item2, 110.0)); break;
+                            case 2:
+                                //TODO: Steven - Added levels to power scrolls based on chest level
+                                switch (level)
+                                {
+                                    case TreasureLevel.Cache:
+                                        chest.DropItem(new PowerScroll(random.Item2, Math.Max(psLevel, 110.0)));
+                                        break;
+                                    case TreasureLevel.Hoard:
+                                        chest.DropItem(new PowerScroll(random.Item2, Math.Max(psLevel, 115.0)));
+                                        break;
+                                    case TreasureLevel.Trove:
+                                        chest.DropItem(new PowerScroll(random.Item2, Math.Max(psLevel, 120.0)));
+                                        break;
+                                }
+                                break;
+                            //case 2: chest.DropItem(new ScrollOfAlacrity(random.Item2)); break;
+                            case 3:
+                                switch (level)
+                                {
+                                    //TODO: Steven - Added levels to power scrolls based on chest level
+                                    case TreasureLevel.Cache:
+                                        chest.DropItem(new PowerScroll(random.Item2, Math.Max(psLevel, 110.0)));
+                                        break;
+                                    case TreasureLevel.Hoard:
+                                        chest.DropItem(new PowerScroll(random.Item2, Math.Max(psLevel, 115.0)));
+                                        break;
+                                    case TreasureLevel.Trove:
+                                        chest.DropItem(new PowerScroll(random.Item2, Math.Max(psLevel, 120.0)));
+                                        break;
+                                }
+                                break;
+                             //case 3: chest.DropItem(new PowerScroll(random.Item2, 110.0)); break;
                         }
                     }
                 }
@@ -965,13 +1054,36 @@ namespace Server.Items
 
                 if (item != null)
                 {
-                    RunicReforging.GenerateRandomItem(item, from is PlayerMobile ? ((PlayerMobile)from).RealLuck : from.Luck, min, max, chest.Map);
+                    //TODO: Steven - Generate minax artifacts and put them in chest
+                    if (minaxCount > 0)
+                    {
+                        RunicReforging.GenerateRandomMinaxItem(item, from is PlayerMobile ? ((PlayerMobile)from).RealLuck : from.Luck, min, max, chest.Map);
+                        minaxCount--;
+                    } else
+                    {
+                        RunicReforging.GenerateRandomItem(item, from is PlayerMobile ? ((PlayerMobile)from).RealLuck : from.Luck, min, max, chest.Map);
+                    }
+
                     chest.DropItem(item);
                 }
             }
 
             list = null;
             #endregion
+        }
+        private static PowerScroll CreateRandomPowerScroll()
+        {
+            int level;
+            double random = Utility.RandomDouble();
+
+            if (0.20 >= random)
+                level = 20;
+            else if (0.6 >= random)
+                level = 15;
+            else
+                level = 10;
+
+            return PowerScroll.CreateRandomNoCraft(level, level);
         }
 
         private static Type MutateType(Type type, TreasureFacet facet)

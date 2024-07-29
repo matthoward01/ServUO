@@ -39,7 +39,6 @@ namespace Server.Mobiles
             item.Hue = 0x51D;
             AddItem(item);
 
-            // TODO quest items
 
             SetStr(340, 360);
             SetDex(400, 415);

@@ -568,7 +568,6 @@ namespace Server.Engines.VvV
 
         public override bool CheckUse(Mobile m)
         {
-            //TODO: Message?  Stam check?
             return true;
         }
 

@@ -121,7 +121,7 @@ namespace Server.Misc
                         return false;
                     }
                 default:
-                case ProfanityAction.Other: // TODO: Provide custom implementation if this is chosen
+                case ProfanityAction.Other:
                     {
                         return true;
                     }

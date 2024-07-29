@@ -64,7 +64,7 @@ namespace Server.Services.Virtues
 
 				if (idol.Spawn.Active)
 				{
-					if (idol.Spawn.Champion != null) //TODO: Message?
+					if (idol.Spawn.Champion != null)
 						return;
 
 					int needed, consumed;

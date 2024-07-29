@@ -143,7 +143,6 @@ namespace Server.Mobiles
                 while (spirtsOrVortexes.Count > 6)
                 {
                     int index = Utility.Random(spirtsOrVortexes.Count);
-                    //TODO: Confim if it's the dispel with all the pretty effects or just a Deletion of it.
                     Dispel(((Mobile)spirtsOrVortexes[index]));
                     spirtsOrVortexes.RemoveAt(index);
                 }

@@ -65,6 +65,12 @@ namespace Server.Spells.Necromancy
             return oath;
         }
 
+        //TODO: Steven - Added method to check if blood oath is on mobile
+        public static bool UnderEffects(Mobile m)
+        {
+            return m_Table.ContainsKey(m);
+        }
+
         public override void OnCast()
         {
             Caster.Target = new InternalTarget(this);

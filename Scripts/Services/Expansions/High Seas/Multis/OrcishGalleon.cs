@@ -193,7 +193,7 @@ namespace Server.Multis
         }
 
         private readonly int PortAndStarboardOffset = 3;
-        private readonly int AftOffset = 12; //TODO: Get this
+        private readonly int AftOffset = 12;
         private readonly int BowOffset = 9;
 
         public override bool Contains(int x, int y)

@@ -337,7 +337,7 @@ namespace Server.Multis
 			BaseHouse house = BaseHouse.FindHouseAt(this);
             BaseHouse linkHouse = Link == null ? null : BaseHouse.FindHouseAt(Link);
 
-            if (house == null || Link == null || !IsLockedDown || !Link.IsLockedDown || linkHouse == null) // TODO: Messages for these?
+            if (house == null || Link == null || !IsLockedDown || !Link.IsLockedDown || linkHouse == null) 
             {
                 return false;
             }
@@ -424,7 +424,7 @@ namespace Server.Multis
 							tile.Link = this;
 							Link = tile;
 
-                            if (UsesCharges && tile.UsesCharges) //TODO:  Can you link non-charged with charged?
+                            if (UsesCharges && tile.UsesCharges)
                             {
                                 from.SendLocalizedMessage(1115119); // The two House Teleporters are now linked and the charges remaining have been rebalanced.
 
@@ -444,7 +444,7 @@ namespace Server.Multis
                             }
                             else
                             {
-                                from.SendMessage("Those cannot be linked."); // TODO: Message?
+                                from.SendMessage("Those cannot be linked.");
                             }
 						}
 						else

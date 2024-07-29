@@ -25,19 +25,23 @@ namespace Server.Misc
 		/// <summary>
 		///     How long do we remember targets/locations?
 		/// </summary>
+		//public static TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(0.5);
 		public static TimeSpan AntiMacroExpire = TimeSpan.FromMinutes(5.0);
 
 		/// <summary>
 		///     How many times may we use the same location/target for gain
 		/// </summary>
+		//public const int Allowance = 100;
 		public const int Allowance = 3;
 
 		/// <summary>
 		///     The size of each location, make this smaller so players dont have to move as far
 		/// </summary>
-		private const int LocationSize = 4;
+		//private const int LocationSize = 1;
+        private const int LocationSize = 4;
 
-		public static bool GGSActive { get { return !Siege.SiegeShard; } }
+        public static bool GGSActive = false;
+		//public static bool GGSActive { get { return !Siege.SiegeShard; } }
 
 		static SkillCheck()
 		{
@@ -140,7 +144,6 @@ namespace Server.Misc
 
 			var value = skill.Value;
 
-			//TODO: Is there any other place this can go?
 			if (skillName == SkillName.Fishing && BaseGalleon.FindGalleonAt(from, from.Map) is TokunoGalleon)
 				value += 1;
 
@@ -220,7 +223,8 @@ namespace Server.Misc
 
         private static double GetGainChance(Mobile from, Skill skill, double gains, double chance)
         {
-            var gc = (double)(from.Skills.Cap - (from.Skills.Total + (gains * 10))) / from.Skills.Cap;
+            //TODO: Steven - Added exemption for non influencing skills
+            var gc = (double)(from.Skills.Cap + (Skills.NonTotalInfluencingSkills.Contains(skill.SkillName) ? 1 : 0) - (from.Skills.Total + (gains * 10))) / from.Skills.Cap;
 
             gc += (skill.Cap - (skill.Base + (gains * 10))) / skill.Cap;
             gc /= 4;
@@ -260,7 +264,8 @@ namespace Server.Misc
 
         private static double GetGainChance(Mobile from, Skill skill, double chance, bool success)
         {
-            var gc = (double)(from.Skills.Cap - from.Skills.Total) / from.Skills.Cap;
+            //TODO: Steven - Added exemption for non influencing skills
+            var gc = (double)(from.Skills.Cap + (Skills.NonTotalInfluencingSkills.Contains(skill.SkillName) ? skill.Cap*10 : 0) - from.Skills.Total) / from.Skills.Cap;
 
             gc += (skill.Cap - skill.Base) / skill.Cap;
             gc /= 2;
@@ -373,7 +378,7 @@ namespace Server.Misc
 				(!PetTrainingHelper.Enabled || !((BaseCreature)from).Controlled))
 				return;
 
-			if (skill.Base < skill.Cap && skill.Lock == SkillLock.Up)
+            if (skill.Base < skill.Cap && skill.Lock == SkillLock.Up)
 			{
 				var skills = from.Skills;
 
@@ -387,7 +392,8 @@ namespace Server.Misc
 						{
 							CheckReduceSkill(skills, toGain, skill);
 
-							if (skills.Total + toGain <= skills.Cap)
+                            //TODO: Steven - Added exemption for non influencing skills
+                            if (skills.Total + toGain <= skills.Cap || Skills.NonTotalInfluencingSkills.Contains(skill.SkillName))
 							{
 								skill.BaseFixedPoint += toGain;
 							}
@@ -441,7 +447,8 @@ namespace Server.Misc
 					CheckReduceSkill(skills, toGain, skill);
 				}
 
-				if (!from.Player || (skills.Total + toGain <= skills.Cap))
+                //TODO: Steven - Added exemption for non influencing skills
+                if (!from.Player || (skills.Total + toGain <= skills.Cap) || Skills.NonTotalInfluencingSkills.Contains(skill.SkillName))
 				{
 					skill.BaseFixedPoint = Math.Min(skill.CapFixedPoint, skill.BaseFixedPoint + toGain);
 

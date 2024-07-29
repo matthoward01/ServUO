@@ -1,19 +1,25 @@
 using System;
+using Server;
 using Server.Items;
+
 
 namespace Server.Mobiles
 {
-    [CorpseName("a relanord corpse")]
-    public class Relanord : BaseVoidCreature
-    {
-        public override VoidEvolution Evolution { get { return VoidEvolution.Survival; } }
-        public override int Stage { get { return 2; } }
+	[CorpseName( "a Relanord's corpse" )]
+	public class Relanord : BaseVoidCreature
+	{
+		protected override void CreateEvolutionHandlers()
+		{
+			AddEvolutionHandler( new SurvivalPathHandler( this, typeof( Vasanord ), 50000 ) );
+		}
+		
+		public override int Stage { get { return 2; } }
 
-        [Constructable]
-        public Relanord()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            this.Name = "a relanord";
+		[Constructable]
+		public Relanord()
+			: base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			this.Name = "a relanord";
             this.Body = 0x2F4;
             this.Hue = 2071;
 
@@ -46,20 +52,23 @@ namespace Server.Mobiles
             this.VirtualArmor = 50;
 
             this.PackItem(new DaemonBone(15));
-        }
+			
+			m_ActiveVoidCreatures++;
+		}
 
-        public Relanord(Serial serial)
-            : base(serial)
-        {
-        }
-
-        public override bool AutoDispel
+		public Relanord( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override bool AutoDispel
         {
             get
             {
                 return true;
             }
         }
+		
         public override bool BardImmune
         {
             get
@@ -67,6 +76,7 @@ namespace Server.Mobiles
                 return true;
             }
         }
+		
         public override Poison PoisonImmune
         {
             get
@@ -74,6 +84,7 @@ namespace Server.Mobiles
                 return Poison.Lethal;
             }
         }
+		
         public override void GenerateLoot()
         {
             this.AddLoot(LootPack.FilthyRich, 1);
@@ -104,16 +115,28 @@ namespace Server.Mobiles
             return 0x140;
         }
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write((int)0);
-        }
+		public override void OnAfterDelete()
+		{
+			base.OnAfterDelete();
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
-        }
-    }
+			m_ActiveVoidCreatures--;
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 );
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+			m_ActiveVoidCreatures++;
+		}
+	}
 }

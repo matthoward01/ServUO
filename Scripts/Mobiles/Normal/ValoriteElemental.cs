@@ -16,7 +16,6 @@ namespace Server.Mobiles
         public ValoriteElemental(int oreAmount)
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            // TODO: Gas attack
             Name = "a valorite elemental";
             Body = 112;
             BaseSoundID = 268;

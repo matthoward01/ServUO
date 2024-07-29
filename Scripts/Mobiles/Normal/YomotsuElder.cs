@@ -113,7 +113,6 @@ namespace Server.Mobiles
             AddLoot(LootPack.Gems, 2);
         }
 
-        // TODO: Axe Throw
         public override void OnGaveMeleeAttack(Mobile defender)
         {
             base.OnGaveMeleeAttack(defender);

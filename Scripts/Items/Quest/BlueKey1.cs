@@ -9,7 +9,7 @@ namespace Server.Items
             : base(0x1012)
         {
             this.Weight = 1.0;
-            this.Hue = 0x5D; // TODO check
+            this.Hue = 0x5D;
             this.LootType = LootType.Blessed;
             this.Movable = false;
         }

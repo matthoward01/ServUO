@@ -142,12 +142,14 @@ namespace Server.Engines.BulkOrders
                         this.m_Entries.Add(new BOBSmallEntry((SmallBOD)dropped));
 					
                     this.InvalidateProperties();
-					
-                    if (this.m_Entries.Count / 5 > this.m_ItemCount)
-                    {
-                        this.m_ItemCount++;
-                        this.InvalidateItems();
-                    }
+
+
+                    //TODO: Steven - Remove the increasing item count
+                    //if (this.m_Entries.Count / 5 > this.m_ItemCount)
+                    //{
+                    //    this.m_ItemCount++;
+                    //    this.InvalidateItems();
+                    //}
 
                     from.SendSound(0x42, this.GetWorldLocation());
                     from.SendLocalizedMessage(1062386); // Deed added to book.

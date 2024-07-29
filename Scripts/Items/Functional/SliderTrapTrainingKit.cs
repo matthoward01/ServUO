@@ -127,7 +127,7 @@ namespace Server.Items
             }
             else
             {
-                m.SendMessage("That is not your chest!"); // TODO: Could not find cliloc, but this is the message given
+                m.SendMessage("That is not your chest!");
             }
         }
 

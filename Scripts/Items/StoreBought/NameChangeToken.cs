@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Server;
 using Server.Mobiles;
 using Server.Gumps;
@@ -115,7 +115,7 @@ namespace Server.Items
                         User.Name = text;
                         Token.Delete();
 
-                        User.SendMessage("You have successfully changed your name."); // TODO: Message?
+                        User.SendMessage("You have successfully changed your name.");
                     }
                 }
             }

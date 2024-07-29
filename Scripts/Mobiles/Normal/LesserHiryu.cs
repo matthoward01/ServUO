@@ -135,6 +135,29 @@ namespace Server.Mobiles
             AddLoot(LootPack.Gems, 4);
         }
 
+        //TODO: Steven - added code to halve strength and dex but not int
+        public override void OnAfterTame(Mobile tamer)
+        {
+            if (Owners.Count == 0 && PetTrainingHelper.Enabled)
+            {
+                if (RawStr > 0)
+                    RawStr = (int)Math.Max(1, RawStr * 0.5);
+
+                if (RawDex > 0)
+                    RawDex = (int)Math.Max(1, RawDex * 0.5);
+
+                if (HitsMaxSeed > 0)
+                    HitsMaxSeed = (int)Math.Max(1, HitsMaxSeed * 0.5);
+
+                Hits = Math.Min(HitsMaxSeed, Hits);
+                Stam = Math.Min(RawDex, Stam);
+            }
+            else
+            {
+                base.OnAfterTame(tamer);
+            }
+        }
+
         public override double GetControlChance(Mobile m, bool useBaseSkill)
         {
             if (PetTrainingHelper.Enabled)

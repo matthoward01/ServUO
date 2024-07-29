@@ -46,7 +46,15 @@ namespace Server.Spells.Eighth
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
 
                 if (Core.AOS)
-                    SpellHelper.Summon(new SummonedEarthElemental(), this.Caster, 0x217, duration, false, false);
+                    if (this.Caster.Skills.Magery.Fixed >= 105)
+                    {
+                        SpellHelper.Summon(new SummonedGreaterEarthElemental(), this.Caster, 0x217, duration, false, false);
+                    }
+                    else
+                    {
+                        SpellHelper.Summon(new SummonedEarthElemental(), this.Caster, 0x217, duration, false, false);
+
+                    }
                 else
                     SpellHelper.Summon(new EarthElemental(), this.Caster, 0x217, duration, false, false);
             }

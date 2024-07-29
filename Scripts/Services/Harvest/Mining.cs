@@ -73,6 +73,9 @@ namespace Server.Engines.Harvest
             oreAndStone.PackFullMessage = 1010481; // Your backpack is full, so the ore you mined is lost.
             oreAndStone.ToolBrokeMessage = 1044038; // You have worn out your tool!
 
+            //TODO: MATT - MADE ORE PLACE AT FEET WHEN BAG IS FULL
+            oreAndStone.PlaceAtFeetIfFull = true;
+
             res = new HarvestResource[]
             {
                 new HarvestResource(00.0, 00.0, 100.0, 1007072, typeof(IronOre), typeof(Granite)),

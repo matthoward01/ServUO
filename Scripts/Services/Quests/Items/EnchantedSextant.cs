@@ -5,7 +5,6 @@ namespace Server.Items
 {
     public class EnchantedSextant : Item
     {
-        //TODO: Trammel/Haven
         private static readonly Point2D[] m_TrammelBanks = new Point2D[]
         {
             new Point2D(652, 820),

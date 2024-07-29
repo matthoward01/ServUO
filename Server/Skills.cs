@@ -302,9 +302,13 @@ namespace Server
 
 				if (m_Base != sv)
 				{
-					m_Owner.Total = (m_Owner.Total - m_Base) + sv;
+                    //TODO: Steven - Added exemption for non influencing skills
+                    if (!Skills.NonTotalInfluencingSkills.Contains(SkillName))
+                    {
+                        m_Owner.Total = (m_Owner.Total - m_Base) + sv;
+                    }
 
-					m_Base = sv;
+                    m_Base = sv;
 
 					m_Owner.OnSkillChange(this);
 
@@ -591,8 +595,9 @@ namespace Server
 
         public int Localization { get { return 1044060 + SkillID; } }
 
+        
         private static SkillInfo[] m_Table = new SkillInfo[58]
-		{
+        {            
 			new SkillInfo(0, "Alchemy", 0.0, 5.0, 5.0, "Alchemist", null, 0.0, 0.5, 0.5, 1.0, StatCode.Int, StatCode.Dex),
 			new SkillInfo(1, "Anatomy", 0.0, 0.0, 0.0, "Biologist", null, 0.15, 0.15, 0.7, 1.0, StatCode.Int, StatCode.Str),
 			new SkillInfo(2, "Animal Lore", 0.0, 0.0, 0.0, "Naturalist", null, 0.0, 0.0, 1.0, 1.0, StatCode.Int, StatCode.Str),
@@ -664,8 +669,18 @@ namespace Server
 		private int m_Total, m_Cap;
 		private Skill m_Highest;
 
-		#region Skill Getters & Setters
-		[CommandProperty(AccessLevel.Counselor)]
+        //TODO: Steven - Added exemption for non influencing skills
+        //TODO: Matt - Adding T-Hunter skills to list.
+        public static HashSet<SkillName> NonTotalInfluencingSkills = new HashSet<SkillName>()
+        {
+            SkillName.Hiding, SkillName.Cooking, SkillName.Begging, SkillName.Camping
+            ,SkillName.Herding, SkillName.ItemID, SkillName.Poisoning, SkillName.TasteID
+            ,SkillName.Tracking, SkillName.Fishing, SkillName.Cartography, SkillName.Lockpicking, SkillName.RemoveTrap
+            ,SkillName.DetectHidden, SkillName.Snooping, SkillName.Stealth, SkillName.Forensics
+        };
+
+        #region Skill Getters & Setters
+        [CommandProperty(AccessLevel.Counselor)]
 		public Skill Alchemy { get { return this[SkillName.Alchemy]; } set { } }
 
 		[CommandProperty(AccessLevel.Counselor)]
@@ -878,7 +893,7 @@ namespace Server
 			}
 		}
 
-		public override string ToString()
+        public override string ToString()
 		{
 			return "...";
 		}
@@ -985,8 +1000,12 @@ namespace Server
 				else
 				{
 					sk.Serialize(writer);
-					m_Total += sk.BaseFixedPoint;
-				}
+                    //TODO: Steven - This part happens after the save!!
+                    if (!NonTotalInfluencingSkills.Contains(sk.SkillName))
+                    {
+                        m_Total += sk.BaseFixedPoint;
+                    }
+                }
 			}
 		}
 
@@ -1048,9 +1067,13 @@ namespace Server
 
                                 if (sk.BaseFixedPoint != 0 || sk.CapFixedPoint != 1000 || sk.Lock != SkillLock.Up || sk.VolumeLearned != 0)
 								{
-									m_Skills[i] = sk;
-									m_Total += sk.BaseFixedPoint;
-								}
+                                    m_Skills[i] = sk;
+                                    //TODO: Steven - Added exemption for non influencing skills
+                                    if (!NonTotalInfluencingSkills.Contains(sk.SkillName))
+                                    {
+                                        m_Total += sk.BaseFixedPoint;
+                                    }
+                                }
 							}
 							else
 							{

@@ -54,7 +54,8 @@ namespace Server.Multis
 
         #endregion
 
-        public const bool DecayEnabled = true;
+        public const bool DecayEnabled = false;
+        //public const bool DecayEnabled = true;
 
         public static void Decay_OnTick()
         {
@@ -1214,7 +1215,9 @@ namespace Server.Multis
             bool lockedDown = LockDowns.ContainsKey(item);
 
             // lockdown owner can access it
-            if (lockedDown && CheckLockdownOwnership(from, item))
+            //TODO: MATT - Fixing it so other coowners can use locked down items.
+            if (lockedDown && IsCoOwner(from))
+            //if (lockedDown && CheckLockdownOwnership(from, item))
                 return true;
 
             // ISecurable will set its own rules
@@ -2328,7 +2331,6 @@ namespace Server.Multis
                         }
                         else if (!to.Alive)
                         {
-                            // TODO: Check if the message is correct.
                             from.SendLocalizedMessage(1062069); // You cannot transfer this house to that person.
                         }
                         else
@@ -2414,7 +2416,9 @@ namespace Server.Multis
 
             if (IsLockedDown(item))
             {
-                if (!CheckLockdownOwnership(m, item))
+                //TODO: MATT Fixing accessibility for coowners
+                if (!CheckLockdownOwnership(m, item) && !IsCoOwner(m))
+                //if (!CheckLockdownOwnership(m, item))
                 {
                     m.LocalOverheadMessage(MessageType.Regular, 0x3E9, 1010418); // You did not lock this down, and you are not able to release this.
                 }
@@ -2624,7 +2628,9 @@ namespace Server.Multis
 
             if (info != null)
             {
-                if ((IsOwner(m) || info.Owner == m) /*&& HasSecureAccess(m, info.Level)*/)
+                //TODO: MATT - Fixing unsecuring permissions for coowners
+                if ((IsOwner(m) || IsCoOwner(m) || info.Owner == m) /*&& HasSecureAccess(m, info.Level)*/)
+                //if ((IsOwner(m) || info.Owner == m) /*&& HasSecureAccess(m, info.Level)*/)
                 {
                     item.IsLockedDown = false;
                     item.IsSecure = false;

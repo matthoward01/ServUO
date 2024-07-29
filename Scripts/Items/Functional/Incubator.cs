@@ -88,7 +88,7 @@ namespace Server.Items
 
             if (MaxEggs > -1 && Items.Count >= MaxEggs)
             {
-                m.SendMessage("You can only put {0} chicken eggs in the incubator at a time.", MaxEggs.ToString()); //TODO: Get Message
+                m.SendMessage("You can only put {0} chicken eggs in the incubator at a time.", MaxEggs.ToString());
                 return false;
             }
 

@@ -138,11 +138,24 @@ namespace Server.Items
 				{
 					if (from.InRange(m_Bandage.GetWorldLocation(), Bandage.Range))
 					{
-						if (BandageContext.BeginHeal(from, (Mobile)targeted, m_Bandage is EnhancedBandage) != null)
-						{
-                            NegativeAttributes.OnCombatAction(from);
-							m_Bandage.Consume();
-						}
+                        //TODO: Steven - Check if healing target already
+                        BuffInfo bi = null;
+
+                        if(targeted is PlayerMobile)
+                        {
+                            bi = BuffInfo.CheckBuff(from, BuffIcon.Healing);
+                        }
+                        else
+                        {
+                            bi = BuffInfo.CheckBuff(from, BuffIcon.Veterinary);
+                        }
+                        if (bi == null || !bi.Args.String.Contains(((Mobile)targeted).Name)){
+                            if (BandageContext.BeginHeal(from, (Mobile)targeted, m_Bandage is EnhancedBandage) != null)
+                            {
+                                NegativeAttributes.OnCombatAction(from);
+                                m_Bandage.Consume();
+                            }
+                        }
 					}
 					else
 					{
@@ -275,10 +288,12 @@ namespace Server.Items
 
         public void CheckPoisonOrBleed()
         {
+            //TODO: Steven - Added check for vicious bite
             bool bleeding = BleedAttack.IsBleeding(m_Patient);
             bool poisoned = m_Patient.Poisoned;
+            bool wounded = ViciousBite.IsWounded(m_Patient);
 
-            if (bleeding || poisoned)
+            if (bleeding || poisoned || wounded)
             {
                 double healing = m_Healer.Skills[SkillName.Healing].Value;
                 double anatomy = m_Healer.Skills[SkillName.Anatomy].Value;
@@ -302,6 +317,11 @@ namespace Server.Items
                         if (BleedAttack.IsBleeding(m_Patient))
                         {
                             BleedAttack.EndBleed(m_Patient, false);
+                        }
+                        
+                        if (wounded)
+                        {
+                            ViciousBite.EndWound(m_Patient, false);
                         }
 
                         m_Patient.SendLocalizedMessage(1060088); // You bind the wound and stop the bleeding
@@ -345,7 +365,7 @@ namespace Server.Items
                 if (((checkSkills = (healing >= 80.0 && anatomy >= 80.0)) && chance > Utility.RandomDouble()) ||
                     (Core.SE && petPatient is FactionWarHorse && petPatient.ControlMaster == m_Healer) ||
                     (Server.Engines.VvV.ViceVsVirtueSystem.Enabled && petPatient is Server.Engines.VvV.VvVMount && petPatient.ControlMaster == m_Healer))
-                //TODO: Dbl check doesn't check for faction of the horse here?
+                
                 {
                     if (m_Patient.Map == null || !m_Patient.Map.CanFit(m_Patient.Location, 16, false, false))
                     {
@@ -528,7 +548,7 @@ namespace Server.Items
 
                     if (Core.AOS)
                     {
-                        toHeal -= toHeal * m_Slips * 0.35; // TODO: Verify algorithm
+                        toHeal -= toHeal * m_Slips * 0.35;
                     }
                     else
                     {

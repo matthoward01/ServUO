@@ -701,7 +701,8 @@ namespace Server.Mobiles
             SetDex(160, 250);
             SetInt(150, 220);
 
-            SetHits(2500, 2600);
+            //TODO: Steven - reduced hp in half
+            SetHits(1250, 1300);
             SetMana(1000, 1300);
 
             SetDamage(15, 17);
@@ -768,7 +769,8 @@ namespace Server.Mobiles
             SetDex(125, 165);
             SetInt(350, 550);
 
-            SetHits(7250, 7600);
+            //TODO: Steven - reduced hp from in half
+            SetHits(3625, 3800);
             SetMana(2500, 2900);
             SetDamage(18, 21);
 
@@ -1355,7 +1357,8 @@ namespace Server.Mobiles
             SetDex(200);
             SetInt(100);
 
-            SetHits(27000);
+            //TODO: Steven - reduced hp from 27k to 2.7k
+            SetHits(2700);
             SetMana(0);
 
             SetDamage(21, 23);
@@ -1498,7 +1501,8 @@ namespace Server.Mobiles
             SetDex(200);
             SetInt(100);
 
-            SetHits(20000);
+            //TODO: Steven - reduced hp from 20k to 2k
+            SetHits(2000);
             SetMana(0);
 
             SetDamage(21, 23);

@@ -88,7 +88,6 @@ namespace Server.Spells.Chivalry
 
                 bool sacrifice = false;
 
-                // TODO: Is there really a resurrection chance?
                 double resChance = 0.1 + (0.9 * ((double)Caster.Karma / 10000));
 
                 for (int i = 0; i < targets.Count; ++i)
@@ -129,7 +128,6 @@ namespace Server.Spells.Chivalry
                         {
                             int toHeal = ComputePowerValue(10) + Utility.RandomMinMax(0, 2);
 
-                            // TODO: Should caps be applied?
                             if (toHeal < 8)
                                 toHeal = 8;
                             else if (toHeal > 24)
@@ -164,7 +162,6 @@ namespace Server.Spells.Chivalry
                         if (CorpseSkinSpell.RemoveCurse(m))
                             sendEffect = true;
 
-                        // TODO: Should this remove blood oath? Pain spike?
 
                         if (sendEffect)
                         {

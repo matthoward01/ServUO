@@ -3,10 +3,13 @@ using Server.Mobiles;
 
 namespace Server.Spells.Eighth
 {
-    public class SummonDaemonSpell : MagerySpell
+    //TODO: MATT - CREATING SUMMON BALRON SPELL
+    //public class SummonDaemonSpell : MagerySpell
+    public class SummonBalronSpell : MagerySpell
     {
         private static readonly SpellInfo m_Info = new SpellInfo(
-            "Summon Daemon", "Kal Vas Xen Corp",
+            "Summon Balron", "Kal Vas Corp",
+            //"Summon Daemon", "Kal Vas Xen Corp",
             269,
             9050,
             false,
@@ -14,7 +17,8 @@ namespace Server.Spells.Eighth
             Reagent.MandrakeRoot,
             Reagent.SpidersSilk,
             Reagent.SulfurousAsh);
-        public SummonDaemonSpell(Mobile caster, Item scroll)
+        //public SummonDaemonSpell(Mobile caster, Item scroll)
+        public SummonBalronSpell(Mobile caster, Item scroll)
             : base(caster, scroll, m_Info)
         {
         }
@@ -46,14 +50,23 @@ namespace Server.Spells.Eighth
             { 
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
 
-                if (Core.AOS)  /* Why two diff daemons? TODO: solve this */
+                if (Core.AOS)
                 {
-                    BaseCreature m_Daemon = new SummonedDaemon();
-                    SpellHelper.Summon(m_Daemon, this.Caster, 0x216, duration, false, false);
-                    m_Daemon.FixedParticles(0x3728, 8, 20, 5042, EffectLayer.Head);
+                    if (this.Caster.Skills.Magery.Fixed >= 115)
+                    {
+                        BaseCreature m_Balron = new SummonedBalron();
+                        SpellHelper.Summon(m_Balron, this.Caster, 0x216, duration, false, false);
+                        m_Balron.FixedParticles(0x3728, 8, 20, 5042, EffectLayer.Head);
+                    }
+                    else
+                    {
+                        BaseCreature m_Daemon = new SummonedDaemon();
+                        SpellHelper.Summon(m_Daemon, this.Caster, 0x216, duration, false, false);
+                        m_Daemon.FixedParticles(0x3728, 8, 20, 5042, EffectLayer.Head);
+                    }
                 }
                 else
-                    SpellHelper.Summon(new Daemon(), this.Caster, 0x216, duration, false, false);
+                    SpellHelper.Summon(new Balron(), this.Caster, 0x216, duration, false, false);
             }
 
             this.FinishSequence();

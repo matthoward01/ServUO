@@ -1,4 +1,5 @@
 using System;
+using Server.Engines.Blackthorn;
 using Server.Items;
 
 namespace Server.Mobiles
@@ -78,7 +79,6 @@ namespace Server.Mobiles
             if (bc.Fame > 32000)
                 bc.Fame = 32000;
 
-            // TODO: Mana regeneration rate = Sqrt( buffedFame ) / 4
 
             if (bc.Karma != 0)
             {
@@ -138,7 +138,8 @@ namespace Server.Mobiles
             if (!Core.AOS)
                 return false;
 
-            if (Array.IndexOf(Maps, m) == -1)
+            //TODO: Steven - Added blackthorn's mobs to be able to be paragon
+            if (Array.IndexOf(Maps, m) == -1 && !Region.Find(location, m).IsPartOf("BlackthornDungeon"))
                 return false;
 
             if (bc is BaseChampion || bc is Harrower || bc is BaseVendor || bc is BaseEscortable || bc is Clone || bc.IsParagon)

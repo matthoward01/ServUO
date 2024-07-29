@@ -79,7 +79,6 @@ namespace Server.Mobiles
             this.AddLoot(LootPack.HighScrolls, 2);
         }
 
-        // TODO: Special move?
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);

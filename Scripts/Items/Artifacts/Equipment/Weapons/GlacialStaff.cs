@@ -18,7 +18,6 @@ namespace Server.Items
         {
         }
 
-        //TODO: Pre-AoS stuff
         public override int LabelNumber
         {
             get

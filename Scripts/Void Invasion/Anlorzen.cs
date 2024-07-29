@@ -1,19 +1,25 @@
 using System;
+using Server;
 using Server.Items;
+
 
 namespace Server.Mobiles
 {
-    [CorpseName("an anlorzen corpse")]
-    public class Anlorzen : BaseVoidCreature
-    {
-        public override VoidEvolution Evolution { get { return VoidEvolution.Grouping; } }
-        public override int Stage { get { return 1; } }
+	[CorpseName( "an Anlorzen's corpse" )]
+	public class Anlorzen : BaseVoidCreature, IGatherer
+	{
+		protected override void CreateEvolutionHandlers()
+		{
+			AddEvolutionHandler( new GroupingPathHandler( this, typeof( Anlorlem ), 500 ) );
+		}
+		
+		public override int Stage { get { return 1; } }
 
-        [Constructable]
-        public Anlorzen()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            this.Name = "an anlorzen";
+		[Constructable]
+		public Anlorzen()
+			: base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			this.Name = "an anlorzen";
             this.Body = 11;
             this.BaseSoundID = 1170;
 
@@ -47,14 +53,16 @@ namespace Server.Mobiles
             this.VirtualArmor = 56;
 
             this.PackItem(new DaemonBone(5));
-        }
+			
+			m_ActiveVoidCreatures++;
+		}
 
-        public Anlorzen(Serial serial)
-            : base(serial)
-        {
-        }
-
-        public override Poison PoisonImmune
+		public Anlorzen( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override Poison PoisonImmune
         {
             get
             {
@@ -87,19 +95,45 @@ namespace Server.Mobiles
             this.AddLoot(LootPack.FilthyRich);
         }
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write((int)0);
-        }
+		public override void OnAfterDelete()
+		{
+			base.OnAfterDelete();
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
+			m_ActiveVoidCreatures--;
+		}
 
-            if (this.BaseSoundID == 263)
-                this.BaseSoundID = 1170;
-        }
-    }
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 );
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+			m_ActiveVoidCreatures++;
+		}
+
+		private Mobile m_GatherTarget;
+		private DateTime m_NextGatherAttempt;
+
+		public Mobile GatherTarget
+		{
+			get { return m_GatherTarget; }
+			set { m_GatherTarget = value; }
+		}
+
+		public DateTime NextGatherAttempt
+		{
+			get { return m_NextGatherAttempt; }
+			set { m_NextGatherAttempt = value; }
+		}
+
+		public bool DoesGather { get { return true; } }
+	}
 }

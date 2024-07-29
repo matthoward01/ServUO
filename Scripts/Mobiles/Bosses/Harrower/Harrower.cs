@@ -376,7 +376,17 @@ namespace Server.Mobiles
 		{
 			double random = Utility.RandomDouble();
 
-			if (0.1 >= random)
+            //TODO: MATT - Changing Stat Scroll Chance
+			if (0.20 >= random)
+				return 25;
+			else if (0.35 >= random)
+				return 20;
+			else if (0.55 >= random)
+				return 15;
+			else if (0.80 >= random)
+				return 10;
+			return 5;
+            /*if (0.1 >= random)
 				return 25;
 			else if (0.25 >= random)
 				return 20;
@@ -384,7 +394,7 @@ namespace Server.Mobiles
 				return 15;
 			else if (0.70 >= random)
 				return 10;
-			return 5;
+			return 5;*/
 		}
 
 		public override bool OnBeforeDeath()

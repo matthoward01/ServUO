@@ -29,7 +29,7 @@ namespace Server.Engines.BulkOrders
     {
         // Logic (EA says 3 cached): 2 cached, 1 in the pipe if the last bod > 6 hours = 3
         public static readonly int MaxCachedDeeds = 2;
-        public static readonly int Delay = 6;
+        public static readonly int Delay = 0; // TODO: Steven - reduced delay from 6 to 0
 
         public static bool NewSystemEnabled = Core.TOL;
         public static BulkOrderSystem Instance { get; set; }
@@ -393,7 +393,8 @@ namespace Server.Engines.BulkOrders
                 case BODType.Carpentry: points = CarpentryRewardCalculator.Instance.ComputePoints(bod); break;
             }
 
-            banked = (double)points * 0.02;
+            //TODO: Steven - small bods bank half value
+            banked = (double)points * 0.5;
         }
 
         public static void ComputePoints(LargeBOD bod, out int points, out double banked)
@@ -414,7 +415,8 @@ namespace Server.Engines.BulkOrders
                 case BODType.Carpentry: points = CarpentryRewardCalculator.Instance.ComputePoints(bod); break;
             }
 
-            banked = (double)points * .2;
+            //TODO: Steven - large bods bank full value
+            banked = (double)points;
         }
 
         public static void AddToPending(Mobile m, BODType type, int points)

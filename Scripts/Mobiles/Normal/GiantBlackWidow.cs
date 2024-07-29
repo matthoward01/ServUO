@@ -12,7 +12,7 @@ namespace Server.Mobiles
         {
             this.Name = "a giant black widow";
             this.Body = 0x9D;
-            this.BaseSoundID = 0x388; // TODO: validate
+            this.BaseSoundID = 0x388;
 
             this.SetStr(76, 100);
             this.SetDex(96, 115);

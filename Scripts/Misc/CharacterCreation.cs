@@ -577,7 +577,7 @@ namespace Server.Misc
 						EquipItem(NecroHue(new LeafGloves()));
 						EquipItem(NecroHue(new LeafGorget()));
 						EquipItem(NecroHue(new LeafGorget()));
-						EquipItem(NecroHue(new ElvenPants())); //TODO: Verify the pants
+						EquipItem(NecroHue(new ElvenPants()));
 						EquipItem(new ElvenBoots());
 					}
 					else if (human)
@@ -688,7 +688,6 @@ namespace Server.Misc
 				case 7: // Ninja
 				{
 					var hues = new[] {0x1A8, 0xEC, 0x99, 0x90, 0xB5, 0x336, 0x89};
-					//TODO: Verify that's ALL the hues for that above.
 
 					if (elf || human)
 					{

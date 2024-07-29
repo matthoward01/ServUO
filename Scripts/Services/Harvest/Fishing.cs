@@ -629,7 +629,7 @@ namespace Server.Engines.Harvest
                 else if (item is SpecialFishingNet)
                 {
                     number = 1008125;
-                    name = "a special fishing net"; // TODO: this is just a guess--what should it really be named?
+                    name = "a special fishing net"; 
                 }
                 else if (item is BaseHighseasFish)
                 {

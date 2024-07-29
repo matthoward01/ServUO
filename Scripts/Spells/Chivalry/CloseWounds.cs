@@ -94,7 +94,6 @@ namespace Server.Spells.Chivalry
 
                 int toHeal = this.ComputePowerValue(6) + Utility.RandomMinMax(0, 2);
 
-                // TODO: Should caps be applied?
                 if (toHeal < 7)
                     toHeal = 7;
                 else if (toHeal > 39)

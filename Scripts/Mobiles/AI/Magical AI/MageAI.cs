@@ -433,6 +433,8 @@ namespace Server.Mobiles
 			if (spell != null)
 				return spell;
 
+            //TODO: Steven - Remove Summoned Dispels
+            /*
 			var toDispel = FindDispelTarget(true);
 
 			if (toDispel != null) // Something dispellable is attacking us
@@ -441,11 +443,11 @@ namespace Server.Mobiles
 
 				spell = DoDispel(toDispel);
 			}
-
+        
 			if (spell != null)
 				return spell;
-
-			if (c is Mobile && SmartAI && m_Combo != -1) // We are doing a spell combo
+            */
+            if (c is Mobile && SmartAI && m_Combo != -1) // We are doing a spell combo
 			{
 				spell = DoCombo((Mobile)c);
 			}
@@ -913,7 +915,7 @@ namespace Server.Mobiles
 			return spell;
 		}
 
-		//TODO: This needs to be tested on EA
+        //TODO: ORIGINAL - This needs to be tested on EA
         /// <summary>
         ///     Obsolete. Creatures don't fizzle based on spell, but cast spells depending on mana pool
         /// </summary>
@@ -1058,7 +1060,7 @@ namespace Server.Mobiles
 
 		public virtual Spell GetRandomSummonSpell()
 		{
-			// TODO: I left this here if anyone wants summons from magery
+			// TODO: ORIGINAL - I left this here if anyone wants summons from magery
 			/*if (CheckCanCastMagery(8))
 				return new EnergyVortexSpell(m_Mobile, null);
 

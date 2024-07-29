@@ -111,7 +111,6 @@ namespace Server.Mobiles
             AddLoot(LootPack.Gems, 4);
         }
 
-        // TODO: Body Transformation
         public override void OnGaveMeleeAttack(Mobile defender)
         {
             base.OnGaveMeleeAttack(defender);

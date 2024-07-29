@@ -87,7 +87,7 @@ namespace Server.RemoteAdmin
             this.m_Stream.Write((int)Core.ScriptItems);
 
             this.m_Stream.Write((uint)(DateTime.UtcNow - Clock.ServerStart).TotalSeconds);
-            this.m_Stream.Write((uint)GC.GetTotalMemory(false));                        // TODO: uint not sufficient for TotalMemory (long). Fix protocol.
+            this.m_Stream.Write((uint)GC.GetTotalMemory(false));                        
             this.m_Stream.WriteAsciiNull(netVer);
             this.m_Stream.WriteAsciiNull(os);
         }
@@ -117,7 +117,7 @@ namespace Server.RemoteAdmin
                 unchecked
                 {
                     this.m_Stream.Write((uint)a.LastLogin.Ticks);
-                }// TODO: This doesn't work, uint.MaxValue is only 7 minutes of ticks. Fix protocol.
+                }
 				
                 this.m_Stream.Write((ushort)a.LoginIPs.Length);
                 for (int i = 0; i < a.LoginIPs.Length; i++)

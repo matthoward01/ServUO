@@ -693,7 +693,6 @@ namespace Server.Engines.VeteranRewards
                 {
                     if (m_List.Contains(entry))
                         m_List.Remove(entry);
-                    //TODO: Message?
                 }
             }
         }

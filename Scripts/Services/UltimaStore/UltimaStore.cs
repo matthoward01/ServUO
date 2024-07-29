@@ -302,8 +302,7 @@ namespace Server.Engines.UOStore
             cat = StoreCategory.Misc;
             Register<SoulstoneToken>(1158404, 1158405, 0x2A93, 0, 2598, 1000, cat, ConstructSoulstone);
             Register<BagOfBulkOrderCovers>(1071116, 1157603, 0, 0x9CC6, 0, 200, cat, ConstructBOBCoverOne);
-
-            //TODO: UndeadWeddingBundle, TotemOfChromaticFortune, 
+ 
 
             Register<PetBrandingIron>(1157314, 1157372, 0, 0x9CC3, 0, 600, cat);
             Register<ImprovedRockHammer>(1157177, 1157306, 0, 0x9CBB, 0, 1000, cat);

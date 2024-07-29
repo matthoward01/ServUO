@@ -252,7 +252,6 @@ namespace Server.Mobiles
         {
             if (this.Map == Map.Felucca)
             {
-                //TODO: Confirm SE change or AoS one too?
                 List<DamageStore> rights = GetLootingRights();
                 List<Mobile> toGive = new List<Mobile>();
 
@@ -284,9 +283,9 @@ namespace Server.Mobiles
             int level;
             double random = Utility.RandomDouble();
 
-            if (0.05 >= random)
+            if (0.20 >= random)
                 level = 20;
-            else if (0.4 >= random)
+            else if (0.6 >= random)
                 level = 15;
             else
                 level = 10;

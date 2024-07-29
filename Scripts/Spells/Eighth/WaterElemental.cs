@@ -29,8 +29,9 @@ namespace Server.Spells.Eighth
         {
             if (!base.CheckCast())
                 return false;
-
-            if ((this.Caster.Followers + 3) > this.Caster.FollowersMax)
+            //TODO: MATT - Changing Control Slot Count
+            //if ((this.Caster.Followers + 3) > this.Caster.FollowersMax)
+            if ((this.Caster.Followers + 2) > this.Caster.FollowersMax)
             {
                 this.Caster.SendLocalizedMessage(1049645); // You have too many followers to summon that creature.
                 return false;
@@ -46,7 +47,14 @@ namespace Server.Spells.Eighth
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
 
                 if (Core.AOS)
-                    SpellHelper.Summon(new SummonedWaterElemental(), this.Caster, 0x217, duration, false, false);
+                    if (this.Caster.Skills.Magery.Fixed >= 105)
+                    {
+                        SpellHelper.Summon(new SummonedGreaterWaterElemental(), this.Caster, 0x217, duration, false, false);
+                    }
+                    else
+                    {
+                        SpellHelper.Summon(new SummonedWaterElemental(), this.Caster, 0x217, duration, false, false);
+                    }
                 else
                     SpellHelper.Summon(new WaterElemental(), this.Caster, 0x217, duration, false, false);
             }

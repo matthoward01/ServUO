@@ -51,7 +51,6 @@ namespace Server.Mobiles
                 Add(typeof(LocalMap), 3);
                 Add(typeof(WorldMap), 3);
                 Add(typeof(PresetMapEntry), 3);
-                //TODO: Buy back maps that the mapmaker sells!!!
             }
         }
     }

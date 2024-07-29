@@ -9,7 +9,7 @@ namespace Server.Items
         {
             this.Stackable = false;
             this.ItemID = 0x99B;
-            this.Hue = Utility.RandomList(0xB, 0xF, 0x48D); // TODO update
+            this.Hue = Utility.RandomList(0xB, 0xF, 0x48D);
         }
 
         public MelisandesFermentedWine(Serial serial)

@@ -83,7 +83,6 @@ namespace Server.Engines.XmlSpawner2
 				{
 					from.SendMessage("Target has no XmlDialog attachment");
 
-					// TODO: ask whether they would like to add one
 					from.SendGump( new XmlConfirmAddGump(from, targeted));
 
 					return;

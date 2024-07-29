@@ -1,19 +1,25 @@
 using System;
+using Server;
 using Server.Items;
+
 
 namespace Server.Mobiles
 {
-    [CorpseName("a betballem corpse")]
-    public class Betballem : BaseVoidCreature
-    {
-        public override VoidEvolution Evolution { get { return VoidEvolution.Killing; } }
-        public override int Stage { get { return 1; } }
+	[CorpseName( "a Betballem's corpse" )]
+	public class Betballem : BaseVoidCreature
+	{
+		protected override void CreateEvolutionHandlers()
+		{
+			AddEvolutionHandler( new KillingPathHandler( this, typeof( Ballem ), 5000 ) );
+		}
+		
+		public override int Stage { get { return 1; } }
 
-        [Constructable]
-        public Betballem()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            this.Name = "a betballem";
+		[Constructable]
+		public Betballem()
+			: base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			this.Name = "a betballem";
             this.Body = 776;
             this.Hue = 2071;
             this.BaseSoundID = 357;
@@ -51,24 +57,16 @@ namespace Server.Mobiles
 
             this.PackItem(new FertileDirt(Utility.RandomMinMax(1, 4)));
             this.PackItem(new DaemonBone(5));
-        }
+			
+			m_ActiveVoidCreatures++;
+		}
 
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.10)
-            {
-                c.DropItem(new AncientPotteryFragments());
-            }
-        }
-
-        public Betballem(Serial serial)
-            : base(serial)
-        {
-        }
-
-        public override bool Unprovokable
+		public Betballem( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override bool Unprovokable
         {
             get
             {
@@ -129,16 +127,28 @@ namespace Server.Mobiles
             return 194;
         }
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write((int)0);
-        }
+		public override void OnAfterDelete()
+		{
+			base.OnAfterDelete();
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
-        }
-    }
+			m_ActiveVoidCreatures--;
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 );
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+			m_ActiveVoidCreatures++;
+		}
+	}
 }

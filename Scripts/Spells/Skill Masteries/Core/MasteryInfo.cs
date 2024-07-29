@@ -538,10 +538,11 @@ namespace Server.Spells.SkillMasteries
 
                 switch (attr)
                 {
+                    //TODO: MATT - Adjusting to work equal to level.
                     case AosAttribute.AttackChance: return 5;
-                    case AosAttribute.DefendChance: return level > 1 ? 5 : 0;
-                    case AosAttribute.BonusStr: return level > 2 ? 5 : 0;
-                    case AosAttribute.WeaponDamage: return level > 2 ? 5 : 0;
+                    case AosAttribute.DefendChance: return level >= 1 ? 5 : 0;
+                    case AosAttribute.BonusStr: return level >= 2 ? 5 : 0;
+                    case AosAttribute.WeaponDamage: return level >= 2 ? 5 : 0;
                 }
             }
 

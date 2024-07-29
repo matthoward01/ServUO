@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -113,7 +113,7 @@ namespace Server.Items
                     list.Add(1158500, _ChartedBy.Name); // Charted By: ~1_NAME~
                 }
 
-                list.Add(1158501, _Name ?? "A Constellation With No Name"); // TODO: Get if null
+                list.Add(1158501, _Name ?? "A Constellation With No Name");
             }
         }
 

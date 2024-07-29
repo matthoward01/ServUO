@@ -524,6 +524,12 @@ namespace Server.Spells
                 return false;
             }
 
+            //TODO: Steven - Attempt to make indirect spells hit mobs player has attacked
+            if(from is PlayerMobile && to.Aggressors.Any(ai => ai.Attacker.Equals(from)))
+            {
+                return true;
+            }
+
             if (from is BaseCreature && ((BaseCreature)from).GetMaster() != null)
             {
                 from = ((BaseCreature)from).GetMaster();
@@ -801,7 +807,8 @@ namespace Server.Spells
             new TravelValidator(IsIlshenar),
             new TravelValidator(IsTrammelWind),
             new TravelValidator(IsFeluccaWind),
-            new TravelValidator(IsFeluccaDungeon),
+            //TODO: MATT - ALLOWING MARKING IN FELUCCA DUNGEONS
+            //new TravelValidator(IsFeluccaDungeon),
             new TravelValidator(IsTrammelSolenHive),
             new TravelValidator(IsFeluccaSolenHive),
             new TravelValidator(IsCrystalCave),
@@ -814,7 +821,8 @@ namespace Server.Spells
             new TravelValidator(IsLampRoom),
             new TravelValidator(IsGuardianRoom),
             new TravelValidator(IsHeartwood),
-            new TravelValidator(IsMLDungeon),
+            //TODO: MATT - ALLOWING MARKING AND RECALLING IN ML
+            //new TravelValidator(IsMLDungeon),
             new TravelValidator(IsSADungeon),
             new TravelValidator(IsTombOfKings),
             new TravelValidator(IsMazeOfDeath),
@@ -824,14 +832,23 @@ namespace Server.Spells
 
         private static readonly bool[,] m_Rules = new bool[,]
         {
+            //TODO: MATT - CHANGED TO ALLOW THESE SPELLS EVERYWHERE
 					/*T2A(Fel),	Khaldun,	Ilshenar,	Wind(Tram),	Wind(Fel),	Dungeons(Fel),	Solen(Tram),	Solen(Fel),	CrystalCave(Malas),	Gauntlet(Malas),	Gauntlet(Ferry),	SafeZone,	Stronghold,	ChampionSpawn,	Dungeons(Tokuno[Malas]),	LampRoom(Doom),	GuardianRoom(Doom),	Heartwood,	MLDungeons, SA Dungeons		Tomb of Kings	Maze of Death	SA Entrance,    Eodon*/
-/* Recall From */	{ false,	false,		true,		true,		false,		false,			true,			false,		false,				false,				false,				true,		true,		false,			true,						false,			false,				false,		false,      true,           true,           false,          false,          true} ,
-/* Recall To */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Gate From */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Gate To */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Mark In */		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
-/* Tele From */		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				true,				true,		false,		true,			true,						true,			true,				false,		true,       true,           false,          false,          false,          true },
-/* Tele To */		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				false,				false,		false, 		true,			true,						true,			true,				false,		false,      true,           false,          false,          false,          true },
+/* Recall From */	{ true,	    true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true,		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+/* Recall To */		{ true,	    true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true,		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+/* Gate From */		{ true,	    true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true,		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+/* Gate To */		{ true,	    true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true,		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+/* Mark In */		{ true,	    true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true,		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+/* Tele From */		{ true,		true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true,		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+/* Tele To */		{ true,		true,		true,		true,		true,		true,			true,			true,		true,				true,				true,				true,		true, 		true,			true,						true,			true,				true,		true,      true,          true,          true,          true,          true },
+
+/* Recall From *//*	{ false,	false,		true,		true,		false,		false,			true,			false,		false,				false,				false,				true,		true,		false,			true,						false,			false,				false,		false,      true,           true,           false,          false,          true} ,
+*//* Recall To *//*		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
+*//* Gate From *//*		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
+*//* Gate To *//*		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
+*//* Mark In *//*		{ false,	false,		false,		false,		false,		false,			false,			false,		false,				false,				false,				false,		false,		false,			false,						false,			false,				false,		false,      false,          false,          false,          false,          false },
+*//* Tele From *//*		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				true,				true,		false,		true,			true,						true,			true,				false,		true,       true,           false,          false,          false,          true },
+*//* Tele To *//*		{ true,		true,		true,		true,		true,		true,			true,			true,		false,				true,				false,				false,		false, 		true,			true,						true,			true,				false,		false,      true,           false,          false,          false,          true },*/
         };
 
         public static void SendInvalidMessage(Mobile caster, TravelCheckType type)

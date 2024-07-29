@@ -116,7 +116,7 @@ namespace Server.Items
                     if (mon.Controlled || mon.Summoned)
                         continue;
 
-                    mon.Pacify(from, DateTime.UtcNow + TimeSpan.FromSeconds(5.0)); // TODO check
+                    mon.Pacify(from, DateTime.UtcNow + TimeSpan.FromSeconds(5.0));
                 }
             }
             eable.Free();

@@ -56,9 +56,11 @@ namespace Server.Items
         public static Type[] ImbuingIngreds {  get { return m_ImbuingIngreds; } }
         private static Type[] m_ImbuingIngreds =
         {
-            typeof(AbyssalCloth),   typeof(EssencePrecision), typeof(EssenceAchievement), typeof(EssenceBalance),
-            typeof(EssenceControl), typeof(EssenceDiligence), typeof(EssenceDirection),   typeof(EssenceFeeling),
-            typeof(EssenceOrder),   typeof(EssencePassion),   typeof(EssencePersistence), typeof(EssenceSingularity)
+            //TODO: Steven - Added fungi to imbue list
+            typeof(LuminescentFungi), typeof(AbyssalCloth),   typeof(EssencePrecision), typeof(EssenceAchievement),
+            typeof(EssenceBalance), typeof(EssenceControl), typeof(EssenceDiligence), typeof(EssenceDirection),
+            typeof(EssenceFeeling), typeof(EssenceOrder),   typeof(EssencePassion),   typeof(EssencePersistence),
+            typeof(EssenceSingularity)
         };
 
         private List<Item> m_Lifted = new List<Item>();
@@ -395,7 +397,7 @@ namespace Server.Items
             {
                 Item item = Loot.Construct(m_ImbuingIngreds[Utility.Random(m_ImbuingIngreds.Length)]);
 
-                item.Amount = level;
+                item.Amount = level * 10;
                 cont.DropItem(item);
             }
             #endregion
@@ -475,12 +477,16 @@ namespace Server.Items
         {
             Item special;
 
+            //TODO: MATT - Replacing scroll of alacrity with Power scrolls
+            PowerScroll ps = CreateRandomPowerScroll();
+
             switch (Utility.Random(8))
             {
                 default:
                 case 0: special = new CreepingVine(); break;
                 case 1: special = new MessageInABottle(); break;
-                case 2: special = new ScrollOfAlacrity(PowerScroll.Skills[Utility.Random(PowerScroll.Skills.Count)]); break;
+                case 2: special = ps; break;
+                //case 2: special = new ScrollOfAlacrity(PowerScroll.Skills[Utility.Random(PowerScroll.Skills.Count)]); break;
                 case 3: special = new Skeletonkey(); break;
                 case 4: special = new TastyTreat(5); break;
                 case 5: special = new TreasureMap(Utility.RandomMinMax(level, Math.Min(7, level + 1)), map); break;
@@ -489,6 +495,21 @@ namespace Server.Items
             }
 
             return special;
+        }
+
+        private static PowerScroll CreateRandomPowerScroll()
+        {
+            int level;
+            double random = Utility.RandomDouble();
+
+            if (0.10 >= random)
+                level = 20;
+            else if (0.6 >= random)
+                level = 15;
+            else
+                level = 10;
+
+            return PowerScroll.CreateRandomNoCraft(level, level);
         }
 
         public static void GetRandomItemStat(out int min, out int max, double scale = 1.0)

@@ -322,7 +322,7 @@ namespace Server.Engines.Craft
             if (10 > random)
                 res = EnhanceResult.Failure;
             else if (chance > random)
-                res = EnhanceResult.Broken;
+                res = EnhanceResult.Failure; // TODO: Steven - Changed EnhanceResult.Broken to EnhanceResult.Failure
         }
 
         public static void BeginTarget(Mobile from, CraftSystem craftSystem, ITool tool)

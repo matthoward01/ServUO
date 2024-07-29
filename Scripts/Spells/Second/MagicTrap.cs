@@ -45,8 +45,12 @@ namespace Server.Spells.Second
                 SpellHelper.Turn(this.Caster, item);
 
                 item.TrapType = TrapType.MagicTrap;
-                item.TrapPower = Core.AOS ? Utility.RandomMinMax(10, 50) : 1;
-                item.TrapLevel = 0;
+                                
+                //TODO: MATT - Adjusted trap to be based off Magery skill like tinkering.
+                item.TrapLevel = (int)(this.Caster.Skills.Magery.Value / 10);
+                item.TrapPower = item.TrapLevel * 9;
+                //item.TrapLevel = 0;
+                //item.TrapPower = Core.AOS ? Utility.RandomMinMax(10, 50) : 1;
 
                 Point3D loc = item.GetWorldLocation();
 

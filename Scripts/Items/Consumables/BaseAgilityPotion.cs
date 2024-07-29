@@ -32,7 +32,6 @@ namespace Server.Items
 
         public bool DoAgility(Mobile from)
         {
-            // TODO: Verify scaled; is it offset, duration, or both?
             int scale = Scale(from, this.DexOffset);
             if (Spells.SpellHelper.AddStatOffset(from, StatType.Dex, scale, this.Duration))
             {

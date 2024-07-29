@@ -648,7 +648,7 @@ namespace Server.Items
             if (Open)
             {
                 from.SendMessage("The door must be closed before you can do that.");
-                return; // TODO: Message?
+                return;
             }
 
             switch (Type)
@@ -984,7 +984,7 @@ namespace Server.Items
             if (Open)
             {
                 from.SendMessage("The door must be closed before you can do that.");
-                return; // TODO: Message?
+                return;
             }
 
             switch (Type)

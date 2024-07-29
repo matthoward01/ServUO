@@ -15,7 +15,7 @@ namespace Server.Items
 
         [Constructable]
         public Nails(int uses)
-            : base(uses, 0x102E)
+            : base(uses, 0x102C)
         {
             this.Weight = 2.0;
         }

@@ -46,7 +46,7 @@ namespace Server.Engines.Quests.TimeLord
             Robe robe = new Robe();
             robe.ItemID = 0x7816;
 
-            AddItem(robe); // TODO: Fancy Robe
+            AddItem(robe);
         }
 
         public override int GetAutoTalkRange(PlayerMobile pm)

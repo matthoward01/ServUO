@@ -1,20 +1,20 @@
 using System;
+using Server;
 using Server.Items;
-using System.Collections.Generic;
 
 namespace Server.Mobiles
 {
-    [CorpseName("a korpre corpse")]
-    public class Korpre : BaseVoidCreature
-    {
-        public override VoidEvolution Evolution { get { return VoidEvolution.None; } }
-        public override int Stage { get { return 0; } }
+	[CorpseName( "a Korpre's corpse" )]
+	public class EKorpre : BaseVoidCreature
+	{
+		public override bool AlwaysMurderer { get { return true; } }
+		public override int Stage { get { return 0; } }
 
-        [Constructable]
-        public Korpre()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            this.Name = "Korpre";
+		[Constructable]
+		public EKorpre()
+			: base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			this.Name = "Korpre";
             this.Body = 51;
             this.BaseSoundID = 456;
 
@@ -43,14 +43,17 @@ namespace Server.Mobiles
             this.Karma = -300;
 
             this.VirtualArmor = 8;
-        }
+			
+			Timer m_timer = new VoidDeleteTimer( this );
+			m_timer.Start();
+		}
 
-        public Korpre(Serial serial)
-            : base(serial)
-        {
-        }
-
-        public override Poison PoisonImmune
+		public EKorpre( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override Poison PoisonImmune
         {
             get
             {
@@ -78,16 +81,46 @@ namespace Server.Mobiles
             this.AddLoot(LootPack.Gems);
         }
 
-        public override void Serialize(GenericWriter writer)
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 );
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+		}
+	}
+	
+    public class VoidDeleteTimer : Timer
+    {
+        private Mobile mob;
+
+        public VoidDeleteTimer( Mobile m ) : this( m, TimeSpan.FromSeconds( 300 ) )
         {
-            base.Serialize(writer);
-            writer.Write((int)0);
         }
 
-        public override void Deserialize(GenericReader reader)
+        public VoidDeleteTimer( Mobile m, TimeSpan delay ) : base( delay )
         {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
+            mob = m;
+            Priority = TimerPriority.OneSecond;
+        }
+
+        protected override void OnTick()
+        {
+            if( mob == null || mob.Deleted )
+            {
+                Stop();
+                return;
+            }
+
+            mob.Delete();
         }
     }
 }

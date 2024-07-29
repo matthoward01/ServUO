@@ -108,7 +108,6 @@ namespace Server.Spells.Necromancy
                 typeof(RedSolenQueen), typeof(RedSolenWarrior), typeof(RedSolenWorker),
                 typeof(TerathanAvenger), typeof(TerathanDrone), typeof(TerathanMatriarch),
                 typeof(TerathanWarrior)
-                // TODO: Giant beetle? Ant lion? Ophidians?
             },
                 new SummonEntry[]
                 {

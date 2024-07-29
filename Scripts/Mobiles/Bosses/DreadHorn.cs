@@ -51,8 +51,7 @@ namespace Server.Mobiles
 			SetSkill( SkillName.EvalInt, 110.0 );
 			SetSkill( SkillName.Meditation, 110.0 );
             SetSkill(SkillName.Spellweaving, 120.0);
-			
-			// TODO 1-3 spellweaving scroll
+
 
 			Fame = 32000;
 			Karma = -32000;

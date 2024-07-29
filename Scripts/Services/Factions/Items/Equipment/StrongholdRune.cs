@@ -48,7 +48,6 @@ namespace Server.Factions
                 else
                 {
                     m.SendMessage("You are not the proper faction to use this item.");
-                    //TODO: Message
                 }
             }
         }

@@ -11,7 +11,9 @@ namespace Server.Services.Virtues
 {
 	public class SacrificeVirtue
 	{
-		private static readonly TimeSpan GainDelay = TimeSpan.FromDays(1.0);
+        //TODO: MATT - Reducing timer to half a day
+		private static readonly TimeSpan GainDelay = TimeSpan.FromHours(12.0);
+		//private static readonly TimeSpan GainDelay = TimeSpan.FromDays(1.0);
 		private static readonly TimeSpan LossDelay = TimeSpan.FromDays(7.0);
 
 		private const int LossAmount = 500;

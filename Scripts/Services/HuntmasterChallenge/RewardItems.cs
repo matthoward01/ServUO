@@ -149,7 +149,6 @@ namespace Server.Items
             UsesRemaining = 10;
         }
 
-        //TODO: add pub 84, 88 and 95 shit
         public override void OnDoubleClick(Mobile from)
         {
             if (m_UsesRemaining > 0)

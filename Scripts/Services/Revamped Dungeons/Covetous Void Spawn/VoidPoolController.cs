@@ -155,14 +155,14 @@ namespace Server.Engines.VoidPool
 				else
 					InstanceTram = this;
 			}
-			else if(map == Map.Felucca)
-			{
-				if(InstanceFel != null)
-					Delete();
-				else
-					InstanceFel = this;
-			}
-			else
+            else if (map == Map.Felucca)
+            {
+                if (InstanceFel != null)
+                    Delete();
+                else
+                    InstanceFel = this;
+            }
+            else
 				Delete();
 
             WaypointsA = new List<WayPoint>();

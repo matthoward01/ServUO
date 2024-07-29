@@ -860,6 +860,11 @@
     <Compile Include="Mobiles\NPCs\Mannequin\Property\SkillBonusAttribute.cs" />
     <Compile Include="Mobiles\NPCs\Mannequin\Property\SlayerAttribute.cs" />
     <Compile Include="Mobiles\NPCs\Mannequin\Property\WeaponAttributeProperty.cs" />
+    <Compile Include="Mobiles\Summons\SummonedBalron.cs" />
+    <Compile Include="Mobiles\Summons\SummonedGreaterAirElemental.cs" />
+    <Compile Include="Mobiles\Summons\SummonedGreaterEarthElemental.cs" />
+    <Compile Include="Mobiles\Summons\SummonedGreaterFireElemental.cs" />
+    <Compile Include="Mobiles\Summons\SummonedGreaterWaterElemental.cs" />
     <Compile Include="Services\Expansions\High Seas\Multis\GalleonItem.cs" />
     <Compile Include="Services\Seasonal Events\ForsakenFoes\Mobile\MiningCooperativeMerchant.cs" />
     <Compile Include="Mobiles\NPCs\CommissionPlayerVendor.cs" />
@@ -2472,7 +2477,6 @@
     <Compile Include="Mobiles\Normal\OrcishLord.cs" />
     <Compile Include="Mobiles\Normal\OrcishMage.cs" />
     <Compile Include="Mobiles\Normal\OrcScout.cs" />
-    <Compile Include="Mobiles\Normal\Ortanord.cs" />
     <Compile Include="Mobiles\Normal\PackHorse.cs" />
     <Compile Include="Mobiles\Normal\PackLlama.cs" />
     <Compile Include="Mobiles\Normal\BloodFox.cs" />
@@ -2932,17 +2936,6 @@
     <Compile Include="Mobiles\Summons\SummonedPaladin.cs" />
     <Compile Include="Mobiles\Summons\SummonedWaterElemental.cs" />
     <Compile Include="Mobiles\Summons\VampireBat.cs" />
-    <Compile Include="Mobiles\Void Creatures\Anlorlem.cs" />
-    <Compile Include="Mobiles\Void Creatures\Anlorvaglem.cs" />
-    <Compile Include="Mobiles\Void Creatures\Anlorzen.cs" />
-    <Compile Include="Mobiles\Void Creatures\Anzuanord.cs" />
-    <Compile Include="Mobiles\Void Creatures\Ballem.cs" />
-    <Compile Include="Mobiles\Void Creatures\BaseVoidCreature.cs" />
-    <Compile Include="Mobiles\Void Creatures\Betballem.cs" />
-    <Compile Include="Mobiles\Void Creatures\Korpre.cs" />
-    <Compile Include="Mobiles\Void Creatures\Relanord.cs" />
-    <Compile Include="Mobiles\Void Creatures\UsagralemBallem.cs" />
-    <Compile Include="Mobiles\Void Creatures\Vasanord.cs" />
     <Compile Include="Multis\HouseTeleporterTile.cs" />
     <Compile Include="Quests\ALittleSomething.cs" />
     <Compile Include="Quests\AmbitiousSolenQueen\AmbitiousQueenQuest.cs" />

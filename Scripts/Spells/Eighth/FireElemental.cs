@@ -30,8 +30,9 @@ namespace Server.Spells.Eighth
         {
             if (!base.CheckCast())
                 return false;
-
-            if ((this.Caster.Followers + 4) > this.Caster.FollowersMax)
+            //TODO: MATT - Changing control slots to 2
+            //if ((this.Caster.Followers + 4) > this.Caster.FollowersMax)
+            if ((this.Caster.Followers + 2) > this.Caster.FollowersMax)
             {
                 this.Caster.SendLocalizedMessage(1049645); // You have too many followers to summon that creature.
                 return false;
@@ -47,7 +48,14 @@ namespace Server.Spells.Eighth
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
 
                 if (Core.AOS)
-                    SpellHelper.Summon(new SummonedFireElemental(), this.Caster, 0x217, duration, false, false);
+                    if (this.Caster.Skills.Magery.Fixed >= 105)
+                    {
+                        SpellHelper.Summon(new SummonedGreaterFireElemental(), this.Caster, 0x217, duration, false, false);
+                    }
+                    else
+                    {
+                        SpellHelper.Summon(new SummonedFireElemental(), this.Caster, 0x217, duration, false, false);                    }
+                
                 else
                     SpellHelper.Summon(new FireElemental(), this.Caster, 0x217, duration, false, false);
             }

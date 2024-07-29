@@ -1,3 +1,4 @@
+using Server.Spells;
 using System;
 
 namespace Server.Items
@@ -16,6 +17,8 @@ namespace Server.Items
         public BaseResourceSatchel(int id)
             : base(id)
         {
+            //TODO: Steven - Made resource bags blessed
+            LootType = LootType.Blessed;
             _WeightReduction = DefaultWeightReduction;
         }
 
@@ -156,6 +159,38 @@ namespace Server.Items
         }
 
         public LumbjacksSatchel(Serial serial)
+            : base(serial)
+        {
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write(0);
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+    }
+    //TODO: Steven - Added reagent bag
+    [Flipable(0xA32F, 0xA330)]
+    public class ReagentSatchel : BaseResourceSatchel
+    {
+        public override int LabelNumber { get { return 3010066; } } // Reagants
+
+        public override Type[] HoldTypes { get { return Reagent.m_Types; } }
+
+        [Constructable]
+        public ReagentSatchel()
+            : base(0xA32F)
+        {
+            WeightReduction = 100;
+        }
+
+        public ReagentSatchel(Serial serial)
             : base(serial)
         {
         }

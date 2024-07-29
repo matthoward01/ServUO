@@ -54,7 +54,7 @@ namespace Server.Factions
             Faction faction = Faction.Find(from);
 
             if (faction == null && from.AccessLevel < AccessLevel.GameMaster)
-                return; // TODO: Message?
+                return;
 
             if (this.m_Town.Owner == null || (from.AccessLevel < AccessLevel.GameMaster && faction != this.m_Town.Owner))
                 from.SendLocalizedMessage(1010332); // Your faction does not control this town

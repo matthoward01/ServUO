@@ -54,7 +54,7 @@ namespace Server.Items
 
             if (!owner.InRange(check, 2))
                 owner.PrivateOverheadMessage(MessageType.Label, 0x3B2, 500446, check.NetState); // That is too far away.
-            else if (owner.OpenedBy != null && owner.OpenedBy != check) // TODO check
+            else if (owner.OpenedBy != null && owner.OpenedBy != check)
                 owner.PrivateOverheadMessage(MessageType.Label, 0x3B2, 500365, check.NetState); // That is being used by someone else
             else if (owner.Frozen)
                 return true;

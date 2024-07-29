@@ -187,8 +187,6 @@ namespace Server.Items
 					
 					m.SendLocalizedMessage(1113382); // You've solved the puzzle!! An item has been placed in your bag.
 				}
-				
-				//TODO: Message/Effects?
 			}
 
             Timer.DelayCall(TimeSpan.FromSeconds(3), new TimerCallback(Delete));

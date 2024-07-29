@@ -77,7 +77,6 @@ namespace Server.Spells.Chivalry
 
                     int damage = ComputePowerValue(10) + Utility.RandomMinMax(0, 2);
 
-                    // TODO: Should caps be applied?
                     if (damage < 8)
                         damage = 8;
                     else if (damage > 24)

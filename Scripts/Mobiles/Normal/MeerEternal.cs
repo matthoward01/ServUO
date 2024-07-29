@@ -149,7 +149,6 @@ namespace Server.Mobiles
                         case 3:
                             this.DoAreaLeech();
                             break;
-                    // TODO: Resurrect ability
                     }
                 }
             }

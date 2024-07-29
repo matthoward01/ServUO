@@ -93,6 +93,7 @@ namespace Server.Engines.HuntsmasterChallenge
 
         private static List<CollectionItem> _Collections = new List<CollectionItem>
         {
+            //TODO: Steven - Added reagent bag to huntsman
             new CollectionItem(typeof(HarvestersBlade), 0x2D20, 1114096, 0, 1.0),
             new CollectionItem(typeof(HornOfPlenty), 18080, 1153503, 0, 1.0),
             new CollectionItem(typeof(HuntmastersRewardTitleDeed), 0x14EF, 0, 0, 1.0),
@@ -103,6 +104,7 @@ namespace Server.Engines.HuntsmasterChallenge
             new CollectionItem(typeof(RecipeScroll), 0x2831, 1158771, 0, 1.0), // sausage recipe
             new CollectionItem(typeof(MinersSatchel), 0xA272, 1158773, 0, 1.0),
             new CollectionItem(typeof(LumbjacksSatchel), 0xA274, 1158772, 0, 1.0),
+            new CollectionItem(typeof(ReagentSatchel), 0xA32F, 3010066, 0, 1.0),
             new CollectionItem(typeof(HarvestersAxe), 0x1443, 1158774, 0, 1.0),
         };
 	}

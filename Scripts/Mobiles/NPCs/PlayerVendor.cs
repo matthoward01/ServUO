@@ -791,7 +791,6 @@ namespace Server.Mobiles
 
             if (GetVendorItem(item) == null && CanBeVendorItem(item))
             {
-                // TODO: default price should be dependent to the type of object
                 SetVendorItem(item, 999, "");
             }
         }

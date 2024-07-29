@@ -1755,7 +1755,19 @@ namespace Server.Mobiles
 
         private static Dictionary<Mobile, InternalTimer> _Table;
 
-		public ViciousBite()
+        public static bool IsWounded(Mobile m)
+        {
+            //TODO: Steven - Null check list 
+            if(_Table != null)
+            {
+                return _Table.ContainsKey(m);
+            } else
+            {
+                return false;
+            }
+        }
+
+        public ViciousBite()
 		{
 		}
 		
@@ -1795,8 +1807,9 @@ namespace Server.Mobiles
 				
 				AOS.Damage(Defender, Attacker, _Tick * 5, 0, 0, 0, 0, 0, 0, 100);
                 Defender.SendLocalizedMessage(1112473); //Your vicious wound is festering!
-				
-				if(_Tick >= 20 || !Defender.Alive || Defender.IsDeadBondedPet)
+
+                //TODO: Steven - fix number of ticks to match what it should be
+				if(_Tick >= 10 || !Defender.Alive || Defender.IsDeadBondedPet)
 				{
 					Stop();
 					
@@ -1805,7 +1818,26 @@ namespace Server.Mobiles
 				}
 			}
 		}
-	}
+
+        public static void EndWound(Mobile m, bool message)
+        {
+            Timer t = null;
+
+            if (_Table.ContainsKey(m))
+            {
+                t = _Table[m];
+                _Table.Remove(m);
+            }
+
+            if (t == null)
+                return;
+
+            t.Stop();
+            
+            if (message)
+                m.SendLocalizedMessage(1060167); // The bleeding wounds have healed, you are no longer bleeding!
+        }
+    }
 	
 	public class RuneCorruption : SpecialAbility
 	{
@@ -2206,7 +2238,6 @@ namespace Server.Mobiles
                 ExpireTimer timer = new ExpireTimer(defender, creature);
                 timer.Start();
 
-                // TODO: 2nd cliloc
                 BuffInfo.AddBuff(defender, new BuffInfo(BuffIcon.RotwormBloodDisease, 1153798, 1153798));
 
                 _Table.Add(defender, timer);
@@ -2266,7 +2297,6 @@ namespace Server.Mobiles
 		
 		public override void DoEffects(BaseCreature creature, Mobile defender, ref int damage)
 		{
-			//TODO: Effects/Sound
             if (_Table == null)
                 _Table = new List<Mobile>();
 

@@ -58,7 +58,6 @@ namespace Server
 		private List<RegionRect> m_RegionRects;
 		private bool m_Active;
 
-		// TODO: Can we avoid this?
 		private static readonly List<Mobile> m_DefaultMobileList = new List<Mobile>();
 		private static readonly List<Item> m_DefaultItemList = new List<Item>();
 		private static readonly List<NetState> m_DefaultClientList = new List<NetState>();

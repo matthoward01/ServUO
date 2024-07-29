@@ -33,7 +33,12 @@ namespace Server.Engines.Craft
         KrampusMinionEarrings = 463,
         EnchantedPicnicBasket = 464,
 
-        Telescope = 465
+        Telescope = 465,
+
+        BarbedWhip = 466,
+        SpikedWhip = 467,
+        BladedWhip = 468
+
     }
 
     public class DefTinkering : CraftSystem
@@ -359,7 +364,6 @@ namespace Server.Engines.Craft
             }
 
             AddCraft(typeof(Pitchfork), 1044046, 1023719, 40.0, 90.0, typeof(IronIngot), 1044036, 4, 1044037);
-            //TODO: focus of theurgy - 20th Anniversary Event 
             #endregion
 
             #region Parts
@@ -550,6 +554,20 @@ namespace Server.Engines.Craft
 
             index = AddCraft(typeof(WeatheredBronzeArcherDeed), 1044050, 1156884, 85.0, 135.0, typeof(IronIngot), 1038039, 200, 1044253);
             AddRecipe(index, (int)TinkerRecipes.WeatheredBronzeArcherSculpture);
+
+            //TODO: Steven - Adding whip recipes
+            index = AddCraft(typeof(BarbedWhip), 1044050, 1159281, 75.0, 125.0, typeof(IronIngot), 1044036, 5, 1044253);
+            AddRes(index, typeof(Leather),1044462, 10, 1044463);
+            AddRecipe(index, (int)TinkerRecipes.BarbedWhip);
+
+            index = AddCraft(typeof(SpikedWhip), 1044050, 1159282, 75.0, 125.0, typeof(IronIngot), 1044036, 5, 1044253);
+            AddRes(index, typeof(Leather), 1044462, 10, 1044463);
+            AddRecipe(index, (int)TinkerRecipes.SpikedWhip);
+
+            index = AddCraft(typeof(BladedWhip), 1044050, 1159283, 75.0, 125.0, typeof(IronIngot), 1044036, 5, 1044253);
+            AddRes(index, typeof(Leather), 1044462, 10, 1044463);
+            AddRecipe(index, (int)TinkerRecipes.BladedWhip);
+
 
             #endregion
 

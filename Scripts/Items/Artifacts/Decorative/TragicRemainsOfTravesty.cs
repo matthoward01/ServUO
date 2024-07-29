@@ -7,7 +7,7 @@ namespace Server.Items
 		public override bool IsArtifact { get { return true; } }
         private static readonly int[] m_Sounds = new int[]
         {
-            0x314, 0x315, 0x316, 0x317  // TODO check
+            0x314, 0x315, 0x316, 0x317
         };
         [Constructable]
         public TragicRemainsOfTravesty()

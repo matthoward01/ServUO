@@ -40,7 +40,6 @@ namespace Server.Mobiles
 
             this.VirtualArmor = 34;
 
-            // TODO: Skull?
             switch ( Utility.Random(7) )
             {
                 case 0:

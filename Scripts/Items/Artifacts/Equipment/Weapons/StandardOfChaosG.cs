@@ -26,7 +26,6 @@ namespace Server.Items
         {
         }
 
-        //TODO: DoubleBladedSpear
         public override int InitMinHits
         {
             get

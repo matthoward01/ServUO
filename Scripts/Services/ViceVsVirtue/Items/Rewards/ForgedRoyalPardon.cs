@@ -43,7 +43,6 @@ namespace Server.Engines.VvV
                                 mobile.SendMessage("You have been pardoned from all murder counts.");
                                 Delete();
 
-                                //TODO: Effects? Message?
                             }));
                     }
                 }

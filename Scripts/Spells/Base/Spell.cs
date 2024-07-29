@@ -1037,7 +1037,7 @@ namespace Server.Spells
 
             if (m_Scroll is BaseWand)
 			{
-				return Core.ML ? CastDelayBase : TimeSpan.Zero; // TODO: Should FC apply to wands?
+				return Core.ML ? CastDelayBase : TimeSpan.Zero;
 			}
 
 			// Faster casting cap of 2 (if not using the protection spell) 

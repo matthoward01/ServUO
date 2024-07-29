@@ -1,19 +1,20 @@
 using System;
+using Server;
 using Server.Items;
+
 
 namespace Server.Mobiles
 {
-    [CorpseName("an usagralem ballem corpse")]
-    public class UsagralemBallem : BaseVoidCreature
-    {
-        public override VoidEvolution Evolution { get { return VoidEvolution.Killing; } }
-        public override int Stage { get { return 3; } }
-
-        [Constructable]
-        public UsagralemBallem()
-            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            this.Name = "an Usagrallem Ballem";
+	[CorpseName( "an Usagralem Ballem's corpse" )]
+	public class UsagralemBallem : BaseVoidCreature
+	{
+		public override int Stage { get { return 3; } }
+		
+		[Constructable]
+		public UsagralemBallem()
+			: base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			this.Name = "an Usagrallem Ballem";
             this.Hue = 2071;
             this.Body = 318;
             this.BaseSoundID = 0x165;
@@ -49,34 +50,23 @@ namespace Server.Mobiles
             this.VirtualArmor = 64;
 
             this.PackItem(new DaemonBone(30));
+			
+			m_ActiveVoidCreatures++;
+		}
 
-            SetWeaponAbility(WeaponAbility.DoubleStrike);
-            SetWeaponAbility(WeaponAbility.WhirlwindAttack);
-            SetWeaponAbility(WeaponAbility.CrushingBlow);
-        }
-
-        public override void OnDeath(Container c)
-        {
-            base.OnDeath(c);
-
-            if (Utility.RandomDouble() < 0.30)
-            {
-                c.DropItem(new AncientPotteryFragments());
-            }
-        }
-
-        public UsagralemBallem(Serial serial)
-            : base(serial)
-        {
-        }
-
-        public override bool IgnoreYoungProtection
+		public UsagralemBallem( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override bool IgnoreYoungProtection
         {
             get
             {
                 return Core.ML;
             }
         }
+		
         public override bool BardImmune
         {
             get
@@ -84,6 +74,7 @@ namespace Server.Mobiles
                 return !Core.SE;
             }
         }
+		
         public override bool Unprovokable
         {
             get
@@ -91,6 +82,7 @@ namespace Server.Mobiles
                 return Core.SE;
             }
         }
+		
         public override bool AreaPeaceImmune
         {
             get
@@ -98,11 +90,26 @@ namespace Server.Mobiles
                 return Core.SE;
             }
         }
+		
         public override Poison PoisonImmune
         {
             get
             {
                 return Poison.Lethal;
+            }
+        }
+		
+        public override WeaponAbility GetWeaponAbility()
+        {
+            switch ( Utility.Random(3) )
+            {
+                default:
+                case 0:
+                    return WeaponAbility.DoubleStrike;
+                case 1:
+                    return WeaponAbility.WhirlwindAttack;
+                case 2:
+                    return WeaponAbility.CrushingBlow;
             }
         }
 
@@ -112,16 +119,28 @@ namespace Server.Mobiles
             AddLoot(LootPack.FilthyRich, 2);
         }
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write((int)0);
-        }
+		public override void OnAfterDelete()
+		{
+			base.OnAfterDelete();
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
-        }
-    }
+			m_ActiveVoidCreatures--;
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 );
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+			m_ActiveVoidCreatures++;
+		}
+	}
 }

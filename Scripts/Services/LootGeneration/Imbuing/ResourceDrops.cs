@@ -85,8 +85,10 @@ namespace Server.Items
             m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "TerMur", .05, typeof(HarpsichordRoll)));
 
             //Void Orb/Vial of Vitriol
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseVoidCreature), true, .05, typeof(VoidOrb)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(UnboundEnergyVortex), true, .25, typeof(VoidOrb), typeof(VialOfVitriol)));
+            //TODO: Steven - Added void orb to always drop
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseVoidCreature), true, .25, typeof(VoidOrb)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(UnboundEnergyVortex), true, 1.0, typeof(VoidOrb)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(UnboundEnergyVortex), true, .25, typeof(VialOfVitriol)));
             m_IngredientTable.Add(new IngredientDropEntry(typeof(AcidSlug), true, .10, typeof(VialOfVitriol)));
 
             //Slith Tongue
@@ -139,16 +141,17 @@ namespace Server.Items
                 typeof(ArcanicRuneStone), typeof(PowderedIron), typeof(EssenceBalance), typeof(CrushedGlass), typeof(CrystallineBlackrock),
                 typeof(ElvenFletching), typeof(CrystalShards), typeof(Lodestone), typeof(AbyssalCloth), typeof(SeedOfRenewal)));
 
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Passage of Tears", .05, typeof(EssenceSingularity)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Fairy Dragon Lair", .05, typeof(EssenceDiligence)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Abyssal Lair", .05, typeof(EssenceAchievement)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Crimson Veins", .05, typeof(EssencePrecision)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Lava Caldera", .05, typeof(EssencePassion)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Fire Temple Ruins", .05, typeof(EssenceOrder)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Enslaved Goblins", .05, typeof(GoblinBlood), typeof(EssenceControl)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Lands of the Lich", .05, typeof(EssenceDirection)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Secret Garden", .05, typeof(EssenceFeeling)));
-            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), false, "Skeletal Dragon", .05, typeof(EssencePersistence)));
+            //TODO: Steven - made essences drop multiple
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Passage of Tears", .05, typeof(EssenceSingularity)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Fairy Dragon Lair", .05, typeof(EssenceDiligence)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Abyssal Lair", .05, typeof(EssenceAchievement)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Crimson Veins", .05, typeof(EssencePrecision)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Lava Caldera", .05, typeof(EssencePassion)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Fire Temple Ruins", .05, typeof(EssenceOrder)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Enslaved Goblins", .05, typeof(GoblinBlood), typeof(EssenceControl)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Lands of the Lich", .05, typeof(EssenceDirection)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Secret Garden", .05, typeof(EssenceFeeling)));
+            m_IngredientTable.Add(new IngredientDropEntry(typeof(BaseCreature), true, "Skeletal Dragon", .05, typeof(EssencePersistence)));
         }
 
         public static void OnCreatureDeath(CreatureDeathEventArgs e)
@@ -161,10 +164,11 @@ namespace Server.Items
                 CheckDrop(bc, c);
             }
 
-            if (e.Killer is BaseVoidCreature)
+            //TODO: MATT - ADDING VOID INVASION
+            /*if (e.Killer is BaseVoidCreature)
             {
                 ((BaseVoidCreature)e.Killer).Mutate(VoidEvolution.Killing);
-            }
+            }*/
         }
 
         public static void CheckDrop(BaseCreature bc, Container c)
@@ -219,7 +223,14 @@ namespace Server.Items
                                 Item drop = Loot.Construct(type);
 
                                 if (drop != null)
+                                {
+                                    //TODO: Steven - Attempt to triple imbuing mat drops
+                                    if (drop.Stackable)
+                                    {
+                                        drop.Amount = 3;
+                                    }
                                     drops.Add(drop);
+                                }
                             }
                         }
                     }

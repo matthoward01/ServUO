@@ -178,7 +178,6 @@ namespace Server
 					typeof(LadyJennifyr), typeof(LadyMarai), typeof(MasterJonath), typeof(MasterMikael), typeof(MasterTheophilus),
 					typeof(RedDeath), typeof(SirPatrick), typeof(Rend), typeof(Grobu), typeof(Gnaw), typeof(Guile), typeof(Irk),
 					typeof(Spite), typeof(LadyLissith), typeof(LadySabrix), typeof(Malefic), typeof(Silk), typeof(Virulent)
-					// TODO: Where to put Lurg, Putrefier, Swoop and Pyre? They seem slower.
 					#endregion
 				}),
 			// Very Fast
@@ -202,6 +201,7 @@ namespace Server
 				0.5,
 				new[]
 				{
+                    //TODO: MATT - ADDED SUMMON BALRON
 					typeof(ToxicElemental), typeof(AgapiteElemental), typeof(Alligator), typeof(AncientLich), typeof(Betrayer),
 					typeof(Bird), typeof(BlackBear), typeof(BlackSolenInfiltratorQueen), typeof(BlackSolenInfiltratorWarrior),
 					typeof(BlackSolenQueen), typeof(BlackSolenWarrior), typeof(BlackSolenWorker), typeof(BloodElemental), typeof(Boar),
@@ -231,7 +231,7 @@ namespace Server
 					typeof(Troll), typeof(Unicorn), typeof(ValoriteElemental), typeof(VeriteElemental), typeof(CoMWarHorse),
 					typeof(MinaxWarHorse), typeof(SLWarHorse), typeof(TBWarHorse), typeof(WaterElemental), typeof(WhippingVine),
 					typeof(WhiteWolf), typeof(Wraith), typeof(Wyvern), typeof(KhaldunZealot), typeof(KhaldunSummoner),
-					typeof(SavageRidgeback), typeof(LichLord), typeof(SkeletalKnight), typeof(SummonedDaemon),
+					typeof(SavageRidgeback), typeof(LichLord), typeof(SkeletalKnight), typeof(SummonedBalron), //typeof(SummonedDaemon),
 					typeof(SummonedEarthElemental), typeof(SummonedWaterElemental), typeof(SummonedFireElemental), typeof(MeerWarrior),
 					typeof(MeerEternal), typeof(MeerMage), typeof(MeerCaptain), typeof(JukaLord), typeof(JukaMage),
 					typeof(JukaWarrior), typeof(AbysmalHorror), typeof(BoneDemon), typeof(Devourer), typeof(FleshGolem),

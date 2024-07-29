@@ -48,7 +48,7 @@ namespace Server.Engines.Quests.RitualQuest
 
         public ScalesOfADreamSerpentQuest()
         {
-            AddObjective(new ObtainObjective(typeof(DreamSerpentScale), "Dream Serpent Scales", 1, 0x1F13, 0, 1976)); // TODO: Get ID
+            AddObjective(new ObtainObjective(typeof(DreamSerpentScale), "Dream Serpent Scales", 1, 0x1F13, 0, 1976));
             AddReward(new BaseReward(1151384)); // The gratitude of the Gargoyle Queen and the next quest in the chain.
         }
 

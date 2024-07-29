@@ -110,7 +110,6 @@ namespace Server.Spells.Chivalry
 
                 int damage = 50 - this.ComputePowerValue(4);
 
-                // TODO: Should caps be applied?
                 if (damage < 13)
                     damage = 13;
                 else if (damage > 55)

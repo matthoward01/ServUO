@@ -39,7 +39,6 @@ namespace Server.Mobiles
             this.AddItem(new LightSource());
 
             this.PackItem(new Bone(3));
-            // TODO: Body parts
         }
 
         public HordeMinion(Serial serial)

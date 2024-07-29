@@ -39,7 +39,7 @@ namespace Server.Mobiles
 
             this.VirtualArmor = 50;
 
-            this.PackItem(new DoubleAxe()); // TODO: Weapon??
+            this.PackItem(new DoubleAxe());
         }
 
         public FrostTroll(Serial serial)

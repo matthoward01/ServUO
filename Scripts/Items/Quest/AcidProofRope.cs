@@ -8,7 +8,7 @@ namespace Server.Items
         public AcidProofRope()
             : base(0x20D)
         {
-            this.Hue = 0x3D1; // TODO check
+            this.Hue = 0x3D1;
         }
 
         public AcidProofRope(Serial serial)

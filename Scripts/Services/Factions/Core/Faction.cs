@@ -362,7 +362,6 @@ namespace Server.Factions
                     giveState.KillPoints -= 5;
                     recvState.KillPoints += 4;
 
-                    // TODO: Confirm no message sent to giver
                     recv.SendLocalizedMessage(1042500); // You have been honored with four kill points.
                 }
             }

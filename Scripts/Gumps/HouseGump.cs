@@ -264,7 +264,6 @@ namespace Server.Gumps
 
             if (m_House.Public)
             {
-                // TODO: Validate exact placement
                 AddHtmlLocalized(20, 305, 275, 20, 1011241, false, false); // Number of visits this building has had
                 AddHtml(320, 305, 50, 20, m_House.TotalVisits.ToString(), false, false);
             }

@@ -22,7 +22,6 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile m)
         {
-            //TODO: Clilocs?
             BaseHouse house = BaseHouse.FindHouseAt(this);
 
             if (house != null && house.IsFriend(m) && (IsLockedDown || IsSecure))

@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 
 namespace Server.Items
 {
-    public class RoseInAVase : Item /* TODO: when dye tub changes are implemented, furny dyable this */
+    public class RoseInAVase : Item 
     {
         [Constructable]
         public RoseInAVase()

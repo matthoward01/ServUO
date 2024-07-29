@@ -126,7 +126,8 @@ namespace Server
 		BeneficialRestrictions = 0x0004, // Disallow performing beneficial actions on criminals/murderers
 		HarmfulRestrictions = 0x0008, // Disallow performing harmful actions on innocents
 		TrammelRules = FreeMovement | BeneficialRestrictions | HarmfulRestrictions,
-		FeluccaRules = None
+        //TODO: MATT - ADDED TO ALLOW FREE MOVEMENT IN FELUCCA TOO
+		FeluccaRules = FreeMovement
 	}
 
 	public interface IPooledEnumerable : IEnumerable

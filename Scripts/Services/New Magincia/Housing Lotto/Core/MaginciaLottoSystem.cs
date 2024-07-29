@@ -445,7 +445,6 @@ namespace Server.Engines.NewMagincia
             Account acct = from.Account as Account;
             CheckMessages(from);
 
-            //TODO: Support for account wide messages?
 
             if (m_MessageQueue.ContainsKey(from))
             {

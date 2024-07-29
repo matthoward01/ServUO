@@ -77,7 +77,7 @@ namespace Server.Mobiles
 
             this.AddItem(new LeatherDo());
             this.AddItem(new LeatherHiroSode());
-            this.AddItem(new SamuraiTabi(Utility.RandomNondyedHue())); // TODO: Hue
+            this.AddItem(new SamuraiTabi(Utility.RandomNondyedHue()));
 
             int hairHue = Utility.RandomNondyedHue();
 

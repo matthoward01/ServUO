@@ -2420,7 +2420,9 @@ namespace Server.Mobiles
 
             if (version == 1)
             {
-                BribeMultiplier = Utility.Random(10);
+                //TODO: Steven - Changed bribe multiplier to increase by 1
+                //BribeMultiplier = Utility.Random(10);
+                BribeMultiplier += 1;
             }
 
 			Timer.DelayCall(TimeSpan.Zero, CheckMorph);

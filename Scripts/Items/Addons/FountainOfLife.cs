@@ -73,7 +73,7 @@ namespace Server.Items
         private Timer m_Timer;
         [Constructable]
         public FountainOfLife()
-            : this(10)
+            : this(1000)
         {
         }
 
@@ -102,7 +102,7 @@ namespace Server.Items
         {
             get
             {
-                return TimeSpan.FromDays(1);
+                return TimeSpan.FromMinutes(1); //TODO: Steven - Recharge time changed from 1 day to 1 minute
             }
         }
         public override int LabelNumber
@@ -142,7 +142,7 @@ namespace Server.Items
             }
             set
             {
-                m_Charges = Math.Min(value, 10);
+                m_Charges = Math.Min(value, 1000); // TODO: Steven - increased charges to 1000
                 InvalidateProperties();
             }
         }
@@ -230,7 +230,7 @@ namespace Server.Items
 
         public void Recharge()
         {
-            m_Charges = 10;
+            m_Charges = 1000; // TODO: Steven - increased charges to 1000
 
             Enhance(null);
         }
@@ -292,7 +292,7 @@ namespace Server.Items
         private int m_Charges;
         [Constructable]
         public FountainOfLifeDeed()
-            : this(10)
+            : this(1000) // TODO: Steven - increased charges to 1000
         {
         }
 
@@ -332,7 +332,7 @@ namespace Server.Items
             }
             set
             {
-                m_Charges = Math.Min(value, 10);
+                m_Charges = Math.Min(value, 1000); // TODO: Steven - increased charges to 1000
                 InvalidateProperties();
             }
         }

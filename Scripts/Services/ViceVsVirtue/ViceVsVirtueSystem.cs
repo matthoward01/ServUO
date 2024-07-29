@@ -490,7 +490,6 @@ namespace Server.Engines.VvV
             if (from is Mobile && to is Mobile)
                 return IsEnemy((Mobile)to, (Mobile)from);
 
-            //TODO: VvV items, such as traps, turrets, etc
             return false;
         }
 

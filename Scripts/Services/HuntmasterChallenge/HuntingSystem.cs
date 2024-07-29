@@ -65,8 +65,8 @@ namespace Server.Engines.HuntsmasterChallenge
 			m_Leaders = new Dictionary<HuntType, List<HuntingKillEntry>>();
 
             m_SeasonBegins = DateTime.Now;
-            DateTime ends = DateTime.Now + TimeSpan.FromDays(30);
-            m_SeasonEnds = new DateTime(ends.Year, ends.Month, 1, 0, 0, 0);
+            DateTime ends = DateTime.Now + TimeSpan.FromDays(1); //TODO: Steven - Changed FronDays from 30 to 1
+            m_SeasonEnds = new DateTime(ends.Year, ends.Month, ends.Day, 0, 0, 0);//TODO Steven - Changed to days from 1 to ends.Day
             m_NextHint = DateTime.UtcNow;
             m_NextBonusIndex = DateTime.UtcNow;
 
@@ -85,6 +85,7 @@ namespace Server.Engines.HuntsmasterChallenge
         {
             if (m.AccessLevel > AccessLevel.Player)
                 m.SendGump(new PropertiesGump(m, this));
+
         }
 
         private void CheckTimer()
@@ -108,6 +109,7 @@ namespace Server.Engines.HuntsmasterChallenge
 
 		public void OnTick()
 		{
+            //TODO: Steven Remove restartSeason
 			if(DateTime.Now >= m_SeasonEnds)
 			{
 				EndSeason();
@@ -274,10 +276,10 @@ namespace Server.Engines.HuntsmasterChallenge
 			m_Leaders.Clear();
 			
 			var now = DateTime.Now;
-            var ends = DateTime.Now + TimeSpan.FromDays(30);
+            var ends = DateTime.Now + TimeSpan.FromDays(1); //TODO: Steven - Changed FromDays from 30 to 1
 
-			m_SeasonEnds = new DateTime(ends.Year, ends.Month, 1, 0, 0, 0);
-            m_SeasonBegins = new DateTime(now.Year, now.Month, 1, 0, 0, 0);
+			m_SeasonEnds = new DateTime(ends.Year, ends.Month, ends.Day, 0, 0, 0);//TODO: Steven - Changed to days from 1 to ends.Day
+            m_SeasonBegins = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);//TODO: Steven - Changed to days from 1 to now.Day
 
             HuntingDisplayTrophy.InvalidateDisplayTrophies();
 		}

@@ -9,7 +9,7 @@ namespace Server.Items
             : base(0x2AAA)
         {
             this.LootType = LootType.Blessed;
-            this.Hue = 0x47F; // TODO check
+            this.Hue = 0x47F;
         }
 
         public ThorvaldsMedallion(Serial serial)

@@ -9,7 +9,7 @@ namespace Server.Items
             : base(0x2001)
         {
             Weight = 1;
-            Hue = 0x4FB; // TODO check
+            Hue = 0x4FB;
             LootType = LootType.Blessed;
         }
 

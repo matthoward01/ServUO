@@ -300,8 +300,7 @@ namespace Server.Mobiles
 
             Name = "a parasitic eel";
             Body = 0x34;
-            //BaseSoundID = 589;
-            //TODO: soundid, Body    
+            //BaseSoundID = 589; 
 
             //CanSwim = true;
             //CantWalk = true;

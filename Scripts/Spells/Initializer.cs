@@ -81,7 +81,8 @@ namespace Server.Spells
             Register(57, typeof(Eighth.EnergyVortexSpell));
             Register(58, typeof(Eighth.ResurrectionSpell));
             Register(59, typeof(Eighth.AirElementalSpell));
-            Register(60, typeof(Eighth.SummonDaemonSpell));
+            Register(60, typeof(Eighth.SummonBalronSpell));
+            //Register(60, typeof(Eighth.SummonDaemonSpell));
             Register(61, typeof(Eighth.EarthElementalSpell));
             Register(62, typeof(Eighth.FireElementalSpell));
             Register(63, typeof(Eighth.WaterElementalSpell));

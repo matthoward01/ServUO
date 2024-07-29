@@ -216,10 +216,11 @@ namespace Server.Items
 
         public virtual double GetSkillTotal(Mobile from)
         {
+            //TODO: Steven - added Chivalry to weapon ability reduction check
             return GetSkill(from, SkillName.Swords) + GetSkill(from, SkillName.Macing) +
                    GetSkill(from, SkillName.Fencing) + GetSkill(from, SkillName.Archery) + GetSkill(from, SkillName.Parry) +
                    GetSkill(from, SkillName.Lumberjacking) + GetSkill(from, SkillName.Stealth) + GetSkill(from, SkillName.Throwing) +
-                   GetSkill(from, SkillName.Poisoning) + GetSkill(from, SkillName.Bushido) + GetSkill(from, SkillName.Ninjitsu);
+                   GetSkill(from, SkillName.Poisoning) + GetSkill(from, SkillName.Bushido) + GetSkill(from, SkillName.Ninjitsu) + GetSkill(from, SkillName.Chivalry);
         }
 
         public virtual double GetSkill(Mobile from, SkillName skillName)

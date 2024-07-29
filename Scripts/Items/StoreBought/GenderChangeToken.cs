@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Server;
 using Server.Mobiles;
 using Server.Gumps;
@@ -114,7 +114,7 @@ namespace Server.Items
             from.FacialHairItemID = _BeardID;
             from.HairItemID = _HairID;
 
-            from.SendMessage("You are now a {0}.", from.Female ? "woman" : "man"); // TODO: Message?
+            from.SendMessage("You are now a {0}.", from.Female ? "woman" : "man");
             Delete();
         }
 

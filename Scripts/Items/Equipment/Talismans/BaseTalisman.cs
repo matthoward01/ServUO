@@ -1379,7 +1379,7 @@ namespace Server.Items
             typeof(IceElemental), typeof(SnowElemental), typeof(GiantIceWorm), typeof(LadyOfTheSnow), typeof(FireElemental),
             typeof(FireSteed), typeof(HellHound), typeof(HellCat), typeof(PredatorHellCat), typeof(LavaLizard),
             typeof(FireBeetle), typeof(Cow), typeof(Bull), typeof(Gaman)//,			typeof( Minotaur)
-            // TODO Meraktus, Tormented Minotaur, Minotaur
+
         };
 
         public static int[] KillerLabels { get { return m_KillerLabels; } }
@@ -1666,8 +1666,7 @@ namespace Server.Items
                                 from.SendLocalizedMessage(1072403); // Your target's wards have been removed!
 
                             break;
-                        case TalismanRemoval.Wildfire:
-                            // TODO
+                        case TalismanRemoval.Wildfire:                            
                             break;
                     }
 

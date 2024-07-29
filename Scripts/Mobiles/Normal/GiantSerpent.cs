@@ -46,7 +46,6 @@ namespace Server.Mobiles
             this.VirtualArmor = 32;
 
             this.PackItem(new Bone());
-            // TODO: Body parts
         }
 
         public GiantSerpent(Serial serial)
@@ -193,7 +192,6 @@ namespace Server.Mobiles
             this.VirtualArmor = 32;
 
             this.PackItem(new Bone());
-            // TODO: Body parts
         }
 
         public GiantSerpent1(Serial serial)
@@ -318,7 +316,6 @@ namespace Server.Mobiles
             this.VirtualArmor = 32;
 
             this.PackItem(new Bone());
-            // TODO: Body parts
         }
 
         public GiantSerpent2(Serial serial)
@@ -443,7 +440,6 @@ namespace Server.Mobiles
             this.VirtualArmor = 32;
 
             this.PackItem(new Bone());
-            // TODO: Body parts
         }
 
         public GiantSerpent3(Serial serial)
@@ -568,7 +564,6 @@ namespace Server.Mobiles
             this.VirtualArmor = 32;
 
             this.PackItem(new Bone());
-            // TODO: Body parts
         }
 
         public GiantSerpent4(Serial serial)

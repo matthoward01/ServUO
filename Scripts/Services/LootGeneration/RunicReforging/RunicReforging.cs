@@ -809,7 +809,7 @@ namespace Server.Items
             }
             else
             {
-                ApplyProperty(item, id, percLow, percHigh, ref budget, luckchance, reforged, powerful); // TODO: powerful
+                ApplyProperty(item, id, percLow, percHigh, ref budget, luckchance, reforged, powerful);
             }
 
             return start != budget;
@@ -1879,6 +1879,17 @@ namespace Server.Items
             }
             return false;
         }
+        //TODO: Steven - Added method to generate minax items for t-maps
+        public static bool GenerateRandomMinaxItem(Item item, int luck, int minBudget, int maxBudget, Map map)
+        {
+            if (item is BaseWeapon || item is BaseArmor || item is BaseJewel || item is BaseHat)
+            {
+                int budget = Utility.RandomMinMax(minBudget, maxBudget);
+                GenerateRandomItem(item, null, budget, LootPack.GetLuckChance(luck), ReforgedPrefix.None, ReforgedSuffix.Minax, map);
+                return true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// 
@@ -2001,7 +2012,12 @@ namespace Server.Items
 
                 if (!artifact)
                 {
-                    addonbudget = TryApplyRandomDisadvantage(item);
+                    //TODO: Steven - add random budget of 0 to 150 in increments of 50
+                    int random = Utility.Random(0, 4);
+
+                    addonbudget = random * 50;
+
+                    //addonbudget = TryApplyRandomDisadvantage(item);
                 }
 
                 if (addonbudget > 0)
@@ -2054,9 +2070,12 @@ namespace Server.Items
                 }
 
                 // hues
-                if (power == ItemPower.LegendaryArtifact && (item is BaseArmor || item is BaseClothing))
+                //TODO: MATT - changing hue of legendary artifacts
+                if (power == ItemPower.LegendaryArtifact && (item is BaseArmor || item is BaseClothing || item is BaseWeapon))
+                //if (power == ItemPower.LegendaryArtifact && (item is BaseArmor || item is BaseClothing))
                 {
-                    item.Hue = 2500;
+                    item.Hue = 91;
+                    //item.Hue = 2500;
                 }
 
                 switch (suffix)

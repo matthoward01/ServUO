@@ -75,7 +75,6 @@ namespace Server.Factions
                 }
                 else if (existingFaction != null)
                 {
-                    // TODO: Validate
                     from.SendLocalizedMessage(1005053); // This is not your faction stone!
                 }
                 else

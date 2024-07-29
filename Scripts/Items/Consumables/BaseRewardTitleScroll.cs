@@ -80,7 +80,6 @@ namespace Server.Items
                             User.AddToBackpack(item);
                             Token.Delete();
 
-                            //TODO: Message?
                         }
                     }
                 }

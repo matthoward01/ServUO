@@ -1,4 +1,4 @@
-﻿#region Header
+#region Header
 // **************************************\
 //     _  _   _   __  ___  _   _   ___   |
 //    |# |#  |#  |## |### |#  |#  |###   |
@@ -58,7 +58,7 @@ namespace Server.Network
 			Intern( senderSerial.Value.ToString() );
 			Intern( to.Serial.Value.ToString() );
 			Intern( prompt.TypeId.ToString() );
-			Intern( prompt.MessageCliloc.ToString() ); // TODO: Is there a way to include args here?
+			Intern( prompt.MessageCliloc.ToString() );
 			Intern( "1" ); // 0 = Ascii response, 1 = Unicode Response
 
 			AddBackground( 50, 50, 540, 350, 0xA28 );

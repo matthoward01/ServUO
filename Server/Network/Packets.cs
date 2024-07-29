@@ -278,7 +278,6 @@ namespace Server.Network
 			m_Stream.Write(Map.Malas.Tiles.Patch.StaticBlocks);
 			m_Stream.Write(Map.Malas.Tiles.Patch.LandBlocks);
 
-			//TODO: Should this include newer facets?
 		}
 	}
 
@@ -2526,28 +2525,38 @@ m_Stream.Write( (int) renderMode );
 			EnsureCapacity(6 + (skills.Length * 9));
 
 			m_Stream.Write((byte)0x02); // type: absolute, capped
-
-			for (int i = 0; i < skills.Length; ++i)
+            
+            for (int i = 0; i < skills.Length; ++i)
 			{
-				Skill s = skills[i];
+                Skill s = skills[i];
 
-				double v = s.NonRacialValue;
-				int uv = (int)(v * 10);
+                double v = s.NonRacialValue;
+                int uv = (int)(v * 10);
 
-				if (uv < 0)
-				{
-					uv = 0;
-				}
-				else if (uv >= 0x10000)
-				{
-					uv = 0xFFFF;
-				}
+                if (uv < 0)
+                {
+                    uv = 0;
+                }
+                else if (uv >= 0x10000)
+                {
+                    uv = 0xFFFF;
+                }
 
-				m_Stream.Write((ushort)(s.Info.SkillID + 1));
-				m_Stream.Write((ushort)uv);
-				m_Stream.Write((ushort)s.BaseFixedPoint);
-				m_Stream.Write((byte)s.Lock);
-				m_Stream.Write((ushort)s.CapFixedPoint);
+                m_Stream.Write((ushort)(s.Info.SkillID + 1));
+                m_Stream.Write((ushort)uv);
+                //TODO: Steven - Added exemption for non influencing skills
+                if (!Skills.NonTotalInfluencingSkills.Contains(skills[i].SkillName))
+                {
+                    m_Stream.Write((ushort)s.BaseFixedPoint);
+                }
+                else
+                {
+                    m_Stream.Write((ushort)0);
+                }
+
+                m_Stream.Write((byte)s.Lock);
+                m_Stream.Write((ushort)s.CapFixedPoint);
+
 			}
 
 			m_Stream.Write((short)0); // terminate

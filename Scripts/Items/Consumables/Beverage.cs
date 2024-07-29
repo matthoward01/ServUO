@@ -33,8 +33,6 @@ namespace Server.Items
     {
     }
 
-    // TODO: Flipable attributes
-
     [TypeAlias("Server.Items.BottleAle", "Server.Items.BottleLiquor", "Server.Items.BottleWine")]
     public class BeverageBottle : BaseBeverage
     {

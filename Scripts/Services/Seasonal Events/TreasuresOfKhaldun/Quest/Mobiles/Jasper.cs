@@ -81,7 +81,7 @@ namespace Server.Engines.Khaldun
                         if (quest2.IsComplete)
                         {
                             quest2.Objectives[0].CurProgress++;
-                            quest2.GiveRewards(); // TODO: Does this quest end here?
+                            quest2.GiveRewards();
 
                             BaseQuest newquest = QuestHelper.RandomQuest((PlayerMobile)m, new Type[] { typeof(GoingGumshoeQuest3) }, this);
 
@@ -103,7 +103,7 @@ namespace Server.Engines.Khaldun
                             if (quest3.IsComplete)
                             {
                                 quest3.Objectives[0].CurProgress++;
-                                quest3.GiveRewards(); // TODO: Does this quest end here?
+                                quest3.GiveRewards();
 
                                 BaseQuest newquest = QuestHelper.RandomQuest((PlayerMobile)m, new Type[] { typeof(GoingGumshoeQuest4) }, this);
 

@@ -103,11 +103,26 @@ namespace Server.Spells.Chivalry
 
                 double seconds = this.ComputePowerValue(20);
 
-                // TODO: Should caps be applied?
 
                 int pkarma = this.Caster.Karma;
 
+                //TODO: MATT - Extending Consecrate Weapon
                 if (pkarma > 5000)
+                    seconds = 60.0;
+                else if (pkarma >= 4999)
+                    seconds = 50.0;
+                else if (pkarma >= 3999)
+                    seconds = 40.00;
+                else if (pkarma >= 2999)
+                    seconds = 30.0;
+                else if (pkarma >= 1999)
+                    seconds = 20.0;
+                else if (pkarma >= 999)
+                    seconds = 10.0;
+                else
+                    seconds = 5.0;
+
+                /*if (pkarma > 5000)
                     seconds = 11.0;
                 else if (pkarma >= 4999)
                     seconds = 10.0;
@@ -120,7 +135,7 @@ namespace Server.Spells.Chivalry
                 else if (pkarma >= 999)
                     seconds = 6.0;
                 else
-                    seconds = 5.0;
+                    seconds = 5.0;*/
 
                 TimeSpan duration = TimeSpan.FromSeconds(seconds);
                 ConsecratedWeaponContext context;

@@ -19,7 +19,7 @@ namespace Server.Items
 
         private static Timer m_Timer;
         
-        private static readonly int MaxLuckBonus = 1000;
+        private static readonly int MaxLuckBonus = 4000; // TODO: Steven - Changed max luck bonus to 4000 from 1000
 
         [Constructable]
 		public TenthAnniversarySculpture() : base( 15283 )
@@ -41,9 +41,10 @@ namespace Server.Items
 
             if (!IsCoolingDown(from))
             {
-                m_LuckTable[from] = DateTime.UtcNow + TimeSpan.FromMinutes(60);
+                //TODO: Steven - Changed luck buff to last for 3 hours and reduce cooldown to 5 minutes
+                m_LuckTable[from] = DateTime.UtcNow + TimeSpan.FromMinutes(180);
                 from.SendLocalizedMessage(1079551); // Your luck just improved!
-                m_RewardCooldown[from] = DateTime.UtcNow + TimeSpan.FromHours(24);
+                m_RewardCooldown[from] = DateTime.UtcNow + TimeSpan.FromMinutes(5);
 
                 from.Delta(MobileDelta.Armor);
             }
@@ -123,7 +124,9 @@ namespace Server.Items
 
                 if(account != null)
                 {
-                    return (int)Math.Min(MaxLuckBonus, 200 + (RewardSystem.GetRewardLevel(account)) * 50);
+                    //TODO: Steven - Hard coded luck to be 4k
+                    return 4000;
+                    //return (int)Math.Min(MaxLuckBonus, 200 + (RewardSystem.GetRewardLevel(account)) * 50);
                 }
             }
 

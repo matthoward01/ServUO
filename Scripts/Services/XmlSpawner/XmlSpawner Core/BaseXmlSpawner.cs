@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.IO;
 using System.Collections.Generic;
@@ -5052,7 +5052,6 @@ namespace Server.Mobiles
 					// and do the type dependent comparisons
 					if (IsNumeric(ptype2) && IsNumeric(ptype1))
 					{
-						//TODO: howto convert with tryparse?
 						if (hasequal)
 						{
 							try
@@ -5095,7 +5094,6 @@ namespace Server.Mobiles
 					else
 						if ((ptype2 == typeof(double)) && IsNumeric(ptype1))
 						{
-						//TODO: howto convert correctly with int64.tryparse?
 							if (hasequal)
 							{
 								try
@@ -5141,7 +5139,6 @@ namespace Server.Mobiles
 						else
 							if ((ptype1 == typeof(double)) && IsNumeric(ptype2))
 							{
-							//TODO: howto convert correctly with  int64.tryparse?
 								if (hasequal)
 								{
 									try

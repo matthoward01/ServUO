@@ -1,19 +1,25 @@
 using System;
+using Server;
 using Server.Items;
+
 
 namespace Server.Mobiles
 {
-    [CorpseName("an anzuanord corpse")]
-    public class Anzuanord : BaseVoidCreature
-    {
-        public override VoidEvolution Evolution { get { return VoidEvolution.Survival; } }
-        public override int Stage { get { return 1; } }
+	[CorpseName( "an Anzuanord's corpse" )]
+	public class Anzuanord : BaseVoidCreature
+	{
+		protected override void CreateEvolutionHandlers()
+		{
+			AddEvolutionHandler( new SurvivalPathHandler( this, typeof( Relanord ), 10000 ) );
+		}
+		
+		public override int Stage { get { return 1; } }
 
-        [Constructable]
-        public Anzuanord()
-            : base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
-        {
-            this.Name = "an Anzuanord";
+		[Constructable]
+		public Anzuanord()
+			: base(AIType.AI_Mage, FightMode.Closest, 10, 1, 0.2, 0.4)
+		{
+			this.Name = "an Anzuanord";
             this.Body = 74;
             this.Hue = 2071;
             this.BaseSoundID = 422;
@@ -52,14 +58,16 @@ namespace Server.Mobiles
             this.PackItem(new DaemonBone(5));
 
             this.VirtualArmor = 50;
-        }
+			
+			m_ActiveVoidCreatures++;
+		}
 
-        public Anzuanord(Serial serial)
-            : base(serial)
-        {
-        }
-
-        public override bool BardImmune
+		public Anzuanord( Serial serial )
+			: base( serial )
+		{
+		}
+		
+		public override bool BardImmune
         {
             get
             {
@@ -101,22 +109,35 @@ namespace Server.Mobiles
                 return PackInstinct.Daemon;
             }
         }
+		
         public override void GenerateLoot()
         {
             this.AddLoot(LootPack.Meager);
             this.AddLoot(LootPack.MedScrolls, 2);
         }
 
-        public override void Serialize(GenericWriter writer)
-        {
-            base.Serialize(writer);
-            writer.Write((int)0);
-        }
+		public override void OnAfterDelete()
+		{
+			base.OnAfterDelete();
 
-        public override void Deserialize(GenericReader reader)
-        {
-            base.Deserialize(reader);
-            int version = reader.ReadInt();
-        }
-    }
+			m_ActiveVoidCreatures--;
+		}
+
+		public override void Serialize( GenericWriter writer )
+		{
+			base.Serialize( writer );
+
+			writer.Write( (int) 0 );
+		}
+
+		public override void Deserialize( GenericReader reader )
+		{
+			base.Deserialize( reader );
+
+			/*int version = */
+			reader.ReadInt();
+
+			m_ActiveVoidCreatures++;
+		}
+	}
 }

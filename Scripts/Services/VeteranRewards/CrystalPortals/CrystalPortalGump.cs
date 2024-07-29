@@ -21,7 +21,7 @@ namespace Server.Gumps
                                                                            // or a moongate.<br><br>For Trammel ruleset, say the city's name
                                                                            // followed by "mint" (e.g. "minoc mint"). For a 
 
-            AddLabel(250, 200, 0, "1"); // todo: get
+            AddLabel(250, 200, 0, "1");
 
             AddButton(356, 0, 0x200, 0x200, 0, GumpButtonType.Page, 2);
 
@@ -35,8 +35,8 @@ namespace Server.Gumps
                                                                            // moonglow, nujelm, ocllo, papua, serpent, skara, trinsic, vesper, wind, yew, luna, 
                                                                            // umbra, zento, termur, ilshenar
 
-            AddLabel(90, 200, 0, "2"); // toto: get
-            AddLabel(250, 200, 0, "3"); // todo : get
+            AddLabel(90, 200, 0, "2");
+            AddLabel(250, 200, 0, "3");
 
             AddButton(0, 0, 0x1FF, 0x1FF, 0, GumpButtonType.Page, 1);
             AddButton(356, 0, 0x200, 0x200, 0, GumpButtonType.Page, 3);
@@ -50,8 +50,8 @@ namespace Server.Gumps
             AddHtmlLocalized(230, 30, 145, 160, 1113950, 0, false, false); // luna, umbra, isamu, makoto, homare, termur, eodon<br><br><br>The same teleportation 
                                                                            // rules apply regarding criminal flagging, weight, etc.
 
-            AddLabel(90, 200, 0, "4"); // todo: get
-            AddLabel(250, 200, 0, "5"); // todo: get
+            AddLabel(90, 200, 0, "4");
+            AddLabel(250, 200, 0, "5");
 
             AddButton(0, 0, 0x1FF, 0x1FF, 0, GumpButtonType.Page, 2);
 		}

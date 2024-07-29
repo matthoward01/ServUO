@@ -8,7 +8,6 @@ using System.Linq;
 using Server.Commands;
 using Server.Gumps;
 
-//TODO: Party: 1152064 You cannot invite other players in an arena to your party!
 namespace Server.Engines.ArenaSystem
 {
     public class PVPArenaSystem : PointsSystem

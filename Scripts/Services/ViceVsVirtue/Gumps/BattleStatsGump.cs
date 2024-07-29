@@ -41,7 +41,7 @@ namespace Server.Engines.VvV
 
             BattleTeam team = Battle.GetTeam(myGuild);
 
-            //TODO: Are totals the PLAYERS OVERALL totals, or the guild/alliance totals for that battle???  Or that players totals for that battle
+            //
             /*silver += (int)ViceVsVirtueSystem.Instance.GetPoints(pm);
 
             VvVPlayerEntry entry = ViceVsVirtueSystem.Instance.GetPlayerEntry<VvVPlayerEntry>(pm);

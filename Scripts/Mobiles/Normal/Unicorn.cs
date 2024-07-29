@@ -49,7 +49,7 @@ namespace Server.Mobiles
             ControlSlots = 2;
             MinTameSkill = 95.1;
 
-            SetWeaponAbility(WeaponAbility.ArmorIgnore);
+            //SetWeaponAbility(WeaponAbility.ArmorIgnore); TODO: Unicorns shouldn't come with ArmorIgnore 
         }
 
         public Unicorn(Serial serial)
@@ -151,7 +151,7 @@ namespace Server.Mobiles
 
                     if (chanceToCure > Utility.Random(100))
                     {
-                        if (Rider.CurePoison(this))	//TODO: Confirm if mount is the one flagged for curing it or the rider is
+                        if (Rider.CurePoison(this))	
                         {
                             Rider.LocalOverheadMessage(Server.Network.MessageType.Regular, 0x3B2, true, "Your mount senses you are in danger and aids you with magic.");
                             Rider.FixedParticles(0x373A, 10, 15, 5012, EffectLayer.Waist);

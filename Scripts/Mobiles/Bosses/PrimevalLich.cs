@@ -180,7 +180,6 @@ namespace Server.Mobiles
 
         private void BlastRadius()
         {
-            // TODO: Based on OSI taken videos, not accurate, but an aproximation
 
             Point3D loc = Location;
 

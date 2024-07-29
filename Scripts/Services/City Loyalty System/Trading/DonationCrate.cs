@@ -103,7 +103,6 @@ namespace Server.Engines.CityLoyalty
 
                     if (sys != null)
                     {
-                        // TODO: If anything adds to treasure, change this
                         if (item is MaritimeCargo)
                         {
                             AddToTreasury(sys, (MaritimeCargo)item);

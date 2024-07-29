@@ -11,7 +11,7 @@ namespace Server.Items
             this.Name = "Undead Gargoyle Medallions";
             this.LootType = LootType.Blessed;
             this.Weight = 1.0;
-            this.Hue = 0x47F; // TODO check
+            this.Hue = 0x47F;
         }
 
         public UndeadGargoyleMedallions(Serial serial)

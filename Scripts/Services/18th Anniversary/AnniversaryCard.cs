@@ -9,7 +9,7 @@ namespace Server.Items
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string Args { get; set; }
 		
-		private string[] _Staff = new string[] { Server.Misc.ServerList.ServerName }; // TODO: Get More
+		private string[] _Staff = new string[] { Server.Misc.ServerList.ServerName };
 
         [Constructable]
         public AnniversaryCard()

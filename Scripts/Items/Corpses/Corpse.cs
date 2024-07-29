@@ -570,7 +570,7 @@ namespace Server.Items
             }
             else
             {
-                c.Carved = true; // TODO: Is it needed?
+                c.Carved = true;
             }
 
             Point3D loc = owner.Location;

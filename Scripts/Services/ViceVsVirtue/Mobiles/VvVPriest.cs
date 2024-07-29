@@ -73,7 +73,7 @@ namespace Server.Engines.VvV
                     item.Hue = this.VvVType == VvVType.Virtue ? ViceVsVirtueSystem.VirtueHue : ViceVsVirtueSystem.ViceHue;
                 }, robe);
 
-            SetWearable(robe, this.VvVType == VvVType.Virtue ? ViceVsVirtueSystem.VirtueHue : ViceVsVirtueSystem.ViceHue); // TODO: Get Hues
+            SetWearable(robe, this.VvVType == VvVType.Virtue ? ViceVsVirtueSystem.VirtueHue : ViceVsVirtueSystem.ViceHue); 
         }
 
         public VvVPriest(Serial serial)

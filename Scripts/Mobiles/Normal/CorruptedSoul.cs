@@ -86,7 +86,6 @@ namespace Server.Mobiles
             return 0x233;
         }
 
-        // TODO: Proper OnDeath Effect
         public override bool OnBeforeDeath()
         {
             if (!base.OnBeforeDeath())

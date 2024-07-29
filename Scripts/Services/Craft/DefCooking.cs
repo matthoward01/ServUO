@@ -160,7 +160,6 @@ namespace Server.Engines.Craft
             index = AddCraft(typeof(UnbakedQuiche), 1044496, 1041339, 0.0, 100.0, typeof(Dough), 1044469, 1, 1044253);
             AddRes(index, typeof(Eggs), 1044477, 1, 1044253);
 
-            // TODO: This must also support chicken and lamb legs
             index = AddCraft(typeof(UnbakedMeatPie), 1044496, 1041338, 0.0, 100.0, typeof(Dough), 1044469, 1, 1044253);
             AddRes(index, typeof(RawRibs), 1044482, 1, 1044253);
 

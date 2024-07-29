@@ -70,7 +70,6 @@ namespace Server.Spells.Bushido
         {
             double bushido = attacker.Skills[SkillName.Bushido].Value;
 
-            // TODO: 20 -> Perfection
             return 1.0 + (bushido * 20) / 10000;
         }
 

@@ -34,17 +34,20 @@ namespace Server.Engines.Blackthorn
 
         public void OnTick()
         {
+
+            /* TODO: Steven - remove timer that teleports and poisons character
             if (!PointsSystem.FellowshipData.Enabled)
             {
                 foreach (Mobile m in GetEnumeratedMobiles().Where(m => m is PlayerMobile && m.AccessLevel == AccessLevel.Player))
                 {
                     if (m.Hidden)
                         m.RevealingAction();
-
+                    
                     if (m.Y > 2575 && m.LastMoveTime + 120000 < Core.TickCount)
                         MoveLocation(m);
                 }
             }
+            */
         }
 
         public void MoveLocation(Mobile m)
@@ -85,10 +88,8 @@ namespace Server.Engines.Blackthorn
 
         public override bool CheckTravel(Mobile traveller, Point3D p, TravelCheckType type)
         {
-            if (traveller.AccessLevel > AccessLevel.Player)
-                return true;
-
-            return type > TravelCheckType.Mark;
+            //TODO: Steven - Open up travel in blackthorns
+            return true;
         }
 
         public override void OnDeath(Mobile m)
@@ -113,9 +114,9 @@ namespace Server.Engines.Blackthorn
 
         public override bool OnBeginSpellCast(Mobile m, ISpell s)
         {
-            if (m.AccessLevel > AccessLevel.Player)
+            //if (m.AccessLevel > AccessLevel.Player)
                 return base.OnBeginSpellCast(m, s);
-
+            /*
             int loc;
 
             if (s is PaladinSpell)
@@ -127,6 +128,7 @@ namespace Server.Engines.Blackthorn
 
             m.SendLocalizedMessage(loc);
             return false;
+            */
         }
 
         public override void OnLocationChanged(Mobile m, Point3D oldLocation)
@@ -222,10 +224,8 @@ namespace Server.Engines.Blackthorn
 
         public override bool CheckTravel(Mobile traveller, Point3D p, TravelCheckType type)
         {
-            if (traveller.AccessLevel > AccessLevel.Player)
-                return true;
-
-            return type > TravelCheckType.Mark;
+            //TODO: Steven - open up travel in blackthorn's
+            return true;
         }
     }
 }

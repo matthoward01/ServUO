@@ -29,6 +29,7 @@ using Server.Spells.Sixth;
 using Server.Spells.SkillMasteries;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using Ultima;
 #endregion
 
 namespace Server.Mobiles
@@ -434,8 +435,13 @@ namespace Server.Mobiles
         public const bool BondingEnabled = true;
 
         public virtual bool IsBondable { get { return (BondingEnabled && !Summoned && !m_Allured && !IsGolem); } }
-        public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(7.0); } }
-        public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
+
+        //TODO: MATT - CHANGED BONDING DELAY TO 5 MINS
+        public virtual TimeSpan BondingDelay { get { return TimeSpan.FromMinutes(5.0); } }
+        public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromMinutes(5.0); } }
+
+        //public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(7.0); } }
+        //public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
 
         public override bool CanRegenHits { get { return !m_IsDeadPet && !Summoned && base.CanRegenHits; } }
         public override bool CanRegenStam { get { return !IsParagon && !m_IsDeadPet && base.CanRegenStam; } }
@@ -1029,7 +1035,10 @@ namespace Server.Mobiles
         public virtual bool SubdueBeforeTame { get { return false; } }
         public virtual bool StatLossAfterTame { get { return SubdueBeforeTame; } }
         public virtual bool ReduceSpeedWithDamage { get { return true; } }
-        public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < ((double)HitsMax / 10)); } }
+
+        //TODO: MATT - Making ANIMAL TAMEABLE AT 25%
+        public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < ((double)HitsMax / 4)); } }
+        //public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < ((double)HitsMax / 10)); } }
 
         public virtual bool Commandable { get { return true; } }
 
@@ -1050,7 +1059,6 @@ namespace Server.Mobiles
 
         public virtual bool GivesFameAndKarmaAward { get { return true; } }
 
-        //TODO: Find the pub 31 tweaks to the DispelDifficulty and apply them of course.
         public virtual double DispelDifficulty { get { return 0.0; } } // at this skill level we dispel 50% chance
         public virtual double DispelFocus { get { return 20.0; } }
         // at difficulty - focus we have 0%, at difficulty + focus we have 100%
@@ -3894,7 +3902,10 @@ namespace Server.Mobiles
         #endregion
 
         public virtual bool AutoDispel { get { return false; } }
-        public virtual double AutoDispelChance { get { return ((Core.SE) ? .10 : 1.0); } }
+
+        //TODO: MATT - STOPPING MOBS FROM DISPELLING
+        public virtual double AutoDispelChance { get { return 0; } }
+        //public virtual double AutoDispelChance { get { return ((Core.SE) ? .10 : 1.0); } }
 
         public virtual bool IsScaryToPets { get { return false; } }
         public virtual bool IsScaredOfScaryThings { get { return true; } }
@@ -4326,13 +4337,18 @@ namespace Server.Mobiles
             }
 
             int freePoints = m.Skills.Cap - m.Skills.Total;
+
+            //TODO: Matt - Fixing it so non Influencing skills can be taught when at max skill point.
+            if (Skills.NonTotalInfluencingSkills.Contains(skill))
+            {
+                freePoints = 1000;
+            }
             int freeablePoints = 0;
 
             if (freePoints < 0)
             {
                 freePoints = 0;
             }
-
             for (int i = 0; (freePoints + freeablePoints) < pointsToLearn && i < m.Skills.Length; ++i)
             {
                 Skill sk = m.Skills[i];
@@ -4345,7 +4361,8 @@ namespace Server.Mobiles
                 freeablePoints += sk.BaseFixedPoint;
             }
 
-            if ((freePoints + freeablePoints) == 0)
+            //TODO: Matt - Fixing it so non Influencing skills can be taught when at max skill point.
+            if ((freePoints + freeablePoints) == 0 && !Skills.NonTotalInfluencingSkills.Contains(skill))
             {
                 return TeachResult.NotEnoughFreePoints;
             }
@@ -4380,9 +4397,9 @@ namespace Server.Mobiles
                         need = 0;
                     }
                 }
-
+                //TODO: Matt - Fixing it so non Influencing skills can be taught when at max skill point.
                 /* Sanity check */
-                if (baseToSet > theirSkill.CapFixedPoint || (m.Skills.Total - theirSkill.BaseFixedPoint + baseToSet) > m.Skills.Cap)
+                if ((baseToSet > theirSkill.CapFixedPoint || (m.Skills.Total - theirSkill.BaseFixedPoint + baseToSet) > m.Skills.Cap) && !Skills.NonTotalInfluencingSkills.Contains(skill))
                 {
                     // Full refund
                     m.Backpack.TryDropItem(m, new Gold(maxPointsToLearn), false);
@@ -4394,6 +4411,7 @@ namespace Server.Mobiles
                 {
                     m.Backpack.TryDropItem(m, new Gold(maxPointsToLearn - pointsToLearn), false);
                 }
+
                 theirSkill.BaseFixedPoint = baseToSet;
             }
 
@@ -6359,6 +6377,13 @@ namespace Server.Mobiles
 
                     bool givenFactionKill = false;
 
+                    DamageStore highDamager = null;
+
+                    if(list != null && list.Count > 0)
+                    {
+                        highDamager = list.OrderByDescending(item => item.m_Damage).First();
+                    }
+
                     for (int i = 0; i < list.Count; ++i)
                     {
                         DamageStore ds = list[i];
@@ -6376,6 +6401,8 @@ namespace Server.Mobiles
                             {
                                 int divedFame = totalFame / party.Members.Count;
                                 int divedKarma = totalKarma / party.Members.Count;
+
+                                int goldPerMember = c.TotalGold / party.Members.Count;
 
                                 for (int j = 0; j < party.Members.Count; ++j)
                                 {
@@ -6396,6 +6423,33 @@ namespace Server.Mobiles
                                             fame[index] += divedFame;
                                             karma[index] += divedKarma;
                                         }
+                                        //TODO: Steven - Added treasure maps being moved to backpack
+                                        if (highDamager != null && highDamager.m_Mobile != null && info.Mobile.Name.Equals(((DamageStore)highDamager).m_Mobile.Name))
+                                        {
+                                            TreasureMap map = (TreasureMap)c.FindItemByType(typeof(TreasureMap));
+                                            if (map != null)
+                                            {
+                                                info.Mobile.PlaceInBackpack(map);
+                                                c.RemoveItem(map);
+                                            }
+                                        };
+
+
+
+                                        //TODO: Steven - Send gold to party member's bankbox on mob death
+                                        Gold gold = new Gold(goldPerMember);
+                                        Gold mobGold = (Gold)c.FindItemByType(typeof(Gold));
+                                        if (mobGold != null && info.Mobile.BankBox != null && info.Mobile.BankBox.TryDropItem(info.Mobile, gold, false))
+                                        {
+                                            if (mobGold.Amount - goldPerMember <= 1)
+                                            {
+                                                c.RemoveItem(mobGold);
+                                            }
+                                            else
+                                            {
+                                                mobGold.Amount -= goldPerMember;
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -6414,6 +6468,20 @@ namespace Server.Mobiles
                                 titles.Add(ds.m_Mobile);
                                 fame.Add(totalFame);
                                 karma.Add(totalKarma);
+
+                                //TODO: Steven - Send gold to bankbox on mob death
+                                Gold gold = new Gold(c.TotalGold);
+                                if (ds.m_Mobile.BankBox != null && ds.m_Mobile.BankBox.TryDropItem(ds.m_Mobile, gold, false))
+                                {
+                                    c.RemoveItem(c.FindItemByType(typeof(Gold)));
+                                }
+                                //TODO: Steven - Added treasure maps being moved to backpack
+                                TreasureMap map = (TreasureMap)c.FindItemByType(typeof(TreasureMap));
+                                if (map != null)
+                                {
+                                    ds.m_Mobile.PlaceInBackpack(map);
+                                    c.RemoveItem(map);
+                                }
                             }
                         }
 
@@ -6887,7 +6955,7 @@ namespace Server.Mobiles
                     {
                         patient.SendLocalizedMessage(1010059); // You have been cured of all poisons.
 
-                        CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0); // TODO: Verify formula
+                        CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0);
                         CheckSkill(SkillName.Anatomy, 0.0, Skills[SkillName.Anatomy].Cap);
                     }
                 }
@@ -7071,7 +7139,6 @@ namespace Server.Mobiles
             if (target == null || !target.InLOS(this) || !InRange(target.Location, BaseInstrument.GetBardRange(this, SkillName.Discordance)) || CheckInstrument() == null)
                 return false;
 
-            // TODO: get mana
             if (AbilityProfile != null && AbilityProfile.HasAbility(MagicalAbility.Discordance) && Mana < 25)
             {
                 return false;
@@ -7555,7 +7622,6 @@ namespace Server.Mobiles
                 {
                     // *rummages through a corpse and takes an item*
                     PublicOverheadMessage(MessageType.Emote, 0x3B2, 1008086);
-                    //TODO: Instancing of Rummaged stuff.
                     return true;
                 }
             }
@@ -7949,9 +8015,12 @@ namespace Server.Mobiles
                                     c.PlaySound(c.GetIdleSound());
                                 }
 
+
                                 if (c.Loyalty <= 0)
                                 {
-                                    toRelease.Add(c);
+                                    //TODO: Steven - Prevent pets from going wild
+                                    c.Loyalty = 0;  
+                                    //toRelease.Add(c);
                                 }
                             }
                         }

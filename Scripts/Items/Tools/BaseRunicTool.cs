@@ -439,7 +439,6 @@ namespace Server.Items
 
         public static SlayerName GetRandomSlayer()
         {
-            // TODO: Check random algorithm on OSI
             SlayerGroup[] groups = SlayerGroup.Groups;
 
             if (groups.Length == 0)
@@ -970,6 +969,7 @@ namespace Server.Items
         private static int Scale(int min, int max, int low, int high)
         {
             int percent;
+            int luckIncrease = 0;
 
             if (m_PlayerMade)
             {
@@ -983,7 +983,11 @@ namespace Server.Items
                 v = 100 - v;
 
                 if (LootPack.CheckLuck(m_LuckChance))
-                    v += 10;
+                {
+                    //TODO: Changed luck to add 10% of max property to an items value
+                    luckIncrease = (int)Math.Round(high * .10);
+                    // v += 10;
+                }
 
                 percent = Math.Min(max, min + AOS.Scale((max - min), v));
             }
@@ -995,7 +999,9 @@ namespace Server.Items
 
             percent *= (10000 + scaledBy);
 
-            return low + (((high - low) * percent) / 1000001);
+            
+
+            return Math.Min(high, luckIncrease + low + (((high - low) * percent) / 1000001));
         }
 
         private static void ApplyAttribute(AosAttributes attrs, int min, int max, AosAttribute attr, int low, int high)

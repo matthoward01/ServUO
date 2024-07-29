@@ -98,7 +98,7 @@ namespace Server.Items
                 {
                     m.SendLocalizedMessage(1155693); // This item is impermissible and can not be added to the book.
                 }
-                else if (Items.Count < Capacity) // TODO: Message for overfilled?
+                else if (Items.Count < Capacity)
                 {
                     DropItem(dropped);
 

@@ -107,7 +107,6 @@ namespace Server.Engines.VvV
 					{
 						Point3D point = new Point3D(p);
 						
-						//TODO: Rules?  For now, must be within 3 tiles of trap
                         if (!Utility.InRange(point, trapLocation, 3) || point == trapLocation)
 						{
 							m.SendLocalizedMessage(1011577); // This is an invalid location.

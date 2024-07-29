@@ -153,7 +153,6 @@ namespace Server.Mobiles
             AddLoot(LootPack.Gems, 6);
         }
 
-        // TODO: Hit Lightning Area
         public override void OnDamagedBySpell(Mobile attacker)
         {
             base.OnDamagedBySpell(attacker);

@@ -16,7 +16,6 @@ namespace Server.Mobiles
         public BronzeElemental(int oreAmount)
             : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
-            // TODO: Gas attack
             Name = "a bronze elemental";
             Body = 108;
             BaseSoundID = 268;

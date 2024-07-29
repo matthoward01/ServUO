@@ -53,7 +53,7 @@ namespace Server.Gumps
                     from.SendLocalizedMessage(503256); // You fail to resurrect the creature.
                     return;
                 }
-                else if (this.m_Pet.Region != null && this.m_Pet.Region.IsPartOf("Khaldun"))	//TODO: Confirm for pets, as per Bandage's script.
+                else if (this.m_Pet.Region != null && this.m_Pet.Region.IsPartOf("Khaldun"))	
                 {
                     from.SendLocalizedMessage(1010395); // The veil of death in this area is too strong and resists thy efforts to restore life.
                     return;

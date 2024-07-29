@@ -70,7 +70,7 @@ namespace Server
 		Jungle = 0x00100000,
 		Shadowguard = 0x00200000,
 		TOL = 0x00400000,
-		EJ = 0x00800000, // TODO: Verify value
+		EJ = 0x00800000,
 
 		ExpansionNone = None,
 		ExpansionT2A = T2A,
@@ -137,7 +137,7 @@ namespace Server
 		Jungle = 0x100000,
 		Shadowguard = 0x200000,
 		TOL = 0x400000,
-		EJ = 0x800000, // TODO: Verify value
+		EJ = 0x800000,
 
 		HousingAOS = AOS,
 		HousingSE = HousingAOS | SE,

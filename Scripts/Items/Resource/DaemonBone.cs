@@ -2,7 +2,6 @@ using System;
 
 namespace Server.Items
 {
-    // TODO: Commodity?
     public class DaemonBone : BaseReagent
     {
         [Constructable]

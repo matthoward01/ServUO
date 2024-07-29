@@ -104,7 +104,6 @@ namespace Server.Engines.HuntsmasterChallenge
 						from.SendLocalizedMessage(1155703); // Your backpack was too full so the permit was deleted. Empty your backpack and try again.
 						permit.Delete();
 					}
-					//TODO: Message???
 				}
                 else
                     from.SendLocalizedMessage(500382); // Thou dost not have sufficient funds in thy account to withdraw that much.

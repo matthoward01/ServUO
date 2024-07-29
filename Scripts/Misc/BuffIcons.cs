@@ -224,6 +224,20 @@ namespace Server
                 pm.AddBuff(b);
         }
 
+        //TODO: Steven - Check to see if mobile has a buff
+        public static BuffInfo CheckBuff(Mobile m, BuffIcon b)
+        {
+            PlayerMobile pm = m as PlayerMobile;
+
+            if (pm != null)
+            {
+                return pm.CheckBuff(b);
+            } else
+            {
+                return null;
+            }
+        }
+
         public static void RemoveBuff(Mobile m, BuffInfo b)
         {
             PlayerMobile pm = m as PlayerMobile;

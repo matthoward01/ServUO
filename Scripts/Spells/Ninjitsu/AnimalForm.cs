@@ -454,7 +454,6 @@ namespace Server.Spells.Ninjitsu
 
 		public class AnimalFormGump : Gump
 		{
-			//TODO: Convert this for ML to the BaseImageTileButtonsgump
 			private readonly Mobile m_Caster;
 			private readonly AnimalForm m_Spell;
 			private readonly Item m_Talisman;

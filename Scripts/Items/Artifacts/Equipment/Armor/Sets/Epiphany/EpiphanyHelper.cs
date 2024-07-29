@@ -20,7 +20,7 @@ namespace Server.Items
 	{
 		public static Dictionary<Mobile, Dictionary<SurgeType, int>> Table { get; set; }
 		
-		public static readonly int MinTriggerDamage = 15; // TODO: Amount?
+		public static readonly int MinTriggerDamage = 15;
 
         public static int GetFrequency(Mobile m, IEpiphanyArmor armor)
 		{

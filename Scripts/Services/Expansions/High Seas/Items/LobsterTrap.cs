@@ -1,4 +1,4 @@
-﻿using Server;
+using Server;
 using System;
 using System.Collections.Generic;
 using Server.Mobiles;
@@ -188,7 +188,7 @@ namespace Server.Items
                 from.SendLocalizedMessage(1116388); // The trap is too cumbersome to deploy that far away.
             }
             else if (!IsValidTile(targeted, map))
-                from.SendMessage("You cannot deploy a trap there!"); //TODO: Get Cliloc
+                from.SendMessage("You cannot deploy a trap there!");
             else if (!IsValidLocation(x, y, z, map))
                 from.SendLocalizedMessage(1116393); //The location is too close to another trap.
             else

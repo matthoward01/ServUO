@@ -49,7 +49,9 @@ namespace Server.Mobiles
             this.Karma = 0;
 
             this.VirtualArmor = 40;
-            this.ControlSlots = (Core.SE) ? 2 : 1;
+            //TODO: MATT - Changing control slots to 1
+            this.ControlSlots = 1;
+            //this.ControlSlots = (Core.SE) ? 2 : 1;
         }
 
         public BladeSpirits(Serial serial)

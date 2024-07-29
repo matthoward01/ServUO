@@ -1502,7 +1502,9 @@ namespace Server.Mobiles
 
 							if (Core.AOS)
 							{
-								m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed;
+                                //TODO: Steven - Changing speed of pet on follow command
+                                //m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed;
+                                m_Mobile.CurrentSpeed = 0;
                             }
 						}
 					}
@@ -1683,7 +1685,7 @@ namespace Server.Mobiles
 				m_Mobile.FocusMob = combatant;
 				Action = ActionType.Combat;
                 m_Mobile.Direction = m_Mobile.GetDirectionTo(combatant);
-
+                m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed; //TODO: Steven - Added speed back to active speed in combat
                 /*
                 * We need to call Think() here or spell casting monsters will not use
                 * spells when guarding because their target is never processed.
@@ -1698,7 +1700,9 @@ namespace Server.Mobiles
 
 				if (Core.AOS)
 				{
-					m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed;
+                    //TODO: Steven - Changing speed of pet on guard command
+					//m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed;
+                    m_Mobile.CurrentSpeed = 0;
                 }
 
 				WalkMobileRange(controlMaster, 1, false, 0, 1);

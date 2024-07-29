@@ -2050,7 +2050,6 @@ namespace Server.Items
                         // Contents: ~1_COUNT~/~2_MAXCOUNT~ items, ~3_WEIGHT~/~4_MAXWEIGHT~ stones
                     }
 
-                    //TODO: Where do the other clilocs come into play? 1073839 & 1073840?
                 }
                 else
                 {
