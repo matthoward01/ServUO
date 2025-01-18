@@ -159,30 +159,32 @@ namespace Server.Network
 
             Gram gram = null;
 
-            while (length > 0)
-            {
-                if (_buffered == null)
+			while (length > 0)
+			{
+                Gram buffered = _buffered;
+
+                if (buffered == null)
                 {
-                    // nothing yet buffered
-                    _buffered = Gram.Acquire();
+                    Interlocked.Exchange(ref _buffered, buffered = Gram.Acquire());
                 }
 
-                int bytesWritten = _buffered.Write(buffer, offset, length);
+				int bytesWritten = buffered.Write(buffer, offset, length);
 
                 offset += bytesWritten;
                 length -= bytesWritten;
 
-                if (_buffered.IsFull)
-                {
-                    if (_pending.Count == 0)
-                    {
-                        gram = _buffered;
-                    }
+				if (buffered.IsFull)
+				{
+                    Interlocked.CompareExchange(ref _buffered, null, buffered);
 
-                    _pending.Enqueue(_buffered);
-                    _buffered = null;
-                }
-            }
+					if (_pending.IsEmpty)
+					{
+						gram = buffered;
+					}
+
+					_pending.Enqueue(buffered);
+				}
+			}
 
             return gram;
 		}

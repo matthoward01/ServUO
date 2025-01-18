@@ -15,14 +15,12 @@ namespace Server.Misc
 {
 	public class ServerList
     {
-        public static string ServerName { get; } = Config.Get("Server.Name", "My Shard");
+        public static string ServerName = Config.Get("Server.Name", "My Shard");
 
-        public static IPAddress Address { get; } = Config.Get("Server.Address", IPAddress.Loopback);
+        public static IPAddress Address => Config.Get("Server.Address", IPAddress.Loopback);
 
         public static void Initialize()
         {
-            Console.Title = ServerName;
-
 			EventSink.ServerList += EventSink_ServerList;
 		}
 
@@ -35,11 +33,17 @@ namespace Server.Misc
 
                 var ipep = (IPEndPoint)s.LocalEndPoint;
 
-                var address = ipep.Address;
+				var localAddress = ipep.Address;
+				var localPort = ipep.Port;
 
-                if (!IPAddress.IsLoopback(address) || IsPrivateNetwork(address))
+                if (!IPAddress.IsLoopback(localAddress) && IsPrivateNetwork(localAddress))
                 {
-                    address = Address;
+                    ipep = (IPEndPoint)s.RemoteEndPoint;
+
+                    if (!IsPrivateNetwork(ipep.Address))
+                    {
+                        localAddress = Address;
+                    }
                 }
 
                 e.AddServer(ServerName, new IPEndPoint(address, ipep.Port));

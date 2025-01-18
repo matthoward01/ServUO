@@ -707,12 +707,7 @@ namespace Server.Network
                         {
                             lock (_SendLock)
                             {
-                                SendQueue.Gram gram;
-
-                                lock (m_SendQueue)
-                                {
-                                    gram = m_SendQueue.Enqueue(buffer, length);
-                                }
+                                SendQueue.Gram gram = m_SendQueue.Enqueue(buffer, length);
 
                                 if (buffered && m_SendBufferPool.Count < SendBufferCapacity)
                                 {
@@ -908,16 +903,11 @@ namespace Server.Network
                     Thread.Sleep(m_CoalesceSleep);
                 }
 
-                SendQueue.Gram gram;
+                SendQueue.Gram gram = m_SendQueue.Dequeue();
 
-                lock (m_SendQueue)
+                if (gram == null && m_SendQueue.IsFlushReady)
                 {
-                    gram = m_SendQueue.Dequeue();
-
-                    if (gram == null && m_SendQueue.IsFlushReady)
-                    {
-                        gram = m_SendQueue.CheckFlushReady();
-                    }
+                    gram = m_SendQueue.CheckFlushReady();
                 }
 
                 if (gram != null)
@@ -1006,17 +996,12 @@ namespace Server.Network
                     return false;
                 }
 
-                SendQueue.Gram gram;
-
-                lock (m_SendQueue)
+                if (!m_SendQueue.IsFlushReady)
                 {
-                    if (!m_SendQueue.IsFlushReady)
-                    {
-                        return false;
-                    }
-
-                    gram = m_SendQueue.CheckFlushReady();
+                    return false;
                 }
+
+                SendQueue.Gram gram = m_SendQueue.CheckFlushReady();
 
                 if (gram != null)
                 {
