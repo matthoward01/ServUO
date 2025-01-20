@@ -707,7 +707,12 @@ namespace Server.Network
                         {
                             lock (_SendLock)
                             {
-                                SendQueue.Gram gram = m_SendQueue.Enqueue(buffer, length);
+                                SendQueue.Gram gram;
+
+                                lock (m_SendQueue)
+                                {
+                                    gram = m_SendQueue.Enqueue(buffer, length);
+                                }
 
                                 if (buffered && m_SendBufferPool.Count < SendBufferCapacity)
                                 {
