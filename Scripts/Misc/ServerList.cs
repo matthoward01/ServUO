@@ -15,12 +15,14 @@ namespace Server.Misc
 {
 	public class ServerList
     {
-        public static string ServerName = Config.Get("Server.Name", "My Shard");
+        public static string ServerName { get; } = Config.Get("Server.Name", "My Shard");
 
-        public static IPAddress Address => Config.Get("Server.Address", IPAddress.Loopback);
+        public static IPAddress Address { get; } = Config.Get("Server.Address", IPAddress.Loopback);
 
         public static void Initialize()
         {
+            Console.Title = ServerName;
+
 			EventSink.ServerList += EventSink_ServerList;
 		}
 
