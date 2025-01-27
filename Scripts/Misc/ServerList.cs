@@ -29,27 +29,21 @@ namespace Server.Misc
 		private static void EventSink_ServerList(ServerListEventArgs e)
 		{
 			try
-			{
-				var ns = e.State;
-				var s = ns.Socket;
+            {
+                var ns = e.State;
+                var s = ns.Socket;
 
-				var ipep = (IPEndPoint)s.LocalEndPoint;
+                var ipep = (IPEndPoint)s.LocalEndPoint;
 
-				var localAddress = ipep.Address;
-				var localPort = ipep.Port;
+                var address = ipep.Address;
 
-                if (!IPAddress.IsLoopback(localAddress) && IsPrivateNetwork(localAddress))
+                if (!IPAddress.IsLoopback(address) || IsPrivateNetwork(address))
                 {
-                    ipep = (IPEndPoint)s.RemoteEndPoint;
-
-                    if (!IsPrivateNetwork(ipep.Address))
-                    {
-                        localAddress = Address;
-                    }
+                    address = Address;
                 }
 
-				e.AddServer(ServerName, new IPEndPoint(localAddress, localPort));
-			}
+                e.AddServer(ServerName, new IPEndPoint(address, ipep.Port));
+            }
 			catch
 			{
 				e.Rejected = true;

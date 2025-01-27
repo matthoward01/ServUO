@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using CustomsFramework;
@@ -11145,7 +11146,7 @@ namespace Server
 			m_CreationTime = DateTime.UtcNow;
 		}
 
-		private static readonly List<Mobile> m_DeltaQueue = new List<Mobile>();
+		private static event Action DeltaQueue;
 
 		private bool m_InDeltaQueue;
 		private MobileDelta m_DeltaFlags;
@@ -11159,14 +11160,12 @@ namespace Server
 
 			m_DeltaFlags |= flag;
 
-			if (!m_InDeltaQueue)
+			if (!m_InDeltaQueue && m_DeltaFlags != MobileDelta.None)
 			{
 				m_InDeltaQueue = true;
 
-				m_DeltaQueue.Add(this);
+                DeltaQueue += ProcessDelta;
 			}
-
-			Core.Set();
 		}
 
 		private bool m_NoMoveHS;
@@ -11733,30 +11732,12 @@ namespace Server
 			}
 		}
 
-		private static bool _Processing;
-
 		public static void ProcessDeltaQueue()
-		{
-			if (_Processing)
-			{
-				return;
-			}
+        {
+            var delta = Interlocked.Exchange(ref DeltaQueue, null);
 
-			_Processing = true;
-
-			var i = m_DeltaQueue.Count;
-
-			while (--i >= 0)
-			{
-				if (i < m_DeltaQueue.Count)
-				{
-					m_DeltaQueue[i].ProcessDelta();
-					m_DeltaQueue.RemoveAt(i);
-				}
-			}
-
-			_Processing = false;
-		}
+            delta?.Invoke();
+        }
 
 		[CommandProperty(AccessLevel.Counselor, AccessLevel.GameMaster)]
 		public int Deaths
