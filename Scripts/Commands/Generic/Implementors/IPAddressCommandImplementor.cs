@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-
 using Server.Network;
 
 namespace Server.Commands.Generic
@@ -38,7 +36,7 @@ namespace Server.Commands.Generic
                 ArrayList list = new ArrayList();
                 ArrayList addresses = new ArrayList();
 
-                IList<NetState> states = NetState.Instances;
+                System.Collections.Generic.List<NetState> states = NetState.Instances;
 
                 for (int i = 0; i < states.Count; ++i)
                 {

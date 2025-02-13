@@ -36,7 +36,7 @@ namespace Server.Commands.Generic
 
                 ArrayList list = new ArrayList();
 
-                IList<NetState> states = NetState.Instances;
+                List<NetState> states = NetState.Instances;
 
                 for (int i = 0; i < states.Count; ++i)
                 {

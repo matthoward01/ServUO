@@ -1,7 +1,6 @@
 #region References
 using System;
-using System.Collections.Concurrent;
-using System.Threading;
+using System.Collections.Generic;
 #endregion
 
 namespace Server.Network
@@ -10,20 +9,29 @@ namespace Server.Network
 	{
 		public class Gram
 		{
-			private static readonly ConcurrentQueue<Gram> _pool = new ConcurrentQueue<Gram>();
+			private static readonly Stack<Gram> _pool = new Stack<Gram>();
 
-            public static Gram Acquire()
-            {
-                if (!_pool.TryDequeue(out Gram gram))
-                {
-                    gram = new Gram();
-                }
+			public static Gram Acquire()
+			{
+				lock (_pool)
+				{
+					Gram gram;
 
-                gram._buffer = AcquireBuffer();
-                gram._length = 0;
+					if (_pool.Count > 0)
+					{
+						gram = _pool.Pop();
+					}
+					else
+					{
+						gram = new Gram();
+					}
 
-                return gram;
-            }
+					gram._buffer = AcquireBuffer();
+					gram._length = 0;
+
+					return gram;
+				}
+			}
 
 			private byte[] _buffer;
 			private int _length;
@@ -50,12 +58,14 @@ namespace Server.Network
 				return write;
 			}
 
-            public void Release()
-            {
-                _pool.Enqueue(this);
-
-                ReleaseBuffer(_buffer);
-            }
+			public void Release()
+			{
+				lock (_pool)
+				{
+					_pool.Push(this);
+					ReleaseBuffer(_buffer);
+				}
+			}
 		}
 
 		private static int m_CoalesceBufferSize = 512;
@@ -64,60 +74,77 @@ namespace Server.Network
 		public static int CoalesceBufferSize
 		{
 			get { return m_CoalesceBufferSize; }
-            set
-            {
-                if (m_CoalesceBufferSize == value)
-                {
-                    return;
-                }
+			set
+			{
+				if (m_CoalesceBufferSize == value)
+				{
+					return;
+				}
 
-                m_UnusedBuffers?.Free();
+				BufferPool old = m_UnusedBuffers;
 
-                m_CoalesceBufferSize = value;
-                m_UnusedBuffers = new BufferPool("Coalesced", 2048, m_CoalesceBufferSize);
-            }
+				lock (old)
+				{
+					if (m_UnusedBuffers != null)
+					{
+						m_UnusedBuffers.Free();
+					}
+
+					m_CoalesceBufferSize = value;
+					m_UnusedBuffers = new BufferPool("Coalesced", 2048, m_CoalesceBufferSize);
+				}
+			}
 		}
 
 		public static byte[] AcquireBuffer()
 		{
-            return m_UnusedBuffers.AcquireBuffer();
+			lock (m_UnusedBuffers)
+				return m_UnusedBuffers.AcquireBuffer();
 		}
 
-        public static void ReleaseBuffer(byte[] buffer)
-        {
-            if (buffer != null && buffer.Length == m_CoalesceBufferSize)
-            {
-                m_UnusedBuffers.ReleaseBuffer(buffer);
-            }
-        }
+		public static void ReleaseBuffer(byte[] buffer)
+		{
+			lock (m_UnusedBuffers)
+				if (buffer != null && buffer.Length == m_CoalesceBufferSize)
+				{
+					m_UnusedBuffers.ReleaseBuffer(buffer);
+				}
+		}
 
-		private readonly ConcurrentQueue<Gram> _pending = new ConcurrentQueue<Gram>();
+		private readonly Queue<Gram> _pending;
 
-		private volatile Gram _buffered;
+		private Gram _buffered;
 
 		public bool IsFlushReady { get { return (_pending.Count == 0 && _buffered != null); } }
 
 		public bool IsEmpty { get { return (_pending.Count == 0 && _buffered == null); } }
 
+		public SendQueue()
+		{
+			_pending = new Queue<Gram>();
+		}
+
 		public Gram CheckFlushReady()
 		{
-			Gram gram = Interlocked.Exchange(ref _buffered, null);
-
-            _pending.Enqueue(gram);
-
+			Gram gram = _buffered;
+			_pending.Enqueue(_buffered);
+			_buffered = null;
 			return gram;
 		}
 
 		public Gram Dequeue()
 		{
-            if (_pending.TryDequeue(out Gram gram))
-            {
-                gram?.Release();
-                gram = null;
+			Gram gram = null;
 
-                if (_pending.TryPeek(out Gram peek))
-                    gram = peek;
-            }
+			if (_pending.Count > 0)
+			{
+				_pending.Dequeue().Release();
+
+				if (_pending.Count > 0)
+				{
+					gram = _pending.Peek();
+				}
+			}
 
 			return gram;
 		}
@@ -150,7 +177,7 @@ namespace Server.Network
 				throw new ArgumentException("Offset and length do not point to a valid segment within the buffer.");
 			}
 
-            int existingBytes = (_pending.Count * m_CoalesceBufferSize) + (_buffered?.Length ?? 0);
+			int existingBytes = (_pending.Count * m_CoalesceBufferSize) + (_buffered == null ? 0 : _buffered.Length);
 
 			if ((existingBytes + length) > PendingCap)
 			{
@@ -159,30 +186,30 @@ namespace Server.Network
 
             Gram gram = null;
 
-            while (length > 0)
-            {
-                if (_buffered == null)
-                {
-                    // nothing yet buffered
-                    _buffered = Gram.Acquire();
-                }
+			while (length > 0)
+			{
+				if (_buffered == null)
+				{
+					// nothing yet buffered
+					_buffered = Gram.Acquire();
+				}
 
-                int bytesWritten = _buffered.Write(buffer, offset, length);
+				int bytesWritten = _buffered.Write(buffer, offset, length);
 
                 offset += bytesWritten;
                 length -= bytesWritten;
 
-                if (_buffered.IsFull)
-                {
-                    if (_pending.Count == 0)
-                    {
-                        gram = _buffered;
-                    }
+				if (_buffered.IsFull)
+				{
+					if (_pending.Count == 0)
+					{
+						gram = _buffered;
+					}
 
-                    _pending.Enqueue(_buffered);
-                    _buffered = null;
-                }
-            }
+					_pending.Enqueue(_buffered);
+					_buffered = null;
+				}
+			}
 
             return gram;
 		}
@@ -195,9 +222,9 @@ namespace Server.Network
 				_buffered = null;
 			}
 
-			while (_pending.TryDequeue(out Gram gram))
+			while (_pending.Count > 0)
 			{
-				gram?.Release();
+				_pending.Dequeue().Release();
 			}
 		}
 	}

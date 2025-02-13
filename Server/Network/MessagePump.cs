@@ -1,7 +1,7 @@
 #region References
 using System;
-using System.Collections.Concurrent;
-using System.Linq;
+using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Threading;
 
 using Server.Diagnostics;
@@ -9,17 +9,15 @@ using Server.Diagnostics;
 
 namespace Server.Network
 {
-	public static class MessagePump
+	public class MessagePump
 	{
-		private static readonly ConcurrentQueue<NetState> m_Queue = new ConcurrentQueue<NetState>();
+		private Queue<NetState> m_Queue;
+		private Queue<NetState> m_WorkingQueue;
+		private readonly Queue<NetState> m_Throttled;
 
-        private static readonly ConcurrentQueue<NetState> m_Throttled = new ConcurrentQueue<NetState>();
-
-        public static Listener[] Listeners { get; private set; }
-
-        public static long AcceptsPerSecond => Listeners.Sum(l => l.AcceptsPerSecond);
-
-        public static void Start()
+		public Listener[] Listeners { get; set; }
+		
+		public MessagePump()
 		{
 			var ipep = Listener.EndPoints;
 
@@ -46,9 +44,13 @@ namespace Server.Network
 				}
 			}
 			while (!success);
+
+			m_Queue = new Queue<NetState>();
+			m_WorkingQueue = new Queue<NetState>();
+			m_Throttled = new Queue<NetState>();
 		}
 
-        public static void AddListener(Listener l)
+		public void AddListener(Listener l)
 		{
 			var old = Listeners;
 
@@ -62,13 +64,15 @@ namespace Server.Network
 			Listeners[old.Length] = l;
 		}
 
-        private static void CheckListener()
+		private void CheckListener()
 		{
 			foreach (Listener l in Listeners)
 			{
-				foreach (SocketState state in l.Slice())
+				var accepted = l.Slice();
+
+				foreach (Socket s in accepted)
 				{
-					NetState ns = new NetState(state);
+					NetState ns = new NetState(s, this);
 
 					ns.Start();
 
@@ -100,41 +104,50 @@ namespace Server.Network
 
         private static string[] _NoDisplay =
         {
-            "54.39.99.106",
+            "192.99.10.155",
+            "192.99.69.21",
         };
 
-        public static void OnReceive(NetState ns)
+		public void OnReceive(NetState ns)
 		{
-            m_Queue.Enqueue(ns);
+			lock (this)
+				m_Queue.Enqueue(ns);
 
 			Core.Set();
 		}
 
-        public static void Slice()
-        {
-            CheckListener();
+		public void Slice()
+		{
+			CheckListener();
 
-            var limit = m_Queue.Count;
+			lock (this)
+			{
+				var temp = m_WorkingQueue;
+				m_WorkingQueue = m_Queue;
+				m_Queue = temp;
+			}
 
-            while (--limit >= 0 && m_Queue.TryDequeue(out NetState ns))
-            {
-                if (ns.Running)
-                {
-                    HandleReceive(ns);
-                }
-            }
+			while (m_WorkingQueue.Count > 0)
+			{
+				NetState ns = m_WorkingQueue.Dequeue();
 
-            while (m_Throttled.TryDequeue(out NetState ns))
-            {
-            	if (ns.Running)
-                {
-	                m_Queue.Enqueue(ns);
-	            }
-            }
-        }
+				if (ns.Running)
+				{
+					HandleReceive(ns);
+				}
+			}
+
+			lock (this)
+			{
+				while (m_Throttled.Count > 0)
+				{
+					m_Queue.Enqueue(m_Throttled.Dequeue());
+				}
+			}
+		}
 
 		private const int BufferSize = 4096;
-        private static readonly BufferPool m_Buffers = new BufferPool("Processor", 4, BufferSize);
+		private readonly BufferPool m_Buffers = new BufferPool("Processor", 4, BufferSize);
 
 		public static bool HandleSeed(NetState ns, ByteQueue buffer)
 		{
@@ -174,36 +187,24 @@ namespace Server.Network
 			return false;
 		}
 
-        public static bool CheckEncrypted(NetState ns, int packetID)
-        {
-            if (ns.SentFirstPacket || !CheckEncrypted(packetID))
-            {
-                return false;
-            }
+		public static bool CheckEncrypted(NetState ns, int packetID)
+		{
+			if (!ns.SentFirstPacket && packetID != 0xF0 && packetID != 0xF1 && packetID != 0xCF && packetID != 0x80 &&
+				packetID != 0x91 && packetID != 0xA4 && packetID != 0xEF && packetID != 0xE4 && packetID != 0xFF)
+			{
+				Utility.PushColor(ConsoleColor.Red);
+				Console.WriteLine("Client: {0}: Encrypted Client Unsupported", ns);
+				Utility.PopColor();
+				
+				ns.Dispose();
 
-            Utility.PushColor(ConsoleColor.Red);
-            Console.WriteLine("Client: {0}: Encrypted Client Unsupported", ns);
-            Utility.PopColor();
+				return true;
+			}
 
-            ns.Dispose();
-
-            return true;
-        }
-
-        public static bool CheckEncrypted(int packetID)
-        {
-            return packetID != 0xF0
-                && packetID != 0xF1
-                && packetID != 0xCF
-                && packetID != 0x80
-                && packetID != 0x91
-                && packetID != 0xA4
-                && packetID != 0xEF
-                && packetID != 0xE4
-                && packetID != 0xFF;
+			return false;
 		}
 
-        public static void HandleReceive(NetState ns)
+		public void HandleReceive(NetState ns)
 		{
 			ByteQueue buffer = ns.Buffer;
 

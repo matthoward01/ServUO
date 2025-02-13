@@ -381,7 +381,7 @@ namespace Server.Misc
                 else
                     type = 2;
 
-                IList<NetState> states = NetState.Instances;
+                List<NetState> states = NetState.Instances;
 
                 Packet weatherPacket = null;
 
