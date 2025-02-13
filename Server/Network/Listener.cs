@@ -78,7 +78,7 @@ namespace Server.Network
             m_AcceptThread.Start();
         }
 
-        private Socket Bind(IPEndPoint ipep)
+        private static Socket Bind(IPEndPoint ipep)
         {
             Socket s = new Socket(ipep.AddressFamily, SocketType.Stream, ProtocolType.Tcp)
             {
@@ -291,7 +291,7 @@ namespace Server.Network
             }
         }
 
-        private bool ValidateSequence(Socket socket, out byte[] buffer)
+        private static bool ValidateSequence(Socket socket, out byte[] buffer)
         {
             buffer = null;
 
@@ -413,7 +413,7 @@ namespace Server.Network
             }
         }
 
-        private bool Match(byte[] buffer)
+        private static bool Match(byte[] buffer)
         {
             for (int i = 0; i < m_HttpFilters.Length; i++)
             {
@@ -450,7 +450,7 @@ namespace Server.Network
             Core.Set();
         }
 
-        private void Release(bool graceful, ref Socket socket)
+        private static void Release(bool graceful, ref Socket socket)
         {
             if (socket != null)
             {
