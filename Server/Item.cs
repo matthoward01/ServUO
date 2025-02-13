@@ -2032,6 +2032,7 @@ namespace Server
         {
             get
             {
+                // TODO: Make item decay an option on the spawner
                 return DefaultDecaySetting && Movable && Visible && !HonestyItem/* && Spawner == null*/;
             }
         }
