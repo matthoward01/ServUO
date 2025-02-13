@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 using CustomsFramework;
@@ -4028,23 +4027,25 @@ namespace Server
             OnItemAdded(item);
         }
 
-        private static event Action DeltaQueue;
+        private static readonly List<Item> m_DeltaQueue = new List<Item>();
 
         public void Delta(ItemDelta flags)
         {
-            if (Deleted || m_Map == null || m_Map == Map.Internal)
+            if (m_Map == null || m_Map == Map.Internal)
             {
                 return;
             }
 
             m_DeltaFlags |= flags;
 
-            if (!GetFlag(ImplFlag.InQueue) && m_DeltaFlags != ItemDelta.None)
+            if (!GetFlag(ImplFlag.InQueue))
             {
                 SetFlag(ImplFlag.InQueue, true);
 
-                DeltaQueue += ProcessDelta;
+                m_DeltaQueue.Add(this);
             }
+
+            Core.Set();
         }
 
         public void RemDelta(ItemDelta flags)
@@ -4055,7 +4056,7 @@ namespace Server
             {
                 SetFlag(ImplFlag.InQueue, false);
 
-                DeltaQueue -= ProcessDelta;
+                m_DeltaQueue.Remove(this);
             }
         }
 
@@ -4072,7 +4073,7 @@ namespace Server
 
             Map map = m_Map;
 
-            if (map != null && !Deleted && flags != ItemDelta.None)
+            if (map != null && !Deleted)
             {
                 bool sendOPLUpdate = ObjectPropertyList.Enabled && (flags & ItemDelta.Properties) != 0;
 
@@ -4338,11 +4339,29 @@ namespace Server
             }
         }
 
+        private static bool _Processing;
+
         public static void ProcessDeltaQueue()
         {
-            var delta = Interlocked.Exchange(ref DeltaQueue, null);
+            if (_Processing)
+            {
+                return;
+            }
 
-            delta?.Invoke();
+            _Processing = true;
+
+            var i = m_DeltaQueue.Count;
+
+            while (--i >= 0)
+            {
+                if (i < m_DeltaQueue.Count)
+                {
+                    m_DeltaQueue[i].ProcessDelta();
+                    m_DeltaQueue.RemoveAt(i);
+                }
+            }
+
+            _Processing = false;
         }
 
         public virtual void OnDelete()
