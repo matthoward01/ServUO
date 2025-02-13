@@ -5200,7 +5200,6 @@ namespace Server
 				Packet regp = null;
 				Packet mutp = null;
 
-				// TODO: Should this be sorted like onSpeech is below?
 
 				for (int i = 0; i < hears.Count; ++i)
 				{
@@ -6106,7 +6105,9 @@ namespace Server
 						if (version < 15)
 						{
 							m_Followers = 0;
-							m_FollowersMax = 5;
+                            //TODO: MATT - INCREASE MAX FOLLOWERS BY 1
+							m_FollowersMax = 6;
+							//m_FollowersMax = 5;
 						}
 
 						m_Location = reader.ReadPoint3D();
@@ -7864,7 +7865,6 @@ namespace Server
 
 			if ( /*m_Player &&*/ !Region.AllowBeneficial(this, target))
 			{
-				// TODO: Pets
 				//if ( !(target.m_Player || target.Body.IsHuman || target.Body.IsAnimal) )
 				//{
 				if (message)
@@ -7977,7 +7977,6 @@ namespace Server
 				return true;
 			}
 
-			// TODO: Pets
 			if ( /*m_Player &&*/ !Region.AllowHarmful(this, target))
 				//(target.m_Player || target.Body.IsHuman) && !Region.AllowHarmful( this, target )  )
 			{
@@ -11129,7 +11128,9 @@ namespace Server
             m_StrMaxCap = Config.Get("PlayerCaps.StrMaxCap", 150);
             m_DexMaxCap = Config.Get("PlayerCaps.DexMaxCap", 150);
             m_IntMaxCap = Config.Get("PlayerCaps.IntMaxCap", 150);
-			m_FollowersMax = 5;
+            //TODO: MATT - CHANGED MAX FOLLOWER ACCOUNT +1
+            m_FollowersMax = 6;
+			//m_FollowersMax = 5;
 			m_Skills = new Skills(this);
 			m_Items = new List<Item>();
 			m_StatMods = new List<StatMod>();
