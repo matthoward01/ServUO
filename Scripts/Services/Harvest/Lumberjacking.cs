@@ -47,8 +47,11 @@ namespace Server.Engines.Harvest
             lumber.MaxTotal = 45;
 
             // A resource bank will respawn its content every 20 to 30 minutes
-            lumber.MinRespawn = TimeSpan.FromMinutes(20.0);
-            lumber.MaxRespawn = TimeSpan.FromMinutes(30.0);
+            //MATT - Adjusted
+            lumber.MinRespawn = TimeSpan.FromMinutes(10.0);
+            lumber.MaxRespawn = TimeSpan.FromMinutes(15.0);
+            //lumber.MinRespawn = TimeSpan.FromMinutes(20.0);
+            //lumber.MaxRespawn = TimeSpan.FromMinutes(30.0);
 
             // Skill checking is done on the Lumberjacking skill
             lumber.Skill = SkillName.Lumberjacking;
@@ -57,7 +60,9 @@ namespace Server.Engines.Harvest
             lumber.Tiles = m_TreeTiles;
 
             // Players must be within 2 tiles to harvest
-            lumber.MaxRange = 2;
+            //MATT - Adjusted
+            lumber.MaxRange = 20;
+            //lumber.MaxRange = 2;
 
             // Ten logs per harvest action
             lumber.ConsumedPerHarvest = 10;
@@ -66,7 +71,9 @@ namespace Server.Engines.Harvest
             // The chopping effect
             lumber.EffectActions = new int[] { Core.SA ? 7 : 13 };
             lumber.EffectSounds = new int[] { 0x13E };
-            lumber.EffectCounts = (Core.AOS ? new int[] { 1 } : new int[] { 1, 2, 2, 2, 3 });
+            //MATT - Adjusted
+            lumber.EffectCounts = (Core.AOS ? new int[] { 1 } : new int[] { 1 });
+            //lumber.EffectCounts = (Core.AOS ? new int[] { 1 } : new int[] { 1, 2, 2, 2, 3 });
             lumber.EffectDelay = TimeSpan.FromSeconds(1.6);
             lumber.EffectSoundDelay = TimeSpan.FromSeconds(0.9);
 
