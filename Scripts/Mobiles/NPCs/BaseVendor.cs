@@ -36,8 +36,9 @@ namespace Server.Mobiles
         public static int EconomyStockAmount = Config.Get("Vendors.EconomyStockAmount", 500);
         public static TimeSpan DelayRestock = TimeSpan.FromMinutes(Config.Get("Vendors.RestockDelay", 60));
         public static int MaxSell = Config.Get("Vendors.MaxSell", 500);
+        public static double SellMultiplier = Config.Get("Vendors.SellMultiplier", 1);
 
-		public static List<BaseVendor> AllVendors { get; private set; }
+        public static List<BaseVendor> AllVendors { get; private set; }
 
 		static BaseVendor()
 		{
@@ -2204,7 +2205,7 @@ namespace Server.Mobiles
 						}
 
                         var singlePrice = ssi.GetSellPriceFor(resp.Item, this);
-                        GiveGold += singlePrice * amount;
+                        GiveGold += (int)(singlePrice * amount * SellMultiplier);
 
                         EventSink.InvokeValidVendorSell(new ValidVendorSellEventArgs(seller, this, resp.Item, singlePrice));
 
