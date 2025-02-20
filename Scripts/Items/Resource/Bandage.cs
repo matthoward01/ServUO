@@ -657,10 +657,10 @@ namespace Server.Items
             {
                 healer.SendLocalizedMessage(500951); // You cannot heal that.
             }
-            else if (!patient.Poisoned && patient.Hits == patient.HitsMax && !BleedAttack.IsBleeding(patient) && !isDeadPet)
+            /*else if (!patient.Poisoned && patient.Hits == patient.HitsMax && !BleedAttack.IsBleeding(patient) && !isDeadPet)
             {
                 healer.SendLocalizedMessage(500955); // That being is not damaged!
-            }
+            }*/
             else if (!patient.Alive && (patient.Map == null || !patient.Map.CanFit(patient.Location, 16, false, false)))
             {
                 healer.SendLocalizedMessage(501042); // Target cannot be resurrected at that location.
@@ -673,7 +673,8 @@ namespace Server.Items
 
                 if (context != null)
                 {
-                    context.StopHeal();
+                    return null;
+                    //context.StopHeal();
                 }
 
 				var delay = GetDelay(healer, patient);
