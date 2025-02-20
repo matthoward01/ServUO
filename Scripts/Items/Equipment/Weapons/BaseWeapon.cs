@@ -1532,10 +1532,33 @@ namespace Server.Items
                 chance = 0.02;
             }
 
-            if (Core.AOS && m_AosWeaponAttributes.MageWeapon > 0 && attacker.Skills[SkillName.Magery].Value > atkSkill.Value)
-                return attacker.CheckSkill(SkillName.Magery, chance);
+            var success = chance >= Utility.RandomDouble();
 
-			return attacker.CheckSkill(atkSkill.SkillName, chance);
+            if (success)
+            {
+                var skillChance = 0.0;
+                var max = (atkSkill.Value * 1.5);
+                var min = (atkSkill.Value / 2.0);
+
+                if (atkSkill.Value > 0 && (defSkill.Value > min && defSkill.Value < max))
+                {
+                    var mid = (max + min) / 2.0;
+                    var range = max - min;
+                    var normalizedDistance = (2 * (defSkill.Value - mid)) / range;
+
+                    skillChance = 0.1 + (0.9 - 0.1) * (1 - Math.Exp(-8.0 * normalizedDistance * normalizedDistance));
+                }
+
+                if (Core.AOS && m_AosWeaponAttributes.MageWeapon > 0 && attacker.Skills[SkillName.Magery].Value > atkSkill.Value)
+                {
+                    attacker.CheckSkill(SkillName.Magery, skillChance);
+                }else
+                {
+                    attacker.CheckSkill(atkSkill.SkillName, skillChance);
+                }
+            }
+
+            return success;
 		}
 
 		public virtual TimeSpan GetDelay(Mobile m)
@@ -3826,11 +3849,6 @@ namespace Server.Items
 		{
 			if (checkSkills)
 			{
-				attacker.CheckSkill(SkillName.Tactics, 0.0, attacker.Skills[SkillName.Tactics].Cap);
-					// Passively check tactics for gain
-				attacker.CheckSkill(SkillName.Anatomy, 0.0, attacker.Skills[SkillName.Anatomy].Cap);
-					// Passively check Anatomy for gain
-
 				if (Type == WeaponType.Axe)
 				{
 					attacker.CheckSkill(SkillName.Lumberjacking, 0.0, 100.0); // Passively check Lumberjacking for gain
@@ -3918,7 +3936,29 @@ namespace Server.Items
 				return ComputeDamageAOS(attacker, defender);
 			}
 
-			int damage = (int)ScaleDamageOld(attacker, GetBaseDamage(attacker), true);
+            var skillChance = 0.0;
+            var atkSkill = attacker.Skills.Tactics;
+            var defSkill = defender.Skills.Tactics;
+            var max = (atkSkill.Value * 1.5);
+            var min = (atkSkill.Value / 2.0);
+
+            if (atkSkill.Value > 0 && (defSkill.Value > min && defSkill.Value < max))
+            {
+                var mid = (max + min) / 2.0;
+                var range = max - min;
+                var normalizedDistance = (2 * (defSkill.Value - mid)) / range;
+
+                skillChance = 0.1 + (0.9 - 0.1) * (1 - Math.Exp(-8.0 * normalizedDistance * normalizedDistance));
+            }
+
+            // Passively check tactics for gain
+            attacker.CheckSkill(SkillName.Tactics, skillChance);
+
+            // Passively check Anatomy for gain
+            attacker.CheckSkill(SkillName.Anatomy, 0.0, attacker.Skills.Anatomy.Cap);
+
+
+            int damage = (int)ScaleDamageOld(attacker, GetBaseDamage(attacker), true);
 
 			// pre-AOS, halve damage if the defender is a player or the attacker is not a player
 			if (defender is PlayerMobile || !(attacker is PlayerMobile))

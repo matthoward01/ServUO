@@ -227,6 +227,7 @@ namespace Server.Misc
             var gc = (double)(from.Skills.Cap + (Skills.NonTotalInfluencingSkills.Contains(skill.SkillName) ? 1 : 0) - (from.Skills.Total + (gains * 10))) / from.Skills.Cap;
 
             gc += (skill.Cap - (skill.Base + (gains * 10))) / skill.Cap;
+
             gc /= 4;
 
             gc *= skill.Info.GainFactor;
@@ -247,17 +248,21 @@ namespace Server.Misc
                 return false;
 
             var success = Utility.Random(100) <= (int)(chance * 100);
-            var gc = GetGainChance(from, skill, chance, success);
 
-            if (AllowGain(from, skill, obj))
+            if (success)
             {
-                if (from.Alive && (skill.Base < 10.0 || Utility.RandomDouble() <= gc || CheckGGS(from, skill)))
-                {
-                    Gain(from, skill);
-                }
-            }
+                var gc = GetGainChance(from, skill, chance, success);
 
-            EventSink.InvokeSkillCheck(new SkillCheckEventArgs(from, skill, success));
+                if (AllowGain(from, skill, obj))
+                {
+                    if (from.Alive && (skill.Base < 10.0 || Utility.RandomDouble() <= gc || CheckGGS(from, skill)))
+                    {
+                        Gain(from, skill);
+                    }
+                }
+
+                EventSink.InvokeSkillCheck(new SkillCheckEventArgs(from, skill, success));
+            }
 
             return success;
         }
