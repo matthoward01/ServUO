@@ -607,7 +607,8 @@ namespace Server.Items
                 * 11.6 free points. Also, if we're below our skillcap by, say, 8.2 points,
                 * we only need 11.6 - 8.2 = 3.4 points.
                 */
-                int requiredAmount = (int)(skillValue * 10) - fromSkill.BaseFixedPoint - (from.SkillsCap - from.SkillsTotal);
+                //TODO: Steven - Added exemption for non influencing skills
+                int requiredAmount = (int)(skillValue * 10) - fromSkill.BaseFixedPoint - (from.SkillsCap + (int)(Skills.NonTotalInfluencingSkills.Contains(skill) ? fromSkill.Cap * 10 : 0) - from.SkillsTotal);
 
                 bool cannotAbsorb = false;
 

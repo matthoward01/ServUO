@@ -202,81 +202,110 @@ namespace Server.Misc
 
 			var young = false;
 
-			if (newChar is PlayerMobile)
-			{
-				var pm = (PlayerMobile)newChar;
-				
-				pm.AutoRenewInsurance = true;
+            if (newChar is PlayerMobile)
+            {
+                var pm = (PlayerMobile)newChar;
 
-				var skillcap = Config.Get("PlayerCaps.SkillCap", 1000.0d) / 10;
-				
-				if (skillcap != 100.0)
-				{
-					for (var i = 0; i < Enum.GetNames(typeof(SkillName)).Length; ++i)
-						pm.Skills[i].Cap = skillcap;
-				}
-				
-				pm.Profession = args.Profession;
+                pm.AutoRenewInsurance = true;
 
-				if (pm.IsPlayer() && pm.Account.Young && !Siege.SiegeShard)
-					young = pm.Young = true;
-			}
+                var skillcap = Config.Get("PlayerCaps.SkillCap", 1000.0d) / 10;
 
-			SetName(newChar, args.Name);
+                if (skillcap != 100.0)
+                {
+                    for (var i = 0; i < Enum.GetNames(typeof(SkillName)).Length; ++i)
+                        pm.Skills[i].Cap = skillcap;
+                }
 
-			AddBackpack(newChar);
+                pm.Profession = args.Profession;
+
+                if (pm.IsPlayer() && pm.Account.Young && !Siege.SiegeShard)
+                    young = pm.Young = true;
+            }
+
+            SetName(newChar, args.Name);
+
+            AddBackpack(newChar);
 
             SetStats(newChar, state, args.Profession, args.Str, args.Dex, args.Int);
-			SetSkills(newChar, args.Skills, args.Profession);
+            SetSkills(newChar, args.Skills, args.Profession);
 
-			var race = newChar.Race;
+            // TODO: Added setting some base skills to 100
+            newChar.Skills[SkillName.ArmsLore].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Begging].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Camping].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.DetectHidden].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Forensics].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Herding].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Hiding].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.ItemID].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Snooping].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Stealth].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.TasteID].BaseFixedPoint = 1000;
+            newChar.Skills[SkillName.Tracking].BaseFixedPoint = 1000;
 
-			if (race.ValidateHair(newChar, args.HairID))
-			{
-				newChar.HairItemID = args.HairID;
-				newChar.HairHue = args.HairHue;
-			}
+            var race = newChar.Race;
 
-			if (race.ValidateFacialHair(newChar, args.BeardID))
-			{
-				newChar.FacialHairItemID = args.BeardID;
-				newChar.FacialHairHue = args.BeardHue;
-			}
+            if (race.ValidateHair(newChar, args.HairID))
+            {
+                newChar.HairItemID = args.HairID;
+                newChar.HairHue = args.HairHue;
+            }
 
-			var faceID = args.FaceID;
+            if (race.ValidateFacialHair(newChar, args.BeardID))
+            {
+                newChar.FacialHairItemID = args.BeardID;
+                newChar.FacialHairHue = args.BeardHue;
+            }
 
-			if (faceID > 0 && race.ValidateFace(newChar.Female, faceID))
-			{
-				newChar.FaceItemID = faceID;
-				newChar.FaceHue = args.FaceHue;
-			}
-			else
-			{
-				newChar.FaceItemID = race.RandomFace(newChar.Female);
-				newChar.FaceHue = newChar.Hue;
-			}
+            var faceID = args.FaceID;
 
-			if (args.Profession <= 3)
-			{
-				AddShirt(newChar, args.ShirtHue);
-				AddPants(newChar, args.PantsHue);
-				AddShoes(newChar);
-			}
+            if (faceID > 0 && race.ValidateFace(newChar.Female, faceID))
+            {
+                newChar.FaceItemID = faceID;
+                newChar.FaceHue = args.FaceHue;
+            }
+            else
+            {
+                newChar.FaceItemID = race.RandomFace(newChar.Female);
+                newChar.FaceHue = newChar.Hue;
+            }
 
-			if (TestCenter.Enabled)
-				TestCenter.FillBankbox(newChar);
+            if (args.Profession <= 3)
+            {
+                AddShirt(newChar, args.ShirtHue);
+                AddPants(newChar, args.PantsHue);
+                AddShoes(newChar);
+            }
 
-			if (young)
-			{
-				var ticket = new NewPlayerTicket
-				{
-					Owner = newChar
-				};
-				
-				newChar.BankBox.DropItem(ticket);
-			}
+            if (TestCenter.Enabled)
+                TestCenter.FillBankbox(newChar);
 
-			var city = args.City;
+            if (young)
+            {
+                var ticket = new NewPlayerTicket
+                {
+                    Owner = newChar
+                };
+
+                newChar.BankBox.DropItem(ticket);
+            }
+
+            if (newChar.AccessLevel != AccessLevel.Player)
+            {
+                newChar.Str = 100;
+                newChar.Int = 100;
+                newChar.Dex = 100;
+
+                for (var i = 0; i < newChar.Skills.Length; i++)
+                {
+                    newChar.Skills[i].BaseFixedPoint = 1000;
+                }
+
+                newChar.Race = Race.Human;
+                newChar.Blessed = true;
+            }
+
+            var city = args.City;
 			var map = Siege.SiegeShard && city.Map == Map.Trammel ? Map.Felucca : city.Map;
 
 			newChar.MoveToWorld(city.Location, map);

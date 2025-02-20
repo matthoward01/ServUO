@@ -29,6 +29,7 @@ using Server.Spells.Sixth;
 using Server.Spells.SkillMasteries;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
+using Ultima;
 #endregion
 
 namespace Server.Mobiles
@@ -375,7 +376,7 @@ namespace Server.Mobiles
 
         public virtual Faction FactionAllegiance { get { return null; } }
 
-        public virtual int DefaultHitsRegen 
+        public virtual int DefaultHitsRegen
         {
             get
             {
@@ -434,8 +435,13 @@ namespace Server.Mobiles
         public const bool BondingEnabled = true;
 
         public virtual bool IsBondable { get { return (BondingEnabled && !Summoned && !m_Allured && !IsGolem); } }
-        public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(7.0); } }
-        public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
+
+        //TODO: MATT - CHANGED BONDING DELAY TO 5 MINS
+        public virtual TimeSpan BondingDelay { get { return TimeSpan.FromMinutes(5.0); } }
+        public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromMinutes(5.0); } }
+
+        //public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(7.0); } }
+        //public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
 
         public override bool CanRegenHits { get { return !m_IsDeadPet && !Summoned && base.CanRegenHits; } }
         public override bool CanRegenStam { get { return !IsParagon && !m_IsDeadPet && base.CanRegenStam; } }
@@ -758,23 +764,23 @@ namespace Server.Mobiles
         private SkillName _Mastery;
 
         [CommandProperty(AccessLevel.GameMaster)]
-		public SkillName Mastery 
-		{
-			get { return _Mastery; } 
-			set
-			{
-				var old = _Mastery;
-				_Mastery = value;
+        public SkillName Mastery
+        {
+            get { return _Mastery; }
+            set
+            {
+                var old = _Mastery;
+                _Mastery = value;
 
                 if (old != _Mastery)
                 {
                     UpdateMasteryInfo();
                 }
-			}
-		}
-		
-		public virtual MasteryInfo[] Masteries { get; set; }
-		public DateTime NextMastery { get; set; }
+            }
+        }
+
+        public virtual MasteryInfo[] Masteries { get; set; }
+        public DateTime NextMastery { get; set; }
 
         public void UpdateMasteryInfo()
         {
@@ -919,28 +925,28 @@ namespace Server.Mobiles
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool IsParagon
-		{
+        {
 			get{ return m_Paragon; }
-			set
-			{
-				if (m_Paragon == value)
-				{
-					return;
-				}
-				else if (value)
-				{
-					Paragon.Convert(this);
-				}
-				else
-				{
-					Paragon.UnConvert(this);
-				}
+            set
+            {
+                if (m_Paragon == value)
+                {
+                    return;
+                }
+                else if (value)
+                {
+                    Paragon.Convert(this);
+                }
+                else
+                {
+                    Paragon.UnConvert(this);
+                }
 
-				m_Paragon = value;
+                m_Paragon = value;
 
-				InvalidateProperties();
-			}
-		}
+                InvalidateProperties();
+            }
+        }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public bool IsChampionSpawn
@@ -948,15 +954,15 @@ namespace Server.Mobiles
             get { return m_IsChampionSpawn; }
             set
             {
-				if (m_IsChampionSpawn != value)
-				{
-	                if (!m_IsChampionSpawn && value)
-	                    SetToChampionSpawn();
-	
-	                m_IsChampionSpawn = value;
+                if (m_IsChampionSpawn != value)
+                {
+                    if (!m_IsChampionSpawn && value)
+                        SetToChampionSpawn();
+
+                    m_IsChampionSpawn = value;
 
                     OnChampionSpawnChange();
-				}
+                }
             }
         }
 
@@ -996,11 +1002,11 @@ namespace Server.Mobiles
                         InitialFocus = (Mobile)value;
                     }
                 }
-                else if (AttacksFocus && 
-                        initialFocus != null && 
-                        value != initialFocus && 
-                        !initialFocus.Hidden &&  
-                        Map == initialFocus.Map && 
+                else if (AttacksFocus &&
+                        initialFocus != null &&
+                        value != initialFocus &&
+                        !initialFocus.Hidden &&
+                        Map == initialFocus.Map &&
                         InRange(initialFocus.Location, RangePerception))
                 {
                     //Keeps focus
@@ -1029,7 +1035,10 @@ namespace Server.Mobiles
         public virtual bool SubdueBeforeTame { get { return false; } }
         public virtual bool StatLossAfterTame { get { return SubdueBeforeTame; } }
         public virtual bool ReduceSpeedWithDamage { get { return true; } }
-        public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < ((double)HitsMax / 10)); } }
+
+        //TODO: MATT - Making ANIMAL TAMEABLE AT 25%
+        public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < ((double)HitsMax / 4)); } }
+        //public virtual bool IsSubdued { get { return SubdueBeforeTame && (Hits < ((double)HitsMax / 10)); } }
 
         public virtual bool Commandable { get { return true; } }
 
@@ -1063,21 +1072,21 @@ namespace Server.Mobiles
         public virtual bool CanFly { get { return false; } }
 
         public virtual bool CanAutoStable
-		{ 
-			get 
-			{
+        {
+            get
+            {
 				if(!(ControlMaster is PlayerMobile))
-					return false;
+                    return false;
 
 				if(Allured || Summoned)
-					return false;
+                    return false;
 
 				if(this is IMount && ((IMount)this).Rider != null)
-					return false;
+                    return false;
 
-				return true;
-			}
-		}
+                return true;
+            }
+        }
 
         public virtual bool TaintedLifeAura { get { return false; } }
         public virtual bool BreathImmune { get { return false; } }
@@ -1232,44 +1241,44 @@ namespace Server.Mobiles
             }
         }
 
-		public virtual bool IsFriend(Mobile m)
-		{
-			if (Core.TOL)
-			{
-				if (Tribe != TribeType.None && IsTribeEnemy(m))
-				{
-					return false;
-				}
-			}
-			else
-			{
-				OppositionGroup g = OppositionGroup;
+        public virtual bool IsFriend(Mobile m)
+        {
+            if (Core.TOL)
+            {
+                if (Tribe != TribeType.None && IsTribeEnemy(m))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                OppositionGroup g = OppositionGroup;
 
-				if (g != null && g.IsEnemy(this, m))
-				{
-					return false;
-				}
-			}
+                if (g != null && g.IsEnemy(this, m))
+                {
+                    return false;
+                }
+            }
 
-			if (!(m is BaseCreature))
-			{
-				return false;
-			}
+            if (!(m is BaseCreature))
+            {
+                return false;
+            }
 
-			BaseCreature c = (BaseCreature)m;
+            BaseCreature c = (BaseCreature)m;
 
-			if (m_iTeam != c.m_iTeam)
-			{
-				return false;
-			}
-/*
-			if (c.Combatant == this)
-			{
-				return false;
-			}
-*/
-			return ((m_bSummoned || m_bControlled) == (c.m_bSummoned || c.m_bControlled));
-		}
+            if (m_iTeam != c.m_iTeam)
+            {
+                return false;
+            }
+            /*
+                        if (c.Combatant == this)
+                        {
+                            return false;
+                        }
+            */
+            return ((m_bSummoned || m_bControlled) == (c.m_bSummoned || c.m_bControlled));
+        }
         #endregion
 
         #region Allegiance
@@ -1317,22 +1326,22 @@ namespace Server.Mobiles
         }
         #endregion
 
-		public virtual bool IsEnemy(Mobile m)
-		{
-			XmlIsEnemy a = (XmlIsEnemy)XmlAttach.FindAttachment(this, typeof(XmlIsEnemy));
+        public virtual bool IsEnemy(Mobile m)
+        {
+            XmlIsEnemy a = (XmlIsEnemy)XmlAttach.FindAttachment(this, typeof(XmlIsEnemy));
 
-			if (a != null)
-			{
-				return a.IsEnemy(m);
-			}
+            if (a != null)
+            {
+                return a.IsEnemy(m);
+            }
 
-			if (m is BaseGuard)
-			{
-				return false;
-			}
+            if (m is BaseGuard)
+            {
+                return false;
+            }
 
-			if (Combatant != m)
-			{
+            if (Combatant != m)
+            {
                 if (m is PlayerMobile && ((PlayerMobile)m).HonorActive)
                 {
                     return false;
@@ -1342,24 +1351,24 @@ namespace Server.Mobiles
                 {
                     return false;
                 }
-			}
+            }
 
-			if (Core.TOL)
-			{
-				if (Tribe != TribeType.None && IsTribeEnemy(m))
-				{
-					return true;
-				}
-			}
-			else
-			{
-				OppositionGroup g = OppositionGroup;
+            if (Core.TOL)
+            {
+                if (Tribe != TribeType.None && IsTribeEnemy(m))
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                OppositionGroup g = OppositionGroup;
 
-				if (g != null && g.IsEnemy(this, m))
-				{
-					return true;
-				}
-			}
+                if (g != null && g.IsEnemy(this, m))
+                {
+                    return true;
+                }
+            }
 
             BaseCreature c = m as BaseCreature;
 
@@ -1405,20 +1414,20 @@ namespace Server.Mobiles
                 return false;
             }
 
-			// Faction Allied Players/Pets are not my enemies
-			if (GetFactionAllegiance(m) == Allegiance.Ally)
-			{
-				return false;
-			}
+            // Faction Allied Players/Pets are not my enemies
+            if (GetFactionAllegiance(m) == Allegiance.Ally)
+            {
+                return false;
+            }
 
-			Ethic ourEthic = EthicAllegiance;
-			Player pl = Ethics.Player.Find(m, true);
+            Ethic ourEthic = EthicAllegiance;
+            Player pl = Ethics.Player.Find(m, true);
 
-			// Ethic Allied Players/Pets are not my enemies
-			if (pl != null && pl.IsShielded && (ourEthic == null || ourEthic == pl.Ethic))
-			{
-				return false;
-			}
+            // Ethic Allied Players/Pets are not my enemies
+            if (pl != null && pl.IsShielded && (ourEthic == null || ourEthic == pl.Ethic))
+            {
+                return false;
+            }
 
             if (c == null)
             {
@@ -1435,36 +1444,36 @@ namespace Server.Mobiles
             }
 
             if (c is Server.Engines.Quests.Haven.MilitiaFighter)
-			{
-				return true;
-			}
+            {
+                return true;
+            }
 
-			BaseCreature t = this;
+            BaseCreature t = this;
 
-			// Summons should have same rules as their master
-			if (c.m_bSummoned && c.SummonMaster != null && c.SummonMaster is BaseCreature)
-			{
-				c = c.SummonMaster as BaseCreature;
-			}
+            // Summons should have same rules as their master
+            if (c.m_bSummoned && c.SummonMaster != null && c.SummonMaster is BaseCreature)
+            {
+                c = c.SummonMaster as BaseCreature;
+            }
 
-			// Summons should have same rules as their master
-			if (t.m_bSummoned && t.SummonMaster != null && t.SummonMaster is BaseCreature)
-			{
-				t = t.SummonMaster as BaseCreature;
-			}
+            // Summons should have same rules as their master
+            if (t.m_bSummoned && t.SummonMaster != null && t.SummonMaster is BaseCreature)
+            {
+                t = t.SummonMaster as BaseCreature;
+            }
 
-			// Creatures on other teams are my enemies
-			if (t.m_iTeam != c.m_iTeam)
-			{
-				return true;
-			}
+            // Creatures on other teams are my enemies
+            if (t.m_iTeam != c.m_iTeam)
+            {
+                return true;
+            }
 
-			// If I'm summoned/controlled and they aren't summoned/controlled, they are my enemy
-			// If I'm not summoned/controlled and they are summoned/controlled, they are my enemy
+            // If I'm summoned/controlled and they aren't summoned/controlled, they are my enemy
+            // If I'm not summoned/controlled and they are summoned/controlled, they are my enemy
             // Summoned creatures must have masters to count as summoned here
-			return (((t.m_bSummoned && t.SummonMaster != null) || t.m_bControlled) !=
+            return (((t.m_bSummoned && t.SummonMaster != null) || t.m_bControlled) !=
                 ((c.m_bSummoned && c.SummonMaster != null) || c.m_bControlled));
-		}
+        }
 
         public override string ApplyNameSuffix(string suffix)
         {
@@ -2635,13 +2644,13 @@ namespace Server.Mobiles
                     goto case 27;
                 case 27: // Pet Slot Fix
                 case 26:
-                {
-                    CanMove = reader.ReadBool();
-                    _LockDirection = reader.ReadBool();
+                    {
+                        CanMove = reader.ReadBool();
+                        _LockDirection = reader.ReadBool();
 
-                    ApproachWait = reader.ReadBool();
-                    ApproachRange = reader.ReadInt();
-                }
+                        ApproachWait = reader.ReadBool();
+                        ApproachRange = reader.ReadInt();
+                    }
                     break;
             }
 
@@ -3179,7 +3188,7 @@ namespace Server.Mobiles
                  dropped is LeftLeg || dropped is Torso || dropped is RightArm || dropped is RightLeg || dropped is IronIngot ||
                  dropped is DullCopperIngot || dropped is ShadowIronIngot || dropped is CopperIngot || dropped is BronzeIngot ||
                  dropped is GoldIngot || dropped is AgapiteIngot || dropped is VeriteIngot || dropped is ValoriteIngot))*/
-                // Why do we need all this crap, when its checked in CheckFootPreference?
+            // Why do we need all this crap, when its checked in CheckFootPreference?
             {
                 Item f = dropped;
 
@@ -3317,10 +3326,10 @@ namespace Server.Mobiles
                 return true;
             }
 
-	        if (!from.InRange(Location, 2))
+            if (!from.InRange(Location, 2))
                 return base.OnDragDrop(from, dropped);
 
-	        bool gainedPath = false;
+            bool gainedPath = false;
 
             var honestySocket = dropped.GetSocket<HonestyItemSocket>();
 
@@ -3333,10 +3342,10 @@ namespace Server.Mobiles
                 return false;
             }
 
-	        from.SendMessage(gainedPath ? "You have gained a path in Honesty!" : "You have gained in Honesty.");
-	        SayTo(from, 1074582); //Ah!  You found my property.  Thank you for your honesty in returning it to me.
-	        dropped.Delete();
-	        return true;
+            from.SendMessage(gainedPath ? "You have gained a path in Honesty!" : "You have gained in Honesty.");
+            SayTo(from, 1074582); //Ah!  You found my property.  Thank you for your honesty in returning it to me.
+            dropped.Delete();
+            return true;
         }
 
         protected virtual BaseAI ForcedAI { get { return null; } }
@@ -3787,7 +3796,7 @@ namespace Server.Mobiles
         public DateTime BardEndTime { get; set; }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public double MinTameSkill 
+        public double MinTameSkill
         {
             get { return m_dMinTameSkill; }
             set
@@ -3808,7 +3817,7 @@ namespace Server.Mobiles
                         m_CurrentTameSkill = value;
                     }
                 }
-            } 
+            }
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -3894,7 +3903,10 @@ namespace Server.Mobiles
         #endregion
 
         public virtual bool AutoDispel { get { return false; } }
-        public virtual double AutoDispelChance { get { return ((Core.SE) ? .10 : 1.0); } }
+
+        //TODO: MATT - STOPPING MOBS FROM DISPELLING
+        public virtual double AutoDispelChance { get { return 0; } }
+        //public virtual double AutoDispelChance { get { return ((Core.SE) ? .10 : 1.0); } }
 
         public virtual bool IsScaryToPets { get { return false; } }
         public virtual bool IsScaredOfScaryThings { get { return true; } }
@@ -3996,7 +4008,7 @@ namespace Server.Mobiles
                 level = 2;
             else if (total > 35)
                 level = 1;
-                
+
             return Poison.GetPoison(Math.Max(current, level));
         }
 
@@ -4326,6 +4338,12 @@ namespace Server.Mobiles
             }
 
             int freePoints = m.Skills.Cap - m.Skills.Total;
+
+            //TODO: Matt - Fixing it so non Influencing skills can be taught when at max skill point.
+            if (Skills.NonTotalInfluencingSkills.Contains(skill))
+            {
+                freePoints = 1000;
+            }
             int freeablePoints = 0;
 
             if (freePoints < 0)
@@ -4345,7 +4363,8 @@ namespace Server.Mobiles
                 freeablePoints += sk.BaseFixedPoint;
             }
 
-            if ((freePoints + freeablePoints) == 0)
+            //TODO: Matt - Fixing it so non Influencing skills can be taught when at max skill point.
+            if ((freePoints + freeablePoints) == 0 && !Skills.NonTotalInfluencingSkills.Contains(skill))
             {
                 return TeachResult.NotEnoughFreePoints;
             }
@@ -4380,9 +4399,9 @@ namespace Server.Mobiles
                         need = 0;
                     }
                 }
-
+                //TODO: Matt - Fixing it so non Influencing skills can be taught when at max skill point.
                 /* Sanity check */
-                if (baseToSet > theirSkill.CapFixedPoint || (m.Skills.Total - theirSkill.BaseFixedPoint + baseToSet) > m.Skills.Cap)
+                if ((baseToSet > theirSkill.CapFixedPoint || (m.Skills.Total - theirSkill.BaseFixedPoint + baseToSet) > m.Skills.Cap) && !Skills.NonTotalInfluencingSkills.Contains(skill))
                 {
                     // Full refund
                     m.Backpack.TryDropItem(m, new Gold(maxPointsToLearn), false);
@@ -4394,6 +4413,7 @@ namespace Server.Mobiles
                 {
                     m.Backpack.TryDropItem(m, new Gold(maxPointsToLearn - pointsToLearn), false);
                 }
+
                 theirSkill.BaseFixedPoint = baseToSet;
             }
 
@@ -5207,16 +5227,16 @@ namespace Server.Mobiles
                 Skills[name].Cap = Skills[name].Base;
             }
 
-            if (name == SkillName.Poisoning && Skills[name].Base > 0 && 
+            if (name == SkillName.Poisoning && Skills[name].Base > 0 &&
                 !Controlled &&
                 (AbilityProfile == null || !AbilityProfile.HasAbility(MagicalAbility.Poisoning)))
             {
                 SetMagicalAbility(MagicalAbility.Poisoning);
             }
 
-            if (!Controlled && name == SkillName.Magery && 
-                (AbilityProfile == null || !AbilityProfile.HasAbility(MagicalAbility.Magery)) && 
-                Skills[SkillName.Magery].Base > 0 && 
+            if (!Controlled && name == SkillName.Magery &&
+                (AbilityProfile == null || !AbilityProfile.HasAbility(MagicalAbility.Magery)) &&
+                Skills[SkillName.Magery].Base > 0 &&
                 (AI == AIType.AI_Mage || AI == AIType.AI_Necro || AI == AIType.AI_NecroMage || AI == AIType.AI_Mystic || AI == AIType.AI_Spellweaving))
 
             {
@@ -5243,7 +5263,7 @@ namespace Server.Mobiles
                 Skills[name].Cap = Skills[name].Base;
             }
 
-            if (name == SkillName.Poisoning && Skills[name].Base > 0 && 
+            if (name == SkillName.Poisoning && Skills[name].Base > 0 &&
                 !Controlled &&
                 (AbilityProfile == null || !AbilityProfile.HasAbility(MagicalAbility.Poisoning)))
             {
@@ -5251,8 +5271,8 @@ namespace Server.Mobiles
             }
 
             if (!Controlled && name == SkillName.Magery &&
-                (AbilityProfile == null || !AbilityProfile.HasAbility(MagicalAbility.Magery)) && 
-                Skills[SkillName.Magery].Base > 0 && 
+                (AbilityProfile == null || !AbilityProfile.HasAbility(MagicalAbility.Magery)) &&
+                Skills[SkillName.Magery].Base > 0 &&
                 (AI == AIType.AI_Mage || AI == AIType.AI_Necro || AI == AIType.AI_NecroMage || AI == AIType.AI_Mystic || AI == AIType.AI_Spellweaving))
 
             {
@@ -5895,10 +5915,10 @@ namespace Server.Mobiles
             {
                 if (treasureLevel >= 0)
                 {
-					if (m_Paragon && Paragon.ChestChance > Utility.RandomDouble())
-					{
+                    if (m_Paragon && Paragon.ChestChance > Utility.RandomDouble())
+                    {
 						PackItem( new ParagonChest( this.Name, treasureLevel ) );
-					}
+                    }
                     else if (TreasureMapChance >= Utility.RandomDouble())
                     {
                         Map map = Map;
@@ -6222,11 +6242,11 @@ namespace Server.Mobiles
         private bool m_Allured;
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public bool Allured 
-        { 
-            get { return m_Allured; } 
-            set 
-            { 
+        public bool Allured
+        {
+            get { return m_Allured; }
+            set
+            {
                 m_Allured = value;
 
                 if (value && Backpack != null)
@@ -6396,11 +6416,11 @@ namespace Server.Mobiles
                                             fame[index] += divedFame;
                                             karma[index] += divedKarma;
                                         }
-                                    }
-                                }
-                            }
-                            else
-                            {
+                                            }
+                                        }
+                                            }
+                                            else
+                                            {
                                 if (PetTrainingHelper.Enabled && ds.m_Mobile is PlayerMobile)
                                 {
                                     foreach (var pet in ((PlayerMobile)ds.m_Mobile).AllFollowers.Where(p => DamageEntries.Any(de => de.Damager == p)))
@@ -6780,7 +6800,7 @@ namespace Server.Mobiles
             creature.Hits = creature.HitsMaxSeed;
 
             return true;
-        }        
+        }
 
         private static bool EnableRummaging = true;
 
@@ -6887,7 +6907,7 @@ namespace Server.Mobiles
                     {
                         patient.SendLocalizedMessage(1010059); // You have been cured of all poisons.
 
-                        CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0); // TODO: Verify formula
+                        CheckSkill(SkillName.Healing, 0.0, 60.0 + poisonLevel * 10.0);
                         CheckSkill(SkillName.Anatomy, 0.0, Skills[SkillName.Anatomy].Cap);
                     }
                 }
@@ -7046,17 +7066,17 @@ namespace Server.Mobiles
         private long m_NextPeace;
         private long m_NextProvoke;
 
-        public virtual bool CanDiscord 
-        { 
-            get 
+        public virtual bool CanDiscord
+        {
+            get
             {
                 if (Controlled && AbilityProfile != null)
                 {
                     return AbilityProfile.HasAbility(MagicalAbility.Discordance);
                 }
 
-                return false; 
-            } 
+                return false;
+            }
         }
 
         public virtual bool CanPeace { get { return false; } }
@@ -7071,7 +7091,6 @@ namespace Server.Mobiles
             if (target == null || !target.InLOS(this) || !InRange(target.Location, BaseInstrument.GetBardRange(this, SkillName.Discordance)) || CheckInstrument() == null)
                 return false;
 
-            // TODO: get mana
             if (AbilityProfile != null && AbilityProfile.HasAbility(MagicalAbility.Discordance) && Mana < 25)
             {
                 return false;
@@ -7266,16 +7285,16 @@ namespace Server.Mobiles
         public virtual bool TeleportsPets { get { return false; } }
 
         private static int[] m_Offsets = new int[]
-			{
-				-1, -1,
-				-1,  0,
-				-1,  1,
-				0, -1,
-				0,  1,
-				1, -1,
-				1,  0,
-				1,  1
-			};
+            {
+                -1, -1,
+                -1,  0,
+                -1,  1,
+                0, -1,
+                0,  1,
+                1, -1,
+                1,  0,
+                1,  1
+            };
 
         public void TryTeleport()
         {
@@ -7555,7 +7574,6 @@ namespace Server.Mobiles
                 {
                     // *rummages through a corpse and takes an item*
                     PublicOverheadMessage(MessageType.Emote, 0x3B2, 1008086);
-                    //TODO: Instancing of Rummaged stuff.
                     return true;
                 }
             }
@@ -7949,9 +7967,12 @@ namespace Server.Mobiles
                                     c.PlaySound(c.GetIdleSound());
                                 }
 
+
                                 if (c.Loyalty <= 0)
                                 {
-                                    toRelease.Add(c);
+                                    //TODO: Steven - Prevent pets from going wild
+                                    c.Loyalty = 0;
+                                    //toRelease.Add(c);
                                 }
                             }
                         }
