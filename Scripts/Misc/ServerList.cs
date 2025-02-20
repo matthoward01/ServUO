@@ -37,7 +37,7 @@ namespace Server.Misc
 
                 var address = ipep.Address;
 
-                if (!IPAddress.IsLoopback(address) || IsPrivateNetwork(address))
+                if (!IPAddress.IsLoopback(address) && !IsPrivateNetwork(ns.Address))
                 {
                     address = Address;
                 }
@@ -60,7 +60,7 @@ namespace Server.Misc
 
 			if (ip.AddressFamily == AddressFamily.InterNetworkV6)
 			{
-				return false;
+                return false;
 			}
 
 			if (Utility.IPMatch("192.168.*", ip))
@@ -88,7 +88,7 @@ namespace Server.Misc
 				return true;
 			}
 
-			return false;
+            return false;
 		}
 	}
 }
