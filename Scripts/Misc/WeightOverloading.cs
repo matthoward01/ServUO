@@ -101,7 +101,7 @@ namespace Server.Misc
             {
                 int amt = Core.SA ? 10 : (from.Mounted ? 48 : 16);
 
-                if ((++pm.StepsTaken % amt) == 0)
+                //if ((++pm.StepsTaken % amt) == 0)
                     //--from.Stam;
             }
         }
