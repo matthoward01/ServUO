@@ -538,7 +538,7 @@ namespace Server.Items
                 {
                     Item item = initialContent[i];
 
-                    if (Core.AOS && owner.Player && item.Parent == owner.Backpack)
+                    if (owner.Player && item.Parent == owner.Backpack)
                     {
                         c.AddItem(item);
                     }
@@ -547,7 +547,7 @@ namespace Server.Items
                         c.DropItem(item);
                     }
 
-                    if (owner.Player && Core.AOS)
+                    if (owner.Player)
                     {
                         c.SetRestoreInfo(item, item.Location);
                     }
@@ -558,14 +558,9 @@ namespace Server.Items
                     c.AssignInstancedLoot();
                     c.HasAssignedInstancedLoot = true;
                 }
-                else if (Core.AOS)
+                else if (owner is PlayerMobile pm)
                 {
-                    PlayerMobile pm = owner as PlayerMobile;
-
-                    if (pm != null)
-                    {
-                        c.RestoreEquip = pm.EquipSnapshot;
-                    }
+                    c.RestoreEquip = pm.EquipSnapshot;
                 }
             }
             else
@@ -1410,7 +1405,7 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            Open(from, Core.AOS);
+            Open(from, Core.LBR);
 
             if (m_Owner == from)
             {
