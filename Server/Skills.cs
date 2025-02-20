@@ -669,14 +669,14 @@ namespace Server
         private int m_Total, m_Cap;
         private Skill m_Highest;
 
-        //TODO: Steven - Added exemption for non influencing skills
-        //TODO: Matt - Adding T-Hunter skills to list.
+        //Steven - Added exemption for non influencing skills
+        //Matt - Adding T-Hunter skills to list.
         public static HashSet<SkillName> NonTotalInfluencingSkills = new HashSet<SkillName>()
         {
             SkillName.Hiding, SkillName.Cooking, SkillName.Begging, SkillName.Camping
             ,SkillName.Herding, SkillName.ItemID, SkillName.Poisoning, SkillName.TasteID
             ,SkillName.Tracking, SkillName.Fishing, SkillName.Cartography, SkillName.Lockpicking, SkillName.RemoveTrap
-            ,SkillName.DetectHidden, SkillName.Snooping, SkillName.Stealth, SkillName.Forensics
+            ,SkillName.DetectHidden, SkillName.Snooping, SkillName.Stealth, SkillName.Forensics, SkillName.ArmsLore
         };
 
         #region Skill Getters & Setters
@@ -1000,7 +1000,7 @@ namespace Server
                 else
                 {
                     sk.Serialize(writer);
-                    //TODO: Steven - This part happens after the save!!
+                    //Steven - This part happens after the save!!
                     if (!NonTotalInfluencingSkills.Contains(sk.SkillName))
                     {
                         m_Total += sk.BaseFixedPoint;
@@ -1068,7 +1068,7 @@ namespace Server
                                 if (sk.BaseFixedPoint != 0 || sk.CapFixedPoint != 1000 || sk.Lock != SkillLock.Up || sk.VolumeLearned != 0)
                                 {
                                     m_Skills[i] = sk;
-                                    //TODO: Steven - Added exemption for non influencing skills
+                                    //Steven - Added exemption for non influencing skills
                                     if (!NonTotalInfluencingSkills.Contains(sk.SkillName))
                                     {
                                         m_Total += sk.BaseFixedPoint;
