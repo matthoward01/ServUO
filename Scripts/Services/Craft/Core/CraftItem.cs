@@ -1389,18 +1389,19 @@ namespace Server.Engines.Craft
                 {
                     allRequiredSkills = false;
                 }
-
+                
                 if (craftSkill.SkillToMake == craftSystem.MainSkill)
                 {
                     minMainSkill = minSkill;
                     maxMainSkill = maxSkill;
                     valMainSkill = valSkill;
                 }
-
+                /*
                 if (gainSkills && !UseAllRes) // This is a passive check. Success chance is entirely dependant on the main skill
                 {
                     from.CheckSkill(craftSkill.SkillToMake, minSkill, maxSkill);
                 }
+                */
             }
 
 			double chance;
@@ -1703,11 +1704,6 @@ namespace Server.Engines.Craft
 					return;
 				}
 
-                if (UseAllRes && maxAmount > 0)
-                {
-                    MultipleSkillCheck(from, maxAmount);
-                }
-
 				if (craftSystem is DefBlacksmithy)
 				{
 					AncientSmithyHammer hammer = from.FindItemOnLayer(Layer.OneHanded) as AncientSmithyHammer;
@@ -1762,8 +1758,21 @@ namespace Server.Engines.Craft
 
 				if (item != null)
 				{
-					#region Mondain's Legacy
-					if (item is Board)
+                    if (UseAllRes && maxAmount > 0)
+                    {
+                        MultipleSkillCheck(from, maxAmount);
+                    } else
+                    {
+                        for (int i = 0; i < Skills.Count; i++)
+                        {
+                            CraftSkill craftSkill = Skills.GetAt(i);
+
+                            from.CheckSkill(craftSkill.SkillToMake, craftSkill.MinSkill - MinSkillOffset, craftSkill.MaxSkill);
+                        }
+                    }
+
+                    #region Mondain's Legacy
+                    if (item is Board)
 					{
 						Type resourceType = typeRes;
 
