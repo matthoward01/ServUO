@@ -179,7 +179,7 @@ namespace Server.Engines.Harvest
                             int feluccaRacialAmount = (int)Math.Ceiling(feluccaAmount * 1.1);
 
                             bool eligableForRacialBonus = (def.RaceBonus && from.Race == Race.Human);
-                            bool inFelucca = map == Map.Felucca && !Siege.SiegeShard;
+                            bool inFelucca = /*map == Map.Felucca && !Siege.SiegeShard*/ true;
 
                             if (eligableForRacialBonus && inFelucca && bank.Current >= feluccaRacialAmount && 0.1 > Utility.RandomDouble())
                                 item.Amount = feluccaRacialAmount;
@@ -199,7 +199,7 @@ namespace Server.Engines.Harvest
                             bank.Consume(amount, from);
                         }
 
-                        if (Give(from, item, def.PlaceAtFeetIfFull))
+                        if (Give(from, item, /*def.PlaceAtFeetIfFull)*/ true))
                         {
                             SendSuccessTo(from, item, resource);
                         }
