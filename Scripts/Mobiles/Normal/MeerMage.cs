@@ -45,11 +45,14 @@ namespace Server.Mobiles
 
             VirtualArmor = 16;
 
-			switch (Utility.Random(8))
+            if (Core.AOS)
             {
-                case 0: PackItem(new StrangleScroll()); break;
-                case 1: PackItem(new WitherScroll()); break;
-			}
+			    switch (Utility.Random(8))
+                {
+                    case 0: PackItem(new StrangleScroll()); break;
+                    case 1: PackItem(new WitherScroll()); break;
+			    }
+            }
 
             m_NextAbilityTime = DateTime.UtcNow + TimeSpan.FromSeconds(Utility.RandomMinMax(2, 5));
         }
