@@ -3939,8 +3939,8 @@ namespace Server.Items
             var skillChance = 0.0;
             var atkSkill = attacker.Skills.Tactics;
             var defSkill = defender.Skills.Tactics;
-            var max = (atkSkill.Value * 1.5);
-            var min = (atkSkill.Value / 2.0);
+            var max = Math.Max(45, atkSkill.Value * 1.5);
+            var min = Math.Max(0, atkSkill.Value / 2.0);
 
             if (atkSkill.Value > 0 && (defSkill.Value > min && defSkill.Value < max))
             {
