@@ -278,7 +278,15 @@ namespace Server.Misc
             gc += (1.0 - chance) * (success ? 0.5 : (Core.AOS ? 0.0 : 0.2));
             gc /= 2;
 
-            gc *= skill.Info.GainFactor;
+            var gf = 1.0;
+
+            if (skill.Value >= 500)
+            {
+                gf -= ((skill.Value - 500 / 100) * 0.15);
+            }
+
+            //gc *= skill.Info.GainFactor;
+            gc *= Math.Max(gf, 0.25);
 
             if (gc < 0.01)
                 gc = 0.01;
