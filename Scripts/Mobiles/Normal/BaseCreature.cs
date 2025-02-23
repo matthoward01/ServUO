@@ -1140,7 +1140,10 @@ namespace Server.Mobiles
         }
 
         #region Flee!!!
-        public virtual bool CanFlee { get { return !m_Paragon && !GivesMLMinorArtifact; } }
+
+        //Matt - Turning off Fleeing
+        public virtual bool CanFlee = false;
+        //public virtual bool CanFlee { get { return !m_Paragon && !GivesMLMinorArtifact; } }
 
         private DateTime m_EndFlee;
 
@@ -1169,9 +1172,7 @@ namespace Server.Mobiles
                 return false;
             }
 
-            //Matt - Change to always false
-            return false;
-            //return true;
+            return true;
         }
 
         public virtual void BeginFlee(TimeSpan maxDuration)
