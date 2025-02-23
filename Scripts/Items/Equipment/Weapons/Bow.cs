@@ -120,7 +120,9 @@ namespace Server.Items
         {
             get
             {
-                return 10;
+                //Matt - Extend Range
+                return 15;
+                //range 10;
             }
         }
         public override int InitMinHits
