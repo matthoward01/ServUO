@@ -248,21 +248,17 @@ namespace Server.Misc
                 return false;
 
             var success = Utility.Random(100) <= (int)(chance * 100);
+            var gc = GetGainChance(from, skill, chance, success);
 
-            if (success)
+            if (AllowGain(from, skill, obj))
             {
-                var gc = GetGainChance(from, skill, chance, success);
-
-                if (AllowGain(from, skill, obj))
+                if (from.Alive && (skill.Base < 10.0 || Utility.RandomDouble() <= gc || CheckGGS(from, skill)))
                 {
-                    if (from.Alive && (skill.Base < 10.0 || Utility.RandomDouble() <= gc || CheckGGS(from, skill)))
-                    {
-                        Gain(from, skill);
-                    }
+                    Gain(from, skill);
                 }
-
-                EventSink.InvokeSkillCheck(new SkillCheckEventArgs(from, skill, success));
             }
+
+            EventSink.InvokeSkillCheck(new SkillCheckEventArgs(from, skill, success));
 
             return success;
         }

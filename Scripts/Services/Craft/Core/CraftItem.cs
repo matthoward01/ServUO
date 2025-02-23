@@ -1758,16 +1758,22 @@ namespace Server.Engines.Craft
 
 				if (item != null)
 				{
-                    if (UseAllRes && maxAmount > 0)
-                    {
-                        MultipleSkillCheck(from, maxAmount);
-                    } else
-                    {
-                        for (int i = 0; i < Skills.Count; i++)
-                        {
-                            CraftSkill craftSkill = Skills.GetAt(i);
+                    double craftChance = GetSuccessChance(from, typeRes, craftSystem, true, ref allRequiredSkills, maxAmount);
 
-                            from.CheckSkill(craftSkill.SkillToMake, craftSkill.MinSkill - MinSkillOffset, craftSkill.MaxSkill);
+                    if(craftChance < 1.0 && craftChance > 0.0)
+                    {
+                        if (UseAllRes && maxAmount > 0)
+                        {
+                            MultipleSkillCheck(from, maxAmount);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < Skills.Count; i++)
+                            {
+                                CraftSkill craftSkill = Skills.GetAt(i);
+
+                                from.CheckSkill(craftSkill.SkillToMake, craftSkill.MinSkill - MinSkillOffset, craftSkill.MaxSkill);
+                            }
                         }
                     }
 
