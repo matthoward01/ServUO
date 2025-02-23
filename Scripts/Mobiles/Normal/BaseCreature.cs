@@ -1142,7 +1142,7 @@ namespace Server.Mobiles
         #region Flee!!!
 
         //Matt - Turning off Fleeing
-        public virtual bool CanFlee = false;
+        public virtual bool CanFlee { get { return false; } }
         //public virtual bool CanFlee { get { return !m_Paragon && !GivesMLMinorArtifact; } }
 
         private DateTime m_EndFlee;
