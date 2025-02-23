@@ -3399,7 +3399,14 @@ namespace Server.Mobiles
                     m_AI = new ThiefAI(this);
                     break;
                 case AIType.AI_NecroMage:
-                    m_AI = new NecroMageAI(this);
+                    if (Core.AOS)
+                    {
+                        m_AI = new NecroMageAI(this);
+                    }
+                    else
+                    {
+                        m_AI = new MageAI(this);
+                    }
                     break;
                 case AIType.AI_OrcScout:
                     m_AI = new OrcScoutAI(this);
