@@ -1169,7 +1169,9 @@ namespace Server.Mobiles
                 return false;
             }
 
-            return true;
+            //Matt - Change to always false
+            return false;
+            //return true;
         }
 
         public virtual void BeginFlee(TimeSpan maxDuration)
