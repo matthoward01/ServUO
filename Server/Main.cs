@@ -23,15 +23,6 @@ namespace Server
 
     public static class Core
     {
-        static Core()
-        {
-            DataDirectories = new List<string>();
-
-            GlobalMaxUpdateRange = 24;
-            GlobalUpdateRange = 18;
-            GlobalRadarRange = 40;
-        }
-
         public static Action<CrashedEventArgs> CrashedHandler { get; set; }
 
         public static bool Crashed { get { return _Crashed; } }
@@ -91,7 +82,7 @@ namespace Server
         public static bool HaltOnWarning { get; private set; }
         public static bool VBdotNet { get; private set; }
 
-        public static List<string> DataDirectories { get; private set; }
+        public static List<string> DataDirectories { get; } = new List<string>();
 
         public static Assembly Assembly { get; set; }
 
@@ -658,9 +649,9 @@ namespace Server
             }
         }
 
-        public static int GlobalUpdateRange { get; set; }
-        public static int GlobalMaxUpdateRange { get; set; }
-        public static int GlobalRadarRange { get; set; }
+        public static int GlobalUpdateRange { get; set; } = 18;
+        public static int GlobalMaxUpdateRange { get; set; } = 24;
+        public static int GlobalRadarRange { get; set; } = 40;
 
         private static int m_ItemCount, m_MobileCount, m_CustomsCount;
 
