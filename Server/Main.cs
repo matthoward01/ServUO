@@ -102,40 +102,9 @@ namespace Server
 
         public static MultiTextWriter MultiConsoleOut { get; private set; }
 
-        /* 
-		 * DateTime.Now and DateTime.UtcNow are based on actual system clock time.
-		 * The resolution is acceptable but large clock jumps are possible and cause issues.
-		 * GetTickCount and GetTickCount64 have poor resolution.
-		 * GetTickCount64 is unavailable on Windows XP and Windows Server 2003.
-		 * Stopwatch.GetTimestamp() (QueryPerformanceCounter) is high resolution, but
-		 * somewhat expensive to call because of its defference to DateTime.Now,
-		 * which is why Stopwatch has been used to verify HRT before calling GetTimestamp(),
-		 * enabling the usage of DateTime.UtcNow instead.
-		 */
+        private static readonly long _TickOrigin = Stopwatch.GetTimestamp();
 
-        private static readonly bool _HighRes = Stopwatch.IsHighResolution;
-
-        private static readonly double _HighFrequency = 1000.0 / Stopwatch.Frequency;
-        private const double _LowFrequency = 1000.0 / TimeSpan.TicksPerSecond;
-
-        private static bool _UseHRT;
-
-        public static bool UsingHighResolutionTiming { get { return _UseHRT && _HighRes && !Unix; } }
-
-        public static long TickCount { get { return (long)Ticks; } }
-
-        public static double Ticks
-        {
-            get
-            {
-                if (_UseHRT && _HighRes && !Unix)
-                {
-                    return Stopwatch.GetTimestamp() * _HighFrequency;
-                }
-
-                return DateTime.UtcNow.Ticks * _LowFrequency;
-            }
-        }
+        public static long TickCount => (Stopwatch.GetTimestamp() - _TickOrigin) * 1000L / Stopwatch.Frequency;
 
         public static readonly bool Is64Bit = Environment.Is64BitProcess;
 
@@ -401,10 +370,6 @@ namespace Server
                 {
                     VBdotNet = true;
                 }
-                else if (Insensitive.Equals(a, "-usehrt"))
-                {
-                    _UseHRT = true;
-                }
                 else if (Insensitive.Equals(a, "-noconsole"))
                 {
                     NoConsole = true;
@@ -553,14 +518,9 @@ namespace Server
                 Utility.PopColor();
             }
 
-            if (_UseHRT)
-            {
-                Utility.PushColor(ConsoleColor.DarkYellow);
-                Console.WriteLine(
-                    "Core: Requested high resolution timing ({0})",
-                    UsingHighResolutionTiming ? "Supported" : "Unsupported");
-                Utility.PopColor();
-            }
+            Utility.PushColor(ConsoleColor.DarkYellow);
+            Console.WriteLine("Core: High resolution timing ({0})", Stopwatch.IsHighResolution ? "Supported" : "Unsupported");
+            Utility.PopColor();
 
             Utility.PushColor(ConsoleColor.DarkYellow);
             Console.WriteLine("RandomImpl: {0} ({1})", RandomImpl.Type.Name, RandomImpl.IsHardwareRNG ? "Hardware" : "Software");
@@ -687,11 +647,6 @@ namespace Server
                 if (VBdotNet)
                 {
                     Utility.Separate(sb, "-vb", " ");
-                }
-
-                if (_UseHRT)
-                {
-                    Utility.Separate(sb, "-usehrt", " ");
                 }
 
                 if (NoConsole)
