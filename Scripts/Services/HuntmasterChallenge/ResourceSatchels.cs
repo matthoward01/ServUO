@@ -111,6 +111,40 @@ namespace Server.Items
         }
     }
 
+    [Flipable(0xA331, 0xA332)]
+    public class AdventurerSatchel : BaseResourceSatchel
+    {
+        public override int LabelNumber { get { return 1095733; } } // Adventurer's Satchel
+
+        public override Type[] HoldTypes { get { return new Type[] { typeof(Item) }; } }
+
+        [Constructable]
+        public AdventurerSatchel()
+            : base(0xA331)
+        {
+            WeightReduction = 100;
+        }
+
+        public AdventurerSatchel(Serial serial)
+            : base(serial)
+        {
+            WeightReduction = 100;
+        }
+
+        public override void Serialize(GenericWriter writer)
+        {
+            base.Serialize(writer);
+            writer.Write(0);
+        }
+
+        public override void Deserialize(GenericReader reader)
+        {
+            base.Deserialize(reader);
+            int version = reader.ReadInt();
+        }
+    }
+
+
     [Flipable(0xA272, 0xA273)]
     public class MinersSatchel : BaseResourceSatchel
     {
