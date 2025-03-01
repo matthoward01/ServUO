@@ -47,7 +47,13 @@ namespace Server.Items
                 return false;
             }
 
-            return base.CheckHold(m, item, message, checkItems, plusItems, plusWeight);
+            if(this is AdventurerSatchel)
+            {
+                return base.CheckHold(m, item, message, checkItems, plusItems, Int32.MinValue);
+            } else
+            {
+                return base.CheckHold(m, item, message, checkItems, plusItems, plusWeight);
+            }
         }
 
         public bool CheckType(Item item)
