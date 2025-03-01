@@ -131,6 +131,11 @@ namespace Server.Items
             WeightReduction = 100;
         }
 
+        public override int MaxWeight
+        {
+            get { return Int32.MaxValue; }
+        }
+
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
