@@ -291,8 +291,9 @@ namespace Server.Multis
                 LandTile landTile = map.Tiles.GetLandTile(borderPoint.X, borderPoint.Y);
                 int landID = landTile.ID & TileData.MaxLandValue;
 
-                if ((TileData.LandTable[landID].Flags & TileFlag.Impassable) != 0)
-                    return HousePlacementResult.BadLand;
+                //Matt - Allowing housing to be placed more places
+                /*if ((TileData.LandTable[landID].Flags & TileFlag.Impassable) != 0)
+                    return HousePlacementResult.BadLand;*/
 
                 for (int j = 0; j < m_RoadIDs.Length; j += 2)
                 {
@@ -307,8 +308,9 @@ namespace Server.Multis
                     StaticTile tile = tiles[j];
                     ItemData id = TileData.ItemTable[tile.ID & TileData.MaxItemValue];
 
-                    if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0 && (tile.Z + id.CalcHeight) > (center.Z + 2)))
-                        return HousePlacementResult.BadStatic; // Broke rule #1
+                    //Matt - Allow houses to be placed against objects
+                    /*if (id.Impassable || (id.Surface && (id.Flags & TileFlag.Background) == 0 && (tile.Z + id.CalcHeight) > (center.Z + 2)))
+                        return HousePlacementResult.BadStatic; // Broke rule #1*/
                 }
 
                 Sector sector = map.GetSector(borderPoint.X, borderPoint.Y);
@@ -360,8 +362,9 @@ namespace Server.Multis
             {
                 foreach (BaseHouse b in _houses)
                 {
-                    if (b.Contains(yard[i]))
-                        return HousePlacementResult.BadStatic; // Broke rule #3
+                    //Matt - Removing Rule 3
+                    /*if (b.Contains(yard[i]))
+                        return HousePlacementResult.BadStatic; // Broke rule #3*/
                 }
                 /*Point2D yardPoint = yard[i];
                 IPooledEnumerable eable = map.GetMultiTilesAt( yardPoint.X, yardPoint.Y );
