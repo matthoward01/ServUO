@@ -46,9 +46,19 @@ namespace Server.Spells.Eighth
                 TimeSpan duration = TimeSpan.FromSeconds((2 * this.Caster.Skills.Magery.Fixed) / 5);
 
                 if (Core.AOS)
-                    SpellHelper.Summon(new SummonedAirElemental(), this.Caster, 0x217, duration, false, false);
+                {
+                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                        SpellHelper.Summon(new SummonedGreaterAirElemental(), this.Caster, 0x217, duration, false, false);
+                    else
+                        SpellHelper.Summon(new SummonedAirElemental(), this.Caster, 0x217, duration, false, false);
+                }
                 else
-                    SpellHelper.Summon(new AirElemental(), this.Caster, 0x217, duration, false, false);
+                {
+                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                        SpellHelper.Summon(new GreaterAirElemental(), this.Caster, 0x217, duration, false, false);
+                    else
+                        SpellHelper.Summon(new AirElemental(), this.Caster, 0x217, duration, false, false);
+                }
             }
 
             this.FinishSequence();
