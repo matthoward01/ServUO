@@ -1499,11 +1499,14 @@ namespace Server.Mobiles
 						else
 						{
 							m_Mobile.Warmode = false;
-
-							if (Core.AOS)
+                            //TODO: Steven - Increase movement speed of pet
+                            m_Mobile.CurrentSpeed = 0;
+                            /*
+                            if (Core.AOS)
 							{
 								m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed;
                             }
+                            */
 						}
 					}
 				}
@@ -1683,6 +1686,7 @@ namespace Server.Mobiles
 				m_Mobile.FocusMob = combatant;
 				Action = ActionType.Combat;
                 m_Mobile.Direction = m_Mobile.GetDirectionTo(combatant);
+                m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed; //TODO: Steven - Added speed back to active speed in combat
 
                 /*
                 * We need to call Think() here or spell casting monsters will not use
@@ -1696,10 +1700,14 @@ namespace Server.Mobiles
 
 				m_Mobile.Warmode = false;
 
-				if (Core.AOS)
+                m_Mobile.CurrentSpeed = 0;
+
+                /*
+                if (Core.AOS)
 				{
 					m_Mobile.CurrentSpeed = m_Mobile.ActiveSpeed;
                 }
+                */
 
 				WalkMobileRange(controlMaster, 1, false, 0, 1);
 			}
