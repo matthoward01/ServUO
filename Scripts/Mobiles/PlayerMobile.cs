@@ -2338,7 +2338,8 @@ namespace Server.Mobiles
 					}
 				}
 
-                if (Core.SA)
+                //Matt - Turning on titles for LBR
+                if (Core.LBR)
                 {
                     list.Add(new TitlesMenuEntry(this));
 				}
@@ -2380,6 +2381,7 @@ namespace Server.Mobiles
                 {
                     QuestHelper.GetContextMenuEntries(list);
 
+                    //Matt - Turning on Titles for LBR
                     if (!Core.SA && m_RewardTitles.Count > 0)
                     {
                         list.Add(new CallbackEntry(6229, ShowChangeTitle));
@@ -2438,7 +2440,8 @@ namespace Server.Mobiles
 				}
 				#endregion
 
-                if (Core.UOR && !Core.SA && Alive)
+                //Matt - Turning on Titles for LBR
+                if (Core.UOR && !Core.LBR && Alive)
 				{
 					list.Add(new CallbackEntry(6210, ToggleChampionTitleDisplay));
 				}
@@ -5274,7 +5277,8 @@ namespace Server.Mobiles
 		{
 			base.GetProperties(list);
 
-            if (Core.SA)
+            //Turning on titles for LBR
+            if (Core.LBR)
             {
                 if (m_SubtitleSkillTitle != null)
                     list.Add(1042971, m_SubtitleSkillTitle);

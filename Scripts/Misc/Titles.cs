@@ -217,7 +217,8 @@ namespace Server.Misc
 
             bool showSkillTitle = beheld.ShowFameTitle && ((beholder == beheld) || (beheld.Fame >= 5000));
 
-            if (Core.SA && beheld.ShowFameTitle && beheld is PlayerMobile && ((PlayerMobile)beheld).FameKarmaTitle != null)
+            //Matt - Turning on titles for LBR
+            if (Core.LBR && beheld.ShowFameTitle && beheld is PlayerMobile && ((PlayerMobile)beheld).FameKarmaTitle != null)
             {
                 title.AppendFormat(((PlayerMobile)beheld).FameKarmaTitle, beheld.Name, beheld.Female ? "Lady" : "Lord");
             }
@@ -234,7 +235,8 @@ namespace Server.Misc
             {
                 PlayerMobile.ChampionTitleInfo info = ((PlayerMobile)beheld).ChampionTitles;
 
-                if (Core.SA)
+                //Matt - Turning on titles for LBR
+                if (Core.LBR)
                 {
                     if (((PlayerMobile)beheld).CurrentChampTitle != null)
                         title.AppendFormat(((PlayerMobile)beheld).CurrentChampTitle);
@@ -271,7 +273,8 @@ namespace Server.Misc
 
             string customTitle = beheld.Title;
 
-            if (Core.SA)
+            //Matt - Turning on titles for LBR
+            if (Core.LBR)
             {
                 if (beheld is PlayerMobile && ((PlayerMobile)beheld).PaperdollSkillTitle != null)
                     title.Append(", ").Append(((PlayerMobile)beheld).PaperdollSkillTitle);
