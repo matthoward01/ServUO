@@ -47,23 +47,24 @@ namespace Server.Spells.Eighth
 
                 if (Core.AOS)
                 {
-                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
-                        SpellHelper.Summon(new SummonedGreaterAirElemental(), this.Caster, 0x217, duration, false, false);
-                    else if (this.Caster.Skills.Magery.Fixed == 120 && this.Caster.Skills.Poisoning.Fixed == 120)
+                    if (this.Caster.Skills.Magery.Fixed >= 120 && this.Caster.Skills.Poisoning.Fixed >= 120)
                         SpellHelper.Summon(new GreaterPoisonElemental(), this.Caster, 0x217, duration, false, false);
                     else if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Poisoning.Fixed >= 100)
                         SpellHelper.Summon(new PoisonElemental(), this.Caster, 0x217, duration, false, false);
+                    else if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                        SpellHelper.Summon(new SummonedGreaterAirElemental(), this.Caster, 0x217, duration, false, false);
+                    
                     else
                         SpellHelper.Summon(new SummonedAirElemental(), this.Caster, 0x217, duration, false, false);
                 }
                 else
                 {
-                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
-                        SpellHelper.Summon(new GreaterAirElemental(), this.Caster, 0x217, duration, false, false);
-                    else if (this.Caster.Skills.Magery.Fixed == 120 && this.Caster.Skills.Poisoning.Fixed == 120)
+                    if (this.Caster.Skills.Magery.Fixed >= 120 && this.Caster.Skills.Poisoning.Fixed >= 120)
                         SpellHelper.Summon(new GreaterPoisonElemental(), this.Caster, 0x217, duration, false, false);
                     else if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Poisoning.Fixed >= 100)
                         SpellHelper.Summon(new PoisonElemental(), this.Caster, 0x217, duration, false, false);
+                    else if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                        SpellHelper.Summon(new GreaterAirElemental(), this.Caster, 0x217, duration, false, false);                    
                     else
                         SpellHelper.Summon(new AirElemental(), this.Caster, 0x217, duration, false, false);
                 }

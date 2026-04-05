@@ -47,14 +47,14 @@ namespace Server.Spells.Eighth
 
                 if (Core.AOS)
                 {
-                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                    if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
                         SpellHelper.Summon(new SummonedGreaterEarthElemental(), this.Caster, 0x217, duration, false, false);
                     else
                         SpellHelper.Summon(new SummonedEarthElemental(), this.Caster, 0x217, duration, false, false);
                 }
                 else
                 {
-                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                    if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
                         SpellHelper.Summon(new GreaterEarthElemental(), this.Caster, 0x217, duration, false, false);
                     else
                         SpellHelper.Summon(new EarthElemental(), this.Caster, 0x217, duration, false, false);

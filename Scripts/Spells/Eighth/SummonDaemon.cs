@@ -58,7 +58,7 @@ namespace Server.Spells.Eighth
                 }
 
                 if (Core.AOS)
-                    if (this.Caster.Skills.Magery.Fixed > 120 && this.Caster.Skills.Inscribe.Fixed >= 100)
+                    if (this.Caster.Skills.Magery.Fixed >= 120 && this.Caster.Skills.Inscribe.Fixed >= 100)
                     {
                         BaseCreature m_Daemon = new SummonedBalron();
                         SpellHelper.Summon(m_Daemon, this.Caster, 0x216, duration, false, false);
@@ -72,7 +72,7 @@ namespace Server.Spells.Eighth
                     }
                 else
                 {
-                    if (this.Caster.Skills.Magery.Fixed > 120 && this.Caster.Skills.Inscribe.Fixed >= 100)
+                    if (this.Caster.Skills.Magery.Fixed >= 120 && this.Caster.Skills.Inscribe.Fixed >= 100)
                         SpellHelper.Summon(new Balron(), this.Caster, 0x216, duration, false, false);
                     else
                         SpellHelper.Summon(new Daemon(), this.Caster, 0x216, duration, false, false);

@@ -47,14 +47,14 @@ namespace Server.Spells.Eighth
 
                 if (Core.AOS)
                 {
-                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                    if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
                         SpellHelper.Summon(new SummonedGreaterWaterElemental(), this.Caster, 0x217, duration, false, false);
                     else
                         SpellHelper.Summon(new SummonedWaterElemental(), this.Caster, 0x217, duration, false, false);
                 }
                 else
                 { 
-                    if (this.Caster.Skills.Magery.Fixed > 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
+                    if (this.Caster.Skills.Magery.Fixed >= 100 && this.Caster.Skills.Inscribe.Fixed >= 80)
                         SpellHelper.Summon(new GreaterWaterElemental(), this.Caster, 0x217, duration, false, false);
                     else
                         SpellHelper.Summon(new WaterElemental(), this.Caster, 0x217, duration, false, false);
