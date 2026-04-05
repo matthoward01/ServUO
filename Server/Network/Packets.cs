@@ -4648,18 +4648,18 @@ m_Stream.Write( (int) renderMode );
             {
                 Mobile m = a[i];
 
-                if (m != null)
-                {
-                    m_Stream.WriteAsciiFixed(m.Name, 30);
-                    m_Stream.Fill(30); // password
-                }
-                else
-                {
-                    m_Stream.Fill(60);
-                }
-            }
-        }
-    }
+				if (m != null)
+				{
+					m_Stream.WriteAsciiFixed(m.RawName, 30);
+					m_Stream.Fill(30); // password
+				}
+				else
+				{
+					m_Stream.Fill(60);
+				}
+			}
+		}
+	}
 
     [Flags]
     public enum ThirdPartyFeature : ulong
@@ -4752,18 +4752,18 @@ m_Stream.Write( (int) renderMode );
 
             m_Stream.Write((byte)count);
 
-            for (int i = 0; i < count; ++i)
-            {
-                if (a[i] != null)
-                {
-                    m_Stream.WriteAsciiFixed(a[i].Name, 30);
-                    m_Stream.Fill(30); // password
-                }
-                else
-                {
-                    m_Stream.Fill(60);
-                }
-            }
+			for (int i = 0; i < count; ++i)
+			{
+				if (a[i] != null)
+				{
+					m_Stream.WriteAsciiFixed(a[i].RawName, 30);
+					m_Stream.Fill(30); // password
+				}
+				else
+				{
+					m_Stream.Fill(60);
+				}
+			}
 
             m_Stream.Write((byte)info.Length);
 
@@ -4869,18 +4869,18 @@ m_Stream.Write( (int) renderMode );
 
             m_Stream.Write((byte)count);
 
-            for (int i = 0; i < count; ++i)
-            {
-                if (a[i] != null)
-                {
-                    m_Stream.WriteAsciiFixed(a[i].Name, 30);
-                    m_Stream.Fill(30); // password
-                }
-                else
-                {
-                    m_Stream.Fill(60);
-                }
-            }
+			for (int i = 0; i < count; ++i)
+			{
+				if (a[i] != null)
+				{
+					m_Stream.WriteAsciiFixed(a[i].RawName, 30);
+					m_Stream.Fill(30); // password
+				}
+				else
+				{
+					m_Stream.Fill(60);
+				}
+			}
 
             m_Stream.Write((byte)info.Length);
 
